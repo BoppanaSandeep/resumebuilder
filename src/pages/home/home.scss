@@ -1,3 +1,20 @@
 page-home {
+    ion-content{
+        background-color: #4786b9 !important;
+    }
+    ion-card img {
+        width: 150px !important;
+        margin-left: 30%;
+    }
 
+    .card-title-md {
+        font-size: 1.8rem;
+    }
+
+    ion-icon.icon.icon-md.ion-md-create {
+        float: right;
+        padding: 10px;
+        font-size: 25px;
+        color: #4786b9;
+    }
 }
