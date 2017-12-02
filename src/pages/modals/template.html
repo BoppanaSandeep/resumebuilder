@@ -1,0 +1,26 @@
+<ion-header>
+    <ion-toolbar>
+      <ion-title>
+        Profile
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="dismiss()">
+          <span ion-text color="primary" showWhen="ios,android,windows">Cancel</span>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+  
+<ion-content>
+    <form [formGroup]="todo" (ngSubmit)="logForm()">
+        <ion-item>
+          <ion-label>Profile Image</ion-label>
+          <ion-input type="text" formControlName="title"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Description</ion-label>
+          <ion-textarea formControlName="description"></ion-textarea>
+        </ion-item>
+        <button ion-button type="submit" [disabled]="!todo.valid">Submit</button>
+      </form>
+  </ion-content>
