@@ -13,8 +13,13 @@ export class HomePage {
 
   }
 
-  presentModal() {
-    let modal = this.modalCtrl.create(Profile);
+  presentModal(opt) {
+    var data =  { edit : opt };
+    console.log(data);
+    let modal = this.modalCtrl.create(Profile, data);
+    modal.onDidDismiss(data => {
+      //console.log(data);
+    });
     modal.present();
   }
 

@@ -1,20 +1,42 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
-import { ViewController } from 'ionic-angular';
+import { ViewController, NavParams } from 'ionic-angular';
 
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     templateUrl: 'template.html'
 })
-export class Profile {
+export class Profile implements OnInit { //, OnInit
 
-    private todo: FormGroup;
-    constructor(public viewCtrl: ViewController, private formBuilder: FormBuilder) {
-        this.todo = this.formBuilder.group({
+    public viewEdit: any;
+    private profile: FormGroup;
+    private expedu: FormGroup;
+    private skills: FormGroup;
+    
+    constructor(public viewCtrl: ViewController, private formBuilder: FormBuilder, public navParams: NavParams) {
+        //var viewEdit = this.navParams.get('edit');
+        
+        this.profile = this.formBuilder.group({
             title: ['', Validators.required],
             description: ['', Validators.required],
         });
+
+        this.expedu = this.formBuilder.group({
+            title: ['', Validators.required],
+            description: ['', Validators.required],
+        });
+
+        this.skills = this.formBuilder.group({
+            title: ['', Validators.required],
+            description: ['', Validators.required],
+        });
+
+    }
+
+    ngOnInit() {
+        this.viewEdit = this.navParams.get('edit');
+        console.log(this.viewEdit);
     }
 
     dismiss() {
@@ -22,7 +44,7 @@ export class Profile {
     }
 
     logForm() {
-        console.log(this.todo)
+        console.log(this.profile)
     }
 
 }
