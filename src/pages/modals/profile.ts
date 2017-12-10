@@ -5,9 +5,10 @@ import { ViewController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
+    selector: 'profile',
     templateUrl: 'template.html'
 })
-export class Profile implements OnInit { //, OnInit
+export class Profile implements OnInit {
 
     public viewEdit: any;
     private profile: FormGroup;
@@ -18,18 +19,23 @@ export class Profile implements OnInit { //, OnInit
         //var viewEdit = this.navParams.get('edit');
         
         this.profile = this.formBuilder.group({
-            title: ['', Validators.required],
+            profilename: ['', Validators.required],
+            role: ['', Validators.required],
             description: ['', Validators.required],
         });
 
         this.expedu = this.formBuilder.group({
-            title: ['', Validators.required],
-            description: ['', Validators.required],
+            company: ['', Validators.required],
+            startyear: ['', Validators.required],
+            endyear: ['', Validators.required],
+            current: ['', Validators.required],
+            university: ['', Validators.required],
+            passoutyear: ['', Validators.required],
+            percentage: ['', Validators.required],
         });
 
         this.skills = this.formBuilder.group({
-            title: ['', Validators.required],
-            description: ['', Validators.required],
+            skills: ['', Validators.required],
         });
 
     }
@@ -43,8 +49,16 @@ export class Profile implements OnInit { //, OnInit
         this.viewCtrl.dismiss();
     }
 
-    logForm() {
-        console.log(this.profile)
+    profileInfo() {
+        console.log(this.profile.value);
+    }
+
+    skillsEndo(){
+        console.log(this.expedu)
+    }
+
+    expEdu(){
+        console.log(this.skills)
     }
 
 }

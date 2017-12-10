@@ -14,7 +14,7 @@ export class HomePage {
   }
 
   presentModal(opt) {
-    var data =  { edit : opt };
+    var data = { edit: opt };
     console.log(data);
     let modal = this.modalCtrl.create(Profile, data);
     modal.onDidDismiss(data => {

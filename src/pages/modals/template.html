@@ -1,51 +1,65 @@
 <ion-header>
-    <ion-toolbar>
-      <ion-title>
-        {{viewEdit}}
-      </ion-title>
-      <ion-buttons start>
-        <button ion-button (click)="dismiss()">
-          <span ion-text color="primary" >Cancel</span>
-        </button>
-      </ion-buttons>
-    </ion-toolbar>
-  </ion-header>
-  
+  <ion-toolbar>
+    <ion-title>
+      {{viewEdit}}
+    </ion-title>
+    <ion-buttons start>
+      <button ion-button (click)="dismiss()">
+        <span ion-text color="primary">Cancel</span>
+      </button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
 <ion-content>
-    <form [formGroup]="profile" (ngSubmit)="logForm()" *ngIf="viewEdit == 'Profile Name'" >
-        <ion-item>
-          <ion-label>Profile Image</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Description</ion-label>
-          <ion-textarea formControlName="description"></ion-textarea>
-        </ion-item>
-        <button ion-button type="submit" [disabled]="!profile.valid">Submit</button>
-      </form>
+  <form [formGroup]="profile" (ngSubmit)="profileInfo()" *ngIf="viewEdit == 'Profile Name'">
+    <ion-item>
+      <ion-input type="text" formControlName="profilename" placeholder="Profile Image"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="role" placeholder="Role"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-textarea formControlName="description" placeholder="Description"></ion-textarea>
+    </ion-item>
+    <button ion-button center type="submit" [disabled]="!profile.valid">Submit</button>
+  </form>
 
-      <form [formGroup]="expedu" (ngSubmit)="logForm()" *ngIf="viewEdit == 'Experience And Education'" >
-        <ion-item>
-          <ion-label>Profile Image</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Description</ion-label>
-          <ion-textarea formControlName="description"></ion-textarea>
-        </ion-item>
-        <button ion-button type="submit" [disabled]="!expedu.valid">Submit</button>
-      </form>
+  <form [formGroup]="expedu" (ngSubmit)="expEdu()" *ngIf="viewEdit == 'Experience And Education'">
+    <ion-item>
+      <ion-label>Experience</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="company" placeholder="Company"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="number" formControlName="startyear" placeholder="Working From (YYYY)"></ion-input>
+      <ion-input type="number" formControlName="endyear" placeholder="Last Worked Year (YYYY)"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Current</ion-label>
+        <ion-checkbox color="primary" formControlName="current" checked="false"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label>Education</ion-label>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="university" placeholder="University"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="passoutyear" placeholder="Passout Year"></ion-input>
+    </ion-item>
+    <ion-item>
+      <ion-input type="text" formControlName="percentage" placeholder="Percentage"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!expedu.valid">Submit</button>
+  </form>
 
-      <form [formGroup]="skills" (ngSubmit)="logForm()" *ngIf="viewEdit == 'Featured Skills And Endorsements'" >
-        <ion-item>
-          <ion-label>Profile Image</ion-label>
-          <ion-input type="text" formControlName="title"></ion-input>
-        </ion-item>
-        <ion-item>
-          <ion-label>Description</ion-label>
-          <ion-textarea formControlName="description"></ion-textarea>
-        </ion-item>
-        <button ion-button type="submit" [disabled]="!skills.valid">Submit</button>
-      </form>
+  <form [formGroup]="skills" (ngSubmit)="skillsEndo()" *ngIf="viewEdit == 'Featured Skills And Endorsements'">
+    <ion-item>
+      <ion-input type="text" formControlName="skills"></ion-input>
+    </ion-item>
+    <button ion-button type="submit" [disabled]="!skills.valid">Submit</button>
+  </form>
 
-  </ion-content>
+</ion-content>
