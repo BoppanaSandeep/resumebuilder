@@ -6,7 +6,7 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 @Component({
     selector: 'profile',
-    templateUrl: 'template.html'
+    templateUrl: 'profile.html'
 })
 export class Profile implements OnInit {
 
