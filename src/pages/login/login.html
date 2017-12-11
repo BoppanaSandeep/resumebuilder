@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar>
+    <ion-navbar hideBackButton="true" >
         <ion-title text-center text-uppercase>Resume Builder</ion-title>
     </ion-navbar>
 </ion-header>
@@ -9,23 +9,23 @@
         <ion-card-title text-center>
             Login
         </ion-card-title>
-        <form [formGroup]="loginForm" (ngSubmit)="login()">
+        <form [formGroup]="loginForm" (ngSubmit)="login('login')">
             <ion-item>
                 <ion-input type="text" formControlName="username" placeholder="Username"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
             </ion-item>
-            <button ion-button type="submit" [disabled]="!loginForm.valid">Submit</button>
+            <button ion-button type="submit" [disabled]="!loginForm.valid">Login</button>
         </form>
         <ion-list>
             <ion-grid>
                 <ion-row>
                     <ion-col col-6 col-sm-6 col-md-4 text-center>
-                        <a href="#">Forgot Password</a>
+                        <span ion-text color="primary" (click)="login('forgortpwd')">Forgot Password</span>
                     </ion-col>
                     <ion-col col-6 col-sm-6 col-md-8 text-center>
-                        <a href="#">Register</a>
+                            <span ion-text color="primary" (click)="login('register')">Register here</span>
                     </ion-col>
                 </ion-row>
             </ion-grid>

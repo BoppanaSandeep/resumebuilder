@@ -11,10 +11,10 @@ import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 export class Profile implements OnInit {
 
     public viewEdit: any;
-    private profile: FormGroup;
-    private expedu: FormGroup;
-    private skills: FormGroup;
-    
+    public profile: FormGroup;
+    public expedu: FormGroup;
+    public skills: FormGroup;
+
     constructor(public viewCtrl: ViewController, private formBuilder: FormBuilder, public navParams: NavParams) {
         //var viewEdit = this.navParams.get('edit');
         
@@ -28,7 +28,7 @@ export class Profile implements OnInit {
             company: ['', Validators.required],
             startyear: ['', Validators.required],
             endyear: ['', Validators.required],
-            current: ['', Validators.required],
+            current: ['false'],
             university: ['', Validators.required],
             passoutyear: ['', Validators.required],
             percentage: ['', Validators.required],
@@ -54,12 +54,11 @@ export class Profile implements OnInit {
     }
 
     skillsEndo(){
-        console.log(this.expedu.value)
+        console.log(this.skills.value);
     }
 
     expEdu(){
-        console.log(this.skills.value)
+        console.log(this.expedu.value);
     }
-
 }
 

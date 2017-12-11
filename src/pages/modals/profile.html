@@ -33,12 +33,14 @@
       <ion-input type="text" formControlName="company" placeholder="Company"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="number" formControlName="startyear" placeholder="Working From (YYYY)"></ion-input>
-      <ion-input type="number" formControlName="endyear" placeholder="Last Worked Year (YYYY)"></ion-input>
+      <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="startyear" placeholder="Working From (DD MMM YYYY)"></ion-datetime>
     </ion-item>
     <ion-item>
-        <ion-label>Current</ion-label>
-        <ion-checkbox color="primary" formControlName="current" checked="false"></ion-checkbox>
+      <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="endyear" placeholder="Last Worked (DD MMM YYYY)"></ion-datetime>
+    </ion-item>
+    <ion-item>
+      <ion-label>Current</ion-label>
+      <ion-checkbox formControlName="current" checked="false"></ion-checkbox>
     </ion-item>
     <ion-item>
       <ion-label>Education</ion-label>
@@ -47,10 +49,10 @@
       <ion-input type="text" formControlName="university" placeholder="University"></ion-input>
     </ion-item>
     <ion-item>
-      <ion-input type="text" formControlName="passoutyear" placeholder="Passout Year"></ion-input>
+      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" formControlName="passoutyear" placeholder="Passout Year"></ion-datetime>
     </ion-item>
     <ion-item>
-      <ion-input type="text" formControlName="percentage" placeholder="Percentage"></ion-input>
+      <ion-input type="number" formControlName="percentage" placeholder="Percentage"></ion-input>
     </ion-item>
     <button ion-button type="submit" [disabled]="!expedu.valid">Submit</button>
   </form>

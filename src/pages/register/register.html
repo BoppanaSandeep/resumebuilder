@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-navbar hideBackButton="true" >
+        <ion-title text-center text-uppercase>Resume Builder</ion-title>
+    </ion-navbar>
+</ion-header>
+
+<ion-content>
+    <ion-card class="card">
+        <ion-card-title text-center>
+            Registeration
+        </ion-card-title>
+        <form [formGroup]="registerForm" (ngSubmit)="register('register')">
+            <ion-item>
+                <ion-input type="text" formControlName="username" placeholder="Username"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="password" formControlName="password" placeholder="Passoerd"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="password" formControlName="cpassword" placeholder="Confirm Password"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="number" formControlName="phonenumber" placeholder="Mobile Number"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="dob" placeholder="Date of Birth"></ion-datetime>
+            </ion-item>
+            <ion-list radio-group formControlName="gender">
+                <ion-list-header>
+                    Gender
+                </ion-list-header>
+                <ion-item>
+                    <ion-label>Male</ion-label>
+                    <ion-radio value="1"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Female</ion-label>
+                    <ion-radio value="2"></ion-radio>
+                </ion-item>
+                <ion-item>
+                    <ion-label>Other</ion-label>
+                    <ion-radio value="3"></ion-radio>
+                </ion-item>
+            </ion-list>
+            <button ion-button type="submit" [disabled]="!registerForm.valid">Register</button>
+        </form>
+        <ion-list>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-12 col-sm-12 col-md-12 text-center>
+                        <span ion-text color="primary" (click)="register('pushtologin')">Login here</span>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-list>
+    </ion-card>
+</ion-content>

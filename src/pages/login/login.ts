@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { TabsPage } from '../tabs/tabs';
+import { RegisterPage } from '../register/register';
 
 @Component({
     selector: 'login',
@@ -19,8 +20,16 @@ export class LoginPage {
         });
     }
 
-    login() {
-        this.navCtrl.push(TabsPage);
-        console.log(this.loginForm.value);
+    login(action) {
+
+        if (action == 'login') {
+            this.navCtrl.push(TabsPage);
+            console.log(this.loginForm.value);
+        } else if (action == 'register') {
+            console.log('this.loginForm.value');
+            this.navCtrl.push(RegisterPage);
+        } else {
+            console.log('forgot');
+        }
     }
 }
