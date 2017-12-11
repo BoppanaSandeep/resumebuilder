@@ -10,7 +10,7 @@ import { TabsPage } from '../tabs/tabs';
 })
 export class LoginPage {
 
-    private loginForm: FormGroup;
+    public loginForm: FormGroup;
 
     constructor(public navCtrl: NavController, private formBuilder: FormBuilder, public navParams: NavParams) {
         this.loginForm = this.formBuilder.group({

@@ -54,11 +54,11 @@ export class Profile implements OnInit {
     }
 
     skillsEndo(){
-        console.log(this.expedu)
+        console.log(this.expedu.value)
     }
 
     expEdu(){
-        console.log(this.skills)
+        console.log(this.skills.value)
     }
 
 }
