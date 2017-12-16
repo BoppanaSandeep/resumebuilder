@@ -11,13 +11,16 @@
         </ion-card-title>
         <form [formGroup]="registerForm" (ngSubmit)="register('register')">
             <ion-item>
-                <ion-input type="text" formControlName="username" placeholder="Username"></ion-input>
+                <ion-input type="text" formControlName="name_first" placeholder="First Name"></ion-input>
+            </ion-item>
+            <ion-item>
+                <ion-input type="text" formControlName="name_last" placeholder="Last Name"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
             </ion-item>
             <ion-item>
-                <ion-input type="password" formControlName="password" placeholder="Passoerd"></ion-input>
+                <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
             </ion-item>
             <ion-item>
                 <ion-input type="password" formControlName="cpassword" placeholder="Confirm Password"></ion-input>

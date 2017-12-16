@@ -26,7 +26,6 @@ export class LoginPage {
             this.navCtrl.push(TabsPage);
             console.log(this.loginForm.value);
         } else if (action == 'register') {
-            console.log('this.loginForm.value');
             this.navCtrl.push(RegisterPage);
         } else {
             console.log('forgot');

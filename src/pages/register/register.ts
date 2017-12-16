@@ -14,7 +14,8 @@ export class RegisterPage {
 
     constructor(public navCtrl: NavController, private formBuilder: FormBuilder, public navParams: NavParams) {
         this.registerForm = this.formBuilder.group({
-            username: ['', Validators.required],
+            name_first: ['', Validators.required],
+            name_last: ['', Validators.required],
             email: ['', Validators.required],
             password: ['', Validators.required],
             cpassword: ['', Validators.required],
