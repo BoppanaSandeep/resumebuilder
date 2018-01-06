@@ -3,6 +3,7 @@ import { NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { LoginPage } from '../login/login';
 import { Http, Headers } from '@angular/http';
+import { Urls } from '../shared/urls';
 
 
 @Component({
@@ -31,7 +32,8 @@ export class RegisterPage {
         if (action == 'register') {
             var headers = new Headers();
             headers.append('content-type', 'application/json');
-            this.http.post('http://localhost/resumebuilder/registrationpage', this.registerForm.value, { headers: headers }).toPromise().then((res) => {
+            var url = new Urls();
+            this.http.post(url.registration_url, this.registerForm.value, { headers: headers }).toPromise().then((res) => {
                 console.log(res.status, res.json());
                 var status = res.json();
                 if (status.message == 'OK') {
