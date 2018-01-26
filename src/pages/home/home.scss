@@ -11,10 +11,23 @@ page-home {
         font-size: 1.8rem;
     }
 
-    ion-icon.icon.icon-md.ion-md-create {
+    .toolbar-title-md{
+        font-size:17px !important;
+    }
+
+    ion-icon[name="create"] {
         float: right;
         padding: 10px;
-        font-size: 25px;
+        font-size: 30px;
         color: #4786b9;
+    }
+
+    ion-icon[name="power"]{
+        font-size: 30px;
+        margin-right: 2%;
+        color: red;
+        position: absolute;
+        top: 20%;
+        left: 91%;
     }
 }

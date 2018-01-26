@@ -1,12 +1,13 @@
 <ion-header>
   <ion-navbar>
     <ion-title text-center text-uppercase>Profile Name - Resume Builder</ion-title>
+    <ion-icon name="power" float-right (click)="logout()"></ion-icon>
   </ion-navbar>
 </ion-header>
 
 <ion-content padding>
   <ion-card>
-    <ion-icon ios="ios-create" md="md-create" (click)="presentModal('Profile Name')"></ion-icon>
+    <ion-icon name="create" (click)="presentModal('Profile Name')"></ion-icon>
     <ion-grid>
       <ion-row>
         <ion-col col-12 col-sm-12 col-md-4>
@@ -27,7 +28,7 @@
     </ion-grid>
   </ion-card>
   <ion-card>
-    <ion-icon ios="ios-create" md="md-create" (click)="presentModal('Experience And Education')"></ion-icon>
+    <ion-icon name="create" (click)="presentModal('Experience And Education')"></ion-icon>
     <ion-card-content text-left>
       <ion-card-title>
         Experience
@@ -46,7 +47,7 @@
     </ion-card-content>
   </ion-card>
   <ion-card>
-    <ion-icon ios="ios-create" md="md-create" (click)="presentModal('Featured Skills And Endorsements')"></ion-icon>
+    <ion-icon name="create" (click)="presentModal('Featured Skills And Endorsements')"></ion-icon>
     <ion-card-content text-left>
       <ion-card-title>
         Featured Skills And Endorsements
