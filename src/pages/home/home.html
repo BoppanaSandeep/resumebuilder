@@ -1,6 +1,6 @@
 <ion-header>
   <ion-navbar>
-    <ion-title text-center text-uppercase>Profile Name - Resume Builder</ion-title>
+    <ion-title text-center text-uppercase>{{UserVariables?.name==''?'Resume Builder':UserVariables?.name}}</ion-title>
     <ion-icon name="power" float-right (click)="logout()"></ion-icon>
   </ion-navbar>
 </ion-header>
@@ -17,7 +17,7 @@
         <ion-col col-12 col-sm-12 col-md-8>
           <ion-card-content text-center>
             <ion-card-title>
-              Profile Name
+              {{UserVariables?.name}}
             </ion-card-title>
             <p>
               Desigination

@@ -27,35 +27,7 @@ export class LoginPage implements OnInit {
 
     }
 
-    ngOnInit() {
-        this.headers.append('content-type', 'application/json');
-        this.storage.get('rb_id').then((val) => {
-            var p = val == null ? 0 : val;
-            this.reload(p);
-        }).catch(function (err) {
-            console.log(err);
-        });
-    }
-
-    reload(p){
-        this.http.get(this.url.login_status_url + p, { headers: this.headers }).toPromise().then((res) => {
-            var user = res.json();
-            if (user.message == 'OK') {
-                this.UserVariables.reg_id = user.info.reg_id;
-                this.UserVariables.rb_id = user.info.rb_id;
-                this.UserVariables.email = user.info.email;
-                this.UserVariables.name = user.info.name;
-                this.UserVariables.phonenumber = user.info.phonenumber;
-                this.UserVariables.joined_on = user.info.joined_on;
-                this.UserVariables.logged_in = user.info.logged_in;
-                this.navCtrl.push(TabsPage);
-            } else {
-                console.log('Something went worng', res.json());
-            }
-        },
-            (err) => { console.log(err); }
-        );
-    }
+    ngOnInit() { }
 
     login(action) {
 
@@ -75,7 +47,7 @@ export class LoginPage implements OnInit {
 
                     this.storage.set('rb_id', user.info.rb_id);
                     this.storage.set('pagename', 'TabsPage');
-                    
+
                     this.navCtrl.push(TabsPage);
                 } else {
                     console.log('Something went worng', res.json());

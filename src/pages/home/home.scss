@@ -2,6 +2,11 @@ page-home {
     ion-content{
         background-color: #4786b9 !important;
     }
+
+    .card{
+        border-radius: 6px;
+    }
+
     ion-card img {
         width: 150px !important;
         margin-left: 30%;
