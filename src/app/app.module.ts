@@ -4,6 +4,8 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 
+import { ConfirmationAlerts } from '../pages/shared/alert';
+import { ToastAlert } from '../pages/shared/toast';
 import { UserVariables } from '../pages/shared/global_values';
 import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
@@ -49,6 +51,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     StatusBar,
     SplashScreen,
     UserVariables,
+    ToastAlert,
+    ConfirmationAlerts,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

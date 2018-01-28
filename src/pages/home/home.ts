@@ -8,6 +8,7 @@ import { Profile } from '../modals/profile';
 import { LoginPage } from '../login/login';
 import { UserVariables } from '../shared/global_values';
 import { Urls } from '../shared/urls';
+import { ToastAlert } from '../shared/toast';
 
 @Component({
   selector: 'page-home',
@@ -18,7 +19,7 @@ export class HomePage implements OnInit {
   public headers = new Headers();
   public url = new Urls();
 
-  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http) {
+  constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert) {
 
   }
 
@@ -45,7 +46,9 @@ export class HomePage implements OnInit {
         this.UserVariables.phonenumber = user.info.phonenumber;
         this.UserVariables.joined_on = user.info.joined_on;
         this.UserVariables.logged_in = user.info.logged_in;
+        //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
       } else {
+        this.toast.showToast('Your Session has expried!!!', 3000, 'bottom');
         console.log('Something went worng', res.json());
       }
     },

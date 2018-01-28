@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Injectable } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { TabsPage } from '../tabs/tabs';
@@ -8,18 +8,22 @@ import { Storage } from '@ionic/storage';
 
 import { Urls } from '../shared/urls';
 import { UserVariables } from '../shared/global_values';
+import { ToastAlert } from '../shared/toast';
+import { ConfirmationAlerts } from '../shared/alert';
 
 @Component({
     selector: 'login',
     templateUrl: './login.html'
     //providers: [AuthenticationApi]
 })
+
+@Injectable()
 export class LoginPage implements OnInit {
     public loginForm: FormGroup;
     public headers = new Headers();
     public url = new Urls();
 
-    constructor(public navCtrl: NavController, public http: Http, private formBuilder: FormBuilder, public navParams: NavParams, private storage: Storage, public UserVariables: UserVariables) {
+    constructor(public navCtrl: NavController, public http: Http, private formBuilder: FormBuilder, public navParams: NavParams, private storage: Storage, public UserVariables: UserVariables, public toast: ToastAlert, public alerts: ConfirmationAlerts) {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required],
@@ -33,8 +37,8 @@ export class LoginPage implements OnInit {
 
         if (action == 'login') {
             this.headers.append('content-type', 'application/json');
+            this.headers.append('Access-Control-Allow-Headers', 'Content-type, Accept-Encoding');
             this.http.post(this.url.login_url, this.loginForm.value, { headers: this.headers }).toPromise().then((res) => {
-                console.log(res.status, res.json());
                 var user = res.json();
                 if (user.message == 'OK') {
                     this.UserVariables.reg_id = user.info.reg_id;
@@ -48,18 +52,20 @@ export class LoginPage implements OnInit {
                     this.storage.set('rb_id', user.info.rb_id);
                     this.storage.set('pagename', 'TabsPage');
 
+                    this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
                     this.navCtrl.push(TabsPage);
                 } else {
-                    console.log('Something went worng', res.json());
+                    this.toast.showToast('Username and Password are Wrong!!!', 3000, 'bottom');
+                    //console.log('Something went worng', res.json());
                 }
             },
                 (err) => { console.log(err); }
             );
-            console.log(this.loginForm.value);
+            //console.log(this.loginForm.value);
         } else if (action == 'register') {
             this.navCtrl.push(RegisterPage);
         } else {
-            console.log('forgot');
+            this.alerts.presentPrompt('Forgot Password', 'Enter your registered Email Id', 'email', 'Email', 'Cancel', 'Submit');
         }
     }
 }

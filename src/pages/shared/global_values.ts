@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 
-Injectable()
+@Injectable()
 export class UserVariables{
     public reg_id=0;
     public rb_id;
