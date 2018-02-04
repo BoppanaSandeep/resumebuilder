@@ -60,13 +60,13 @@ export class ConfirmationAlerts {
                 {
                     text: button1, //button 1
                     handler: data => {
-                        console.log('Cancel clicked');
+                        //console.log('Cancel clicked');
                     }
                 },
                 {
                     text: button2, //button 2
                     handler: data => {
-                        console.log('Saved clicked', data);
+                        //console.log('Saved clicked', data);
                         this.forgotPassword(data);
                     }
                 }
@@ -76,9 +76,11 @@ export class ConfirmationAlerts {
     }
 
     forgotPassword(data) {
-        if (data.email !='') {
+        if (data.email != '') {
             data = { "email": btoa(data.email) }
             this.headers.append('content-type', 'application/json');
+            this.headers.append('Access-Control-Allow-Origin', '*');
+            this.headers.append('Access-Control-Allow-Headers', '*');
             this.http.post(this.url.forgotpwd_url, data, { headers: this.headers }).toPromise().then((res) => {
                 var user = res.json();
                 if (user.message == 'OK') {
@@ -88,9 +90,12 @@ export class ConfirmationAlerts {
                     //console.log('Something went worng', res.json());
                 }
             },
-                (err) => { console.log(err); }
+                (err) => {
+                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                    //console.log(err); 
+                }
             );
-        }else{
+        } else {
             this.toast.showToast('Please enter your Email ID !!!', 3000, 'bottom');
         }
     }

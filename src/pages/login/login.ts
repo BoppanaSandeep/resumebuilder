@@ -2,6 +2,7 @@ import { Component, OnInit, Injectable } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { TabsPage } from '../tabs/tabs';
+//import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { Http, Headers } from '@angular/http';
 import { Storage } from '@ionic/storage';
@@ -37,7 +38,8 @@ export class LoginPage implements OnInit {
 
         if (action == 'login') {
             this.headers.append('content-type', 'application/json');
-            this.headers.append('Access-Control-Allow-Headers', 'Content-type, Accept-Encoding');
+            this.headers.append('Access-Control-Allow-Origin', '*');
+            this.headers.append('Access-Control-Allow-Headers', '*');
             this.http.post(this.url.login_url, this.loginForm.value, { headers: this.headers }).toPromise().then((res) => {
                 var user = res.json();
                 if (user.message == 'OK') {
@@ -56,10 +58,13 @@ export class LoginPage implements OnInit {
                     this.navCtrl.push(TabsPage);
                 } else {
                     this.toast.showToast('Username and Password are Wrong!!!', 3000, 'bottom');
-                    //console.log('Something went worng', res.json());
+                    console.log('Something went worng', res.json());
                 }
             },
-                (err) => { console.log(err); }
+                (err) => {
+                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                    //console.log(err); 
+                }
             );
             //console.log(this.loginForm.value);
         } else if (action == 'register') {
