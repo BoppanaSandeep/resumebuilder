@@ -10,7 +10,13 @@ register{
             
         }
     
-        button.button.button-md.button-default.button-default-md {
+        button[type="submit"] {
             margin-left: 40%;
+        }
+
+        .text-danger{
+            color: maroon;
+            font-size: 14px;
+            margin-left: 5%;
         }
     }

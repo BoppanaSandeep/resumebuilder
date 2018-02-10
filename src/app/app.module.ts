@@ -1,5 +1,6 @@
 import { NgModule, ErrorHandler } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { ReactiveFormsModule } from '@angular/forms';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -33,6 +34,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     imports: [
         BrowserModule,
         HttpModule,
+        ReactiveFormsModule,
         IonicModule.forRoot(MyApp),
         IonicStorageModule.forRoot()
     ],

@@ -1,5 +1,5 @@
 <ion-header>
-    <ion-navbar hideBackButton="true" >
+    <ion-navbar hideBackButton="true">
         <ion-title text-center text-uppercase>Resume Builder</ion-title>
     </ion-navbar>
 </ion-header>
@@ -13,12 +13,21 @@
             <ion-item>
                 <ion-input type="text" formControlName="name_first" placeholder="First Name"></ion-input>
             </ion-item>
+            <small [hidden]="registerForm.controls.name_first.valid" class="text-danger">
+                Maximum characters should be 50.
+            </small>
             <ion-item>
                 <ion-input type="text" formControlName="name_last" placeholder="Last Name"></ion-input>
             </ion-item>
+            <small [hidden]="registerForm.controls.name_last.valid" class="text-danger">
+                Maximum characters should be 50.
+            </small>
             <ion-item>
                 <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
             </ion-item>
+            <small [hidden]="registerForm.controls.email.valid" class="text-danger">
+                    Enter valid email.
+            </small>
             <ion-item>
                 <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
             </ion-item>

@@ -17,12 +17,12 @@ export class RegisterPage {
 
     constructor(public navCtrl: NavController, private formBuilder: FormBuilder, public navParams: NavParams, public http: Http) {
         this.registerForm = this.formBuilder.group({
-            name_first: ['', Validators.required],
-            name_last: ['', Validators.required],
-            email: ['', Validators.required],
+            name_first: ['', [Validators.required, Validators.maxLength(50)]],
+            name_last: ['', [Validators.required, Validators.maxLength(50)]],
+            email: ['', [Validators.required, Validators.email]],
             password: ['', Validators.required],
             cpassword: ['', Validators.required],
-            phonenumber: ['', Validators.required],
+            phonenumber: ['', [Validators.required, Validators.maxLength(13), Validators.pattern('^[0-9]+$')]],
             dob: ['', Validators.required],
             gender: ['', Validators.required],
         });

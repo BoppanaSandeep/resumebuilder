@@ -1,5 +1,14 @@
 profile{
-    button.button.button-md.button-default.button-default-md {
+    button[type="submit"] {
         margin-left: 40%;
+    }
+
+    ion-icon[name="remove-circle"] {
+        font-size: 28px;
+        color: red;
+    }
+
+    ion-label[title="Experience"], ion-label[title="Education"]{
+        font-size: 20px;
     }
 }

@@ -1,67 +1,101 @@
 <ion-header>
-  <ion-toolbar>
-    <ion-title>
-      {{viewEdit}}
-    </ion-title>
-    <ion-buttons start>
-      <button ion-button (click)="dismiss()">
-        <span ion-text color="primary">Cancel</span>
-      </button>
-    </ion-buttons>
-  </ion-toolbar>
+    <ion-toolbar>
+        <ion-title>
+            {{viewEdit}}
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <span ion-text color="primary">Cancel</span>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <form [formGroup]="profile" (ngSubmit)="profileInfo()" *ngIf="viewEdit == 'Profile Name'">
-    <ion-item>
-      <ion-input type="text" formControlName="profilename" placeholder="Profile Image"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" formControlName="role" placeholder="Role"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-textarea formControlName="description" placeholder="Description"></ion-textarea>
-    </ion-item>
-    <button ion-button center type="submit" [disabled]="!profile.valid">Submit</button>
-  </form>
+    <form [formGroup]="profile" (ngSubmit)="profileInfo()" *ngIf="viewEdit == 'Profile Name'">
+        <ion-item>
+            <ion-input type="text" formControlName="profilename" placeholder="Profile Image"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-input type="text" formControlName="role" placeholder="Role"></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-textarea formControlName="description" placeholder="Description"></ion-textarea>
+        </ion-item>
+        <button ion-button center type="submit" [disabled]="!profile.valid">Submit</button>
+    </form>
 
-  <form [formGroup]="expedu" (ngSubmit)="expEdu()" *ngIf="viewEdit == 'Experience And Education'">
-    <ion-item>
-      <ion-label>Experience</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" formControlName="company" placeholder="Company"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="startyear" placeholder="Working From (DD MMM YYYY)"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="endyear" placeholder="Last Worked (DD MMM YYYY)"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-label>Current</ion-label>
-      <ion-checkbox formControlName="current" checked="false"></ion-checkbox>
-    </ion-item>
-    <ion-item>
-      <ion-label>Education</ion-label>
-    </ion-item>
-    <ion-item>
-      <ion-input type="text" formControlName="university" placeholder="University"></ion-input>
-    </ion-item>
-    <ion-item>
-      <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" formControlName="passoutyear" placeholder="Passout Year"></ion-datetime>
-    </ion-item>
-    <ion-item>
-      <ion-input type="number" formControlName="percentage" placeholder="Percentage"></ion-input>
-    </ion-item>
-    <button ion-button type="submit" [disabled]="!expedu.valid">Submit</button>
-  </form>
+    <form [formGroup]="expedu" (ngSubmit)="expEdu()" *ngIf="viewEdit == 'Experience And Education'">
+        <div formArrayName="experience">
+            <div *ngFor="let experience of expedu.controls.experience.controls; let i=index">
+                <ion-item>
+                    <ion-label title="Experience" color="secondary">Experience
+                        <span *ngIf="expedu.controls.experience.controls.length > 1">{{i+1}}</span>
+                        <ion-icon name="remove-circle" *ngIf="expedu.controls.experience.controls.length > 1" (click)="removeExperience(i)" float-right></ion-icon>
+                    </ion-label>
+                </ion-item>
+                <div [formGroupName]="i">
+                    <ion-item>
+                        <ion-input type="text" formControlName="company" placeholder="Company"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="startyear" placeholder="Working From (DD MMM YYYY)"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                        <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="endyear" placeholder="Last Worked (DD MMM YYYY)"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                        <ion-label>Current</ion-label>
+                        <ion-checkbox formControlName="current" checked="false"></ion-checkbox>
+                    </ion-item>
+                </div>
+            </div>
+            <button (click)="addExperience()" ion-button clear>Add More Experience</button>
+        </div>
+        <div formArrayName="education">
+            <div *ngFor="let education of expedu.controls.education.controls; let j=index">
+                <ion-item>
+                    <ion-label title="Education" color="secondary">Education
+                        <span *ngIf="expedu.controls.education.controls.length > 1">{{j+1}}</span>
+                        <ion-icon name="remove-circle" *ngIf="expedu.controls.education.controls.length > 1" (click)="removeEducation(j)" float-right></ion-icon>
+                    </ion-label>
+                </ion-item>
+                <div [formGroupName]="j">
+                    <ion-item>
+                        <ion-input type="text" formControlName="university" placeholder="University/ College/ School"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" formControlName="passoutyear" placeholder="Passout Year"></ion-datetime>
+                    </ion-item>
+                    <ion-item>
+                        <ion-input type="number" formControlName="percentage" placeholder="Percentage"></ion-input>
+                    </ion-item>
+                </div>
+            </div>
+            <button (click)="addEducation()" ion-button clear>Add More Education Details</button>
+        </div>
+        <button ion-button type="submit" [disabled]="!expedu.valid">Submit</button>
+    </form>
 
-  <form [formGroup]="skills" (ngSubmit)="skillsEndo()" *ngIf="viewEdit == 'Featured Skills And Endorsements'">
-    <ion-item>
-      <ion-input type="text" formControlName="skills"></ion-input>
-    </ion-item>
-    <button ion-button type="submit" [disabled]="!skills.valid">Submit</button>
-  </form>
-
+    <form [formGroup]="skills" (ngSubmit)="skillsEndo()" *ngIf="viewEdit == 'Featured Skills'">
+        <div formArrayName="skill">
+            <div *ngFor="let skill of skills.controls.skill.controls; let k=index">
+                <div [formGroupName]="k">
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-10>
+                                <ion-input type="text" formControlName="fskills" placeholder="Skills"></ion-input>
+                            </ion-col>
+                            <ion-col col-2>
+                                <ion-icon class="skills" name="remove-circle" *ngIf="skills.controls.skill.controls.length > 1" (click)="removeSkills(k)"
+                                    float-right></ion-icon>
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </div>
+            </div>
+            <button (click)="addSkills()" ion-button clear>Add More Skills And Endorsements</button>
+        </div>
+        <button ion-button type="submit" [disabled]="!skills.valid">Submit</button>
+    </form>
 </ion-content>
