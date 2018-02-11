@@ -20,6 +20,7 @@ export class HomePage implements OnInit {
 
     public headers = new Headers();
     public url = new Urls();
+    skills_data;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert) {
 
@@ -27,10 +28,13 @@ export class HomePage implements OnInit {
 
     ngOnInit() {
         this.headers.append('content-type', 'application/json');
+        this.headers.append('Access-Control-Allow-Origin', '*');
+        this.headers.append('Access-Control-Allow-Headers', '*');
         this.storage.get('rb_id').then((val) => {
             var p = val == null ? 0 : val;
             if (p != 0) {
                 this.reload(p);
+                this.skills(p);
             } else {
                 this.navCtrl.parent.parent.setRoot(LoginPage);
                 this.navCtrl.popToRoot();
@@ -61,9 +65,26 @@ export class HomePage implements OnInit {
         );
     }
 
+    skills(p){
+        this.http.get(this.url.skills_data_url + p, { headers: this.headers }).toPromise().then((res) => {
+            var sk = res.json();
+            if (sk.message == 'OK') {
+                this.skills_data=sk;
+                //console.log(this.skills_data);
+                //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
+            } 
+            // else {
+            //     this.toast.showToast('Your Session has expried!!!', 3000, 'bottom');
+            //     console.log('Something went worng', res.json());
+            // }
+        },
+            (err) => { console.log(err); }
+        );
+    }
+
     presentModal(opt) {
         var data = { edit: opt };
-        console.log(data);
+        //console.log(data);
         let modal = this.modalCtrl.create(Profile, data);
         modal.onDidDismiss(data => {
             //console.log(data);

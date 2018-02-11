@@ -14,14 +14,17 @@
 <ion-content>
     <form [formGroup]="profile" (ngSubmit)="profileInfo()" *ngIf="viewEdit == 'Profile Name'">
         <ion-item>
-            <ion-input type="text" formControlName="profilename" placeholder="Profile Image"></ion-input>
-        </ion-item>
-        <ion-item>
             <ion-input type="text" formControlName="role" placeholder="Role"></ion-input>
         </ion-item>
+        <small [hidden]="profile.controls.role.valid" class="text-danger">
+            Maximum characters allowed are 50.
+        </small>
         <ion-item>
             <ion-textarea formControlName="description" placeholder="Description"></ion-textarea>
         </ion-item>
+        <small [hidden]="profile.controls.description.valid" class="text-danger">
+            Maximum characters allowed are 500.
+        </small>
         <button ion-button center type="submit" [disabled]="!profile.valid">Submit</button>
     </form>
 
@@ -38,6 +41,9 @@
                     <ion-item>
                         <ion-input type="text" formControlName="company" placeholder="Company"></ion-input>
                     </ion-item>
+                    <small [hidden]="expedu.controls.experience.controls[i].controls.company.valid" class="text-danger">
+                        Maximum characters allowed are 50.
+                    </small>
                     <ion-item>
                         <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="startyear" placeholder="Working From (DD MMM YYYY)"></ion-datetime>
                     </ion-item>
@@ -64,12 +70,18 @@
                     <ion-item>
                         <ion-input type="text" formControlName="university" placeholder="University/ College/ School"></ion-input>
                     </ion-item>
+                    <small [hidden]="expedu.controls.education.controls[j].controls.university.valid" class="text-danger">
+                        Maximum characters allowed are 50.
+                    </small>
                     <ion-item>
                         <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" formControlName="passoutyear" placeholder="Passout Year"></ion-datetime>
                     </ion-item>
                     <ion-item>
                         <ion-input type="number" formControlName="percentage" placeholder="Percentage"></ion-input>
                     </ion-item>
+                    <small [hidden]="expedu.controls.education.controls[j].controls.percentage.valid" class="text-danger">
+                        Maximum characters allowed are 2.
+                    </small>
                 </div>
             </div>
             <button (click)="addEducation()" ion-button clear>Add More Education Details</button>
@@ -91,11 +103,14 @@
                                     float-right></ion-icon>
                             </ion-col>
                         </ion-row>
+                        <small [hidden]="skills.controls.skill.controls[k].controls.fskills.valid" class="text-danger">
+                            Maximum characters allowed are 50.
+                        </small>
                     </ion-grid>
                 </div>
             </div>
             <button (click)="addSkills()" ion-button clear>Add More Skills And Endorsements</button>
         </div>
-        <button ion-button type="submit" [disabled]="!skills.valid">Submit</button>
+        <button ion-button type="submit" (click)="submit_skills(skills)" [disabled]="!skills.valid">Submit</button>
     </form>
 </ion-content>

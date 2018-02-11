@@ -1,8 +1,14 @@
 import { Component, OnInit } from '@angular/core';
-
-import { ViewController, NavParams } from 'ionic-angular';
-
+import { Http, Headers } from '@angular/http';
+import { NavController, ViewController, NavParams } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { Storage } from '@ionic/storage';
+
+import { Urls } from '../shared/urls';
+import { ToastAlert } from '../shared/toast';
+
+import { TabsPage } from '../tabs/tabs';
+
 
 @Component({
     selector: 'profile',
@@ -15,16 +21,18 @@ export class Profile implements OnInit {
     public profile: FormGroup;
     public expedu: FormGroup;
     public skills: FormGroup;
+    public headers = new Headers();
+    public url = new Urls();
+    user_id;
     //#endregion
 
     //#region Constructor
-    constructor(public viewCtrl: ViewController, private formBuilder: FormBuilder, public navParams: NavParams) {
+    constructor(public navCtrl: NavController, public http: Http, public viewCtrl: ViewController, private formBuilder: FormBuilder, public navParams: NavParams, public storage: Storage, public toast: ToastAlert) {
         //var viewEdit = this.navParams.get('edit');
 
         this.profile = this.formBuilder.group({
-            profilename: [''],
-            role: ['', [Validators.required, Validators.maxLength(50)]],
-            description: ['', [Validators.required, Validators.maxLength(500)]],
+            role: ['', [Validators.maxLength(50)]],
+            description: ['', [Validators.maxLength(500)]],
         });
 
         this.expedu = this.formBuilder.group({
@@ -48,7 +56,7 @@ export class Profile implements OnInit {
     //#region OnInIt
     ngOnInit() {
         this.viewEdit = this.navParams.get('edit');
-        console.log(this.viewEdit);
+        //console.log(this.viewEdit);
     }
     //#endregion
 
@@ -56,7 +64,7 @@ export class Profile implements OnInit {
     addMutipleExper() {
         return this.formBuilder.group({
             company: ['', [Validators.required, Validators.maxLength(50)]],
-            startyear: ['', Validators.required],
+            startyear: ['', [Validators.required]],
             endyear: [''],
             current: ['false'],
         });
@@ -65,14 +73,14 @@ export class Profile implements OnInit {
     addMutipleEducation() {
         return this.formBuilder.group({
             university: ['', [Validators.required, Validators.maxLength(50)]],
-            passoutyear: ['', Validators.required],
-            percentage: ['', [Validators.required, Validators.maxLength(3), Validators.pattern('^[0-9]+$')]],
+            passoutyear: ['', [Validators.required]],
+            percentage: ['', [Validators.maxLength(2), Validators.pattern('^[0-9]+$')]],
         });
     }
 
     addMutipleSkills() {
         return this.formBuilder.group({
-            fskills: ['', [Validators.required, Validators.maxLength(20)]],
+            fskills: ['', [Validators.required, Validators.maxLength(50)]],
         });
     }
     //#endregion
@@ -121,8 +129,32 @@ export class Profile implements OnInit {
         console.log(this.profile.value);
     }
 
-    skillsEndo() {
-        console.log(this.skills.value);
+    skillsEndo() { }
+
+    submit_skills(skills) {
+        //console.log(skills.value.skill);
+        this.storage.get('reg_id').then((val) => {
+            var data = { "user_id": val, "skills": skills.value.skill };
+            console.log(data);
+            this.headers.append('content-type', 'application/json');
+            this.headers.append('Access-Control-Allow-Origin', '*');
+            this.headers.append('Access-Control-Allow-Headers', '*');
+            this.http.post(this.url.skills_form_url, data, { headers: this.headers }).toPromise().then((res) => {
+                var user = res.json();
+                if (user.message == 'OK') {
+                    this.toast.showToast('Submitted your skills', 3000, 'bottom');
+                    this.navCtrl.push(TabsPage);
+                } else {
+                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                }
+            },
+                (err) => {
+                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                }
+            );
+        }).catch(function (err) {
+            console.log(err);
+        });
     }
 
     expEdu() {

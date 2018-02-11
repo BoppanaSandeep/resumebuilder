@@ -26,19 +26,28 @@
                 <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
             </ion-item>
             <small [hidden]="registerForm.controls.email.valid" class="text-danger">
-                    Enter valid email.
+                Enter valid Email.
             </small>
             <ion-item>
                 <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
             </ion-item>
+            <small [hidden]="registerForm.controls.password.valid" class="text-danger">
+                Minimum characters should be 8.
+            </small>
             <ion-item>
                 <ion-input type="password" formControlName="cpassword" placeholder="Confirm Password"></ion-input>
             </ion-item>
+            <small [hidden]="registerForm.controls.cpassword.valid" class="text-danger">
+                Minimum characters should be 8.
+            </small>
             <ion-item>
                 <ion-input type="number" formControlName="phonenumber" placeholder="Mobile Number"></ion-input>
             </ion-item>
+            <small [hidden]="registerForm.controls.phonenumber.valid" class="text-danger">
+                Enter valid phonenumber.
+            </small>
             <ion-item>
-                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="dob" placeholder="Date of Birth"></ion-datetime>
+                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" max="2001" formControlName="dob" placeholder="Date of Birth"></ion-datetime>
             </ion-item>
             <ion-list radio-group formControlName="gender">
                 <ion-list-header>

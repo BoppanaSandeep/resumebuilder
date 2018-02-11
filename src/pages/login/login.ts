@@ -50,7 +50,8 @@ export class LoginPage implements OnInit {
                     this.UserVariables.phonenumber = user.info.phonenumber;
                     this.UserVariables.joined_on = user.info.joined_on;
                     this.UserVariables.logged_in = user.info.logged_in;
-
+                    
+                    this.storage.set('reg_id', user.info.reg_id);
                     this.storage.set('rb_id', user.info.rb_id);
                     this.storage.set('pagename', 'TabsPage');
 

@@ -1,58 +1,73 @@
 <ion-header>
-  <ion-navbar>
-    <ion-title text-center text-uppercase>{{UserVariables?.name==''?'Resume Builder':UserVariables?.name}}</ion-title>
-    <ion-icon name="power" float-right (click)="logout()"></ion-icon>
-  </ion-navbar>
+    <ion-navbar>
+        <ion-title text-center text-uppercase>{{UserVariables?.name==''?'Resume Builder':UserVariables?.name}}</ion-title>
+        <ion-icon name="power" float-right (click)="logout()"></ion-icon>
+    </ion-navbar>
 </ion-header>
 
 <ion-content padding>
-  <ion-card>
-    <ion-icon name="create" (click)="presentModal('Profile Name')"></ion-icon>
-    <ion-grid>
-      <ion-row>
-        <ion-col col-12 col-sm-12 col-md-4>
-          <img src="" width="150" height="150" />
-          <!--http://localhost/resumebuilder/dairy-farm-cow-logo-.jfif -->
-        </ion-col>
-        <ion-col col-12 col-sm-12 col-md-8>
-          <ion-card-content text-center>
+    <ion-card>
+        <ion-icon name="create" (click)="presentModal('Profile Name')"></ion-icon>
+        <ion-grid>
+            <ion-row>
+                <ion-col col-12 col-sm-12 col-md-4>
+                    <img src="" width="150" height="150" />
+                    <!--http://localhost/resumebuilder/dairy-farm-cow-logo-.jfif -->
+                </ion-col>
+                <ion-col col-12 col-sm-12 col-md-8>
+                    <ion-card-content text-center>
+                        <ion-card-title>
+                            {{UserVariables?.name}}
+                        </ion-card-title>
+                        <p>
+                            Role
+                        </p>
+                    </ion-card-content>
+                </ion-col>
+            </ion-row>
+        </ion-grid>
+    </ion-card>
+    <ion-card>
+        <ion-icon name="create" (click)="presentModal('Experience And Education')"></ion-icon>
+        <ion-card-content text-left>
             <ion-card-title>
-              {{UserVariables?.name}}
+                Experience
             </ion-card-title>
             <p>
-              Role
+                <!--<img src="" /> -->
             </p>
-          </ion-card-content>
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-  </ion-card>
-  <ion-card>
-    <ion-icon name="create" (click)="presentModal('Experience And Education')"></ion-icon>
-    <ion-card-content text-left>
-      <ion-card-title>
-        Experience
-      </ion-card-title>
-      <p>
-        <!--<img src="" /> -->
-      </p>
-    </ion-card-content>
-    <ion-card-content text-left>
-      <ion-card-title>
-        Education
-      </ion-card-title>
-      <p>
-        <!--<img src="" /> -->
-      </p>
-    </ion-card-content>
-  </ion-card>
-  <ion-card>
-    <ion-icon name="create" (click)="presentModal('Featured Skills')"></ion-icon>
-    <ion-card-content text-left>
-      <ion-card-title>
-        Featured Skills
-      </ion-card-title>
-      <p>PHP</p>
-    </ion-card-content>
-  </ion-card>
+        </ion-card-content>
+        <ion-card-content text-left>
+            <ion-card-title>
+                Education
+            </ion-card-title>
+            <p>
+                <!--<img src="" /> -->
+            </p>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-icon name="create" (click)="presentModal('Featured Skills')"></ion-icon>
+        <ion-card-content text-left>
+            <ion-card-title>
+                Featured Skills
+            </ion-card-title>
+            <ion-grid>
+                <div *ngIf="skills_data?.info!='Not Updated'; else login">
+                    <div *ngFor="let data of skills_data?.info; let i=index">
+                        <ion-row>
+                            <ion-col col-10>{{data.skill_name}}</ion-col>
+                            <ion-col col-2>{{data.skill_rating}}/ 5</ion-col>
+                        </ion-row>
+                    </div>
+                </div>
+                <ng-template #login>
+                    <ion-row>
+                        <ion-col col-10>{{skills_data?.info}}</ion-col>
+                        <ion-col col-2>0/ 5</ion-col>
+                    </ion-row>
+                </ng-template>
+            </ion-grid>
+        </ion-card-content>
+    </ion-card>
 </ion-content>
