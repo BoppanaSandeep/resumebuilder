@@ -86,7 +86,7 @@
             </div>
             <button (click)="addEducation()" ion-button clear>Add More Education Details</button>
         </div>
-        <button ion-button type="submit" [disabled]="!expedu.valid">Submit</button>
+        <button ion-button type="submit" (click)="submit_expEdu(expedu)" [disabled]="!expedu.valid">Submit</button>
     </form>
 
     <form [formGroup]="skills" (ngSubmit)="skillsEndo()" *ngIf="viewEdit == 'Featured Skills'">
@@ -99,8 +99,7 @@
                                 <ion-input type="text" formControlName="fskills" placeholder="Skills"></ion-input>
                             </ion-col>
                             <ion-col col-2>
-                                <ion-icon class="skills" name="remove-circle" *ngIf="skills.controls.skill.controls.length > 1" (click)="removeSkills(k)"
-                                    float-right></ion-icon>
+                                <ion-icon class="skills" name="remove-circle" *ngIf="skills.controls.skill.controls.length > 1" (click)="removeSkills(k)" float-right></ion-icon>
                             </ion-col>
                         </ion-row>
                         <small [hidden]="skills.controls.skill.controls[k].controls.fskills.valid" class="text-danger">

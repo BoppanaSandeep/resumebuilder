@@ -129,6 +129,37 @@ export class Profile implements OnInit {
         console.log(this.profile.value);
     }
 
+    //#region Submitting Experience and Education Form
+    expEdu() { }
+
+    submit_expEdu(expEdu) {
+        //console.log(expEdu.value);
+        this.storage.get('reg_id').then((val) => {
+            var data = { "user_id": val, "expedu": expEdu.value};
+            console.log(data);
+            this.headers.append('content-type', 'application/json');
+            this.headers.append('Access-Control-Allow-Origin', '*');
+            this.headers.append('Access-Control-Allow-Headers', '*');
+            this.http.post(this.url.expedu_form_url, data, { headers: this.headers }).toPromise().then((res) => {
+                var user = res.json();
+                if (user.message == 'OK') {
+                    this.toast.showToast('Submitted your Experience and Education.', 3000, 'bottom');
+                    this.navCtrl.push(TabsPage);
+                } else {
+                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                }
+            },
+                (err) => {
+                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                }
+            );
+        }).catch(function (err) {
+            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+        });
+    }
+    //#endregion
+
+    //#region Submitting Skills Form
     skillsEndo() { }
 
     submit_skills(skills) {
@@ -156,9 +187,5 @@ export class Profile implements OnInit {
             console.log(err);
         });
     }
-
-    expEdu() {
-        console.log(this.expedu.value);
-    }
+    //#endregion
 }
-
