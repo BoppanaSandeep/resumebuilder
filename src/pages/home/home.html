@@ -33,17 +33,44 @@
             <ion-card-title>
                 Experience
             </ion-card-title>
-            <p>
-                <!--<img src="" /> -->
-            </p>
+            <ion-grid>
+                <div *ngIf="expedu_data?.info?.experience!='Not Updated'; else exp">
+                    <div *ngFor="let expdata of expedu_data?.info?.experience; let i=index">
+                        <ion-row>
+                            <ion-col col-12>{{expdata.exp_company}}</ion-col>
+                            <ion-col col-12>{{expdata.exp_currently_working}}</ion-col>
+                            <ion-col col-12>{{expdata.exp_working_from}}</ion-col>
+                            <ion-col col-12>{{expdata.exp_last_work_date}}</ion-col>
+                        </ion-row>
+                    </div>
+                </div>
+                <ng-template #exp>
+                    <ion-row>
+                        <ion-col col-12>{{expedu_data?.info?.experience}}</ion-col>
+                    </ion-row>
+                </ng-template>
+            </ion-grid>
         </ion-card-content>
         <ion-card-content text-left>
             <ion-card-title>
                 Education
             </ion-card-title>
-            <p>
-                <!--<img src="" /> -->
-            </p>
+            <ion-grid>
+                <div *ngIf="expedu_data?.info?.education!='Not Updated'; else exp">
+                    <div *ngFor="let edudata of expedu_data?.info?.education; let i=index">
+                        <ion-row>
+                            <ion-col col-12>{{edudata.edu_university_clg_sch}}</ion-col>
+                            <ion-col col-12>{{edudata.edu_percentage}}</ion-col>
+                            <ion-col col-12>{{edudata.edu_passoutyear}}</ion-col>
+                        </ion-row>
+                    </div>
+                </div>
+                <ng-template #exp>
+                    <ion-row>
+                        <ion-col col-10>{{expedu_data?.info?.education}}</ion-col>
+                    </ion-row>
+                </ng-template>
+            </ion-grid>
         </ion-card-content>
     </ion-card>
     <ion-card>
@@ -53,7 +80,7 @@
                 Featured Skills
             </ion-card-title>
             <ion-grid>
-                <div *ngIf="skills_data?.info!='Not Updated'; else login">
+                <div *ngIf="skills_data?.info!='Not Updated'; else skills">
                     <div *ngFor="let data of skills_data?.info; let i=index">
                         <ion-row>
                             <ion-col col-10>{{data.skill_name}}</ion-col>
@@ -61,7 +88,7 @@
                         </ion-row>
                     </div>
                 </div>
-                <ng-template #login>
+                <ng-template #skills>
                     <ion-row>
                         <ion-col col-10>{{skills_data?.info}}</ion-col>
                         <ion-col col-2>0/ 5</ion-col>
