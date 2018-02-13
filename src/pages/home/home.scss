@@ -3,6 +3,10 @@ page-home {
         background-color: #4786b9 !important;
     }
 
+    .card-header-md {
+        font-size: 1.5em;
+    }
+
     .card{
         border-radius: 6px;
     }
@@ -20,11 +24,17 @@ page-home {
         font-size:17px !important;
     }
 
-    ion-icon[name="create"] {
+    ion-icon{
+        font-size: 25px;
+        font-weight: 500;
+    }
+
+    ion-icon[name="add"],ion-icon[name="add-circle"] {
         float: right;
         padding: 10px;
-        font-size: 24px;
-        color: #4786b9;
+        font-size: 30px;
+        color: #32db64;
+        font-weight: bolder;
     }
 
     ion-icon[name="power"]{
@@ -36,8 +46,12 @@ page-home {
         left: 91%;
     }
 
+    ion-icon[name="briefcase"], ion-icon[name="school"], ion-icon[name="checkmark-circle"]{
+        font-size: 2.6em;
+    }
+
     .scroll-content {
-        overflow-y: auto;
+        padding: 2px !important;
     }
     
 }

@@ -19,7 +19,8 @@ export class Profile implements OnInit {
     //#region Variables
     public viewEdit: any;
     public profile: FormGroup;
-    public expedu: FormGroup;
+    public exp: FormGroup;
+    public edu: FormGroup;
     public skills: FormGroup;
     public headers = new Headers();
     public url = new Urls();
@@ -35,10 +36,13 @@ export class Profile implements OnInit {
             description: ['', [Validators.maxLength(500)]],
         });
 
-        this.expedu = this.formBuilder.group({
+        this.exp = this.formBuilder.group({
             experience: this.formBuilder.array([
                 this.addMutipleExper(),
             ]),
+        });
+
+        this.edu = this.formBuilder.group({
             education: this.formBuilder.array([
                 this.addMutipleEducation(),
             ]),
@@ -87,12 +91,12 @@ export class Profile implements OnInit {
 
     //#region Adding Multiple Experience, Education and Skills
     addExperience() {
-        const control = <FormArray>this.expedu.controls['experience'];
+        const control = <FormArray>this.exp.controls['experience'];
         control.push(this.addMutipleExper());
     }
 
     addEducation() {
-        const control = <FormArray>this.expedu.controls['education'];
+        const control = <FormArray>this.edu.controls['education'];
         control.push(this.addMutipleEducation());
     }
 
@@ -105,12 +109,12 @@ export class Profile implements OnInit {
 
     //#region Removing Multiple Experience, Education and Skills
     removeExperience(i: number) {
-        const control = <FormArray>this.expedu.controls['experience'];
+        const control = <FormArray>this.exp.controls['experience'];
         control.removeAt(i);
     }
 
     removeEducation(j: number) {
-        const control = <FormArray>this.expedu.controls['education'];
+        const control = <FormArray>this.edu.controls['education'];
         control.removeAt(j);
     }
 
@@ -132,27 +136,31 @@ export class Profile implements OnInit {
     //#region Submitting Experience and Education Form
     expEdu() { }
 
-    submit_expEdu(expEdu) {
+    submit_expEdu(expEdu, submitted) {
         //console.log(expEdu.value);
         this.storage.get('reg_id').then((val) => {
-            var data = { "user_id": val, "expedu": expEdu.value};
-            console.log(data);
-            this.headers.append('content-type', 'application/json');
-            this.headers.append('Access-Control-Allow-Origin', '*');
-            this.headers.append('Access-Control-Allow-Headers', '*');
-            this.http.post(this.url.expedu_form_url, data, { headers: this.headers }).toPromise().then((res) => {
-                var user = res.json();
-                if (user.message == 'OK') {
-                    this.toast.showToast('Submitted your Experience and Education.', 3000, 'bottom');
-                    this.navCtrl.push(TabsPage);
-                } else {
-                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                }
-            },
-                (err) => {
-                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                }
-            );
+            if (val != null) {
+                var data = { "user_id": val, "expedu": expEdu.value };
+                //console.log(data);
+                this.headers.append('content-type', 'application/json');
+                this.headers.append('Access-Control-Allow-Origin', '*');
+                this.headers.append('Access-Control-Allow-Headers', '*');
+                this.http.post(this.url.expedu_form_url, data, { headers: this.headers }).toPromise().then((res) => {
+                    var user = res.json();
+                    if (user.message == 'OK') {
+                        this.toast.showToast('Submitted your ' + submitted + ' Details.', 3000, 'bottom');
+                        this.navCtrl.push(TabsPage);
+                    } else {
+                        this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                    }
+                },
+                    (err) => {
+                        this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                    }
+                );
+            } else {
+                this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
+            }
         }).catch(function (err) {
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
@@ -165,24 +173,28 @@ export class Profile implements OnInit {
     submit_skills(skills) {
         //console.log(skills.value.skill);
         this.storage.get('reg_id').then((val) => {
-            var data = { "user_id": val, "skills": skills.value.skill };
-            console.log(data);
-            this.headers.append('content-type', 'application/json');
-            this.headers.append('Access-Control-Allow-Origin', '*');
-            this.headers.append('Access-Control-Allow-Headers', '*');
-            this.http.post(this.url.skills_form_url, data, { headers: this.headers }).toPromise().then((res) => {
-                var user = res.json();
-                if (user.message == 'OK') {
-                    this.toast.showToast('Submitted your skills', 3000, 'bottom');
-                    this.navCtrl.push(TabsPage);
-                } else {
-                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                }
-            },
-                (err) => {
-                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                }
-            );
+            if (val != null) {
+                var data = { "user_id": val, "skills": skills.value.skill };
+                //console.log(data);
+                this.headers.append('content-type', 'application/json');
+                this.headers.append('Access-Control-Allow-Origin', '*');
+                this.headers.append('Access-Control-Allow-Headers', '*');
+                this.http.post(this.url.skills_form_url, data, { headers: this.headers }).toPromise().then((res) => {
+                    var user = res.json();
+                    if (user.message == 'OK') {
+                        this.toast.showToast('Submitted your skills', 3000, 'bottom');
+                        this.navCtrl.push(TabsPage);
+                    } else {
+                        this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                    }
+                },
+                    (err) => {
+                        this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                    }
+                );
+            } else {
+                this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
+            }
         }).catch(function (err) {
             console.log(err);
         });

@@ -28,20 +28,20 @@
         <button ion-button center type="submit" [disabled]="!profile.valid">Submit</button>
     </form>
 
-    <form [formGroup]="expedu" (ngSubmit)="expEdu()" *ngIf="viewEdit == 'Experience And Education'">
+    <form [formGroup]="exp" (ngSubmit)="expEdu()" *ngIf="viewEdit == 'Experience'">
         <div formArrayName="experience">
-            <div *ngFor="let experience of expedu.controls.experience.controls; let i=index">
+            <div *ngFor="let experience of exp.controls.experience.controls; let i=index">
                 <ion-item>
                     <ion-label title="Experience" color="secondary">Experience
-                        <span *ngIf="expedu.controls.experience.controls.length > 1">{{i+1}}</span>
-                        <ion-icon name="remove-circle" *ngIf="expedu.controls.experience.controls.length > 1" (click)="removeExperience(i)" float-right></ion-icon>
+                        <span *ngIf="exp.controls.experience.controls.length > 1">{{i+1}}</span>
+                        <ion-icon name="remove-circle" *ngIf="exp.controls.experience.controls.length > 1" (click)="removeExperience(i)" float-right></ion-icon>
                     </ion-label>
                 </ion-item>
                 <div [formGroupName]="i">
                     <ion-item>
                         <ion-input type="text" formControlName="company" placeholder="Company"></ion-input>
                     </ion-item>
-                    <small [hidden]="expedu.controls.experience.controls[i].controls.company.valid" class="text-danger">
+                    <small [hidden]="exp.controls.experience.controls[i].controls.company.valid" class="text-danger">
                         Maximum characters allowed are 50.
                     </small>
                     <ion-item>
@@ -58,19 +58,23 @@
             </div>
             <button (click)="addExperience()" ion-button clear>Add More Experience</button>
         </div>
+        <button ion-button type="submit" (click)="submit_expEdu(exp, 'Experience')" [disabled]="!exp.valid">Submit</button>
+    </form>
+
+    <form [formGroup]="edu" (ngSubmit)="expEdu()" *ngIf="viewEdit == 'Education'">
         <div formArrayName="education">
-            <div *ngFor="let education of expedu.controls.education.controls; let j=index">
+            <div *ngFor="let education of edu.controls.education.controls; let j=index">
                 <ion-item>
                     <ion-label title="Education" color="secondary">Education
-                        <span *ngIf="expedu.controls.education.controls.length > 1">{{j+1}}</span>
-                        <ion-icon name="remove-circle" *ngIf="expedu.controls.education.controls.length > 1" (click)="removeEducation(j)" float-right></ion-icon>
+                        <span *ngIf="edu.controls.education.controls.length > 1">{{j+1}}</span>
+                        <ion-icon name="remove-circle" *ngIf="edu.controls.education.controls.length > 1" (click)="removeEducation(j)" float-right></ion-icon>
                     </ion-label>
                 </ion-item>
                 <div [formGroupName]="j">
                     <ion-item>
                         <ion-input type="text" formControlName="university" placeholder="University/ College/ School"></ion-input>
                     </ion-item>
-                    <small [hidden]="expedu.controls.education.controls[j].controls.university.valid" class="text-danger">
+                    <small [hidden]="edu.controls.education.controls[j].controls.university.valid" class="text-danger">
                         Maximum characters allowed are 50.
                     </small>
                     <ion-item>
@@ -79,14 +83,14 @@
                     <ion-item>
                         <ion-input type="number" formControlName="percentage" placeholder="Percentage"></ion-input>
                     </ion-item>
-                    <small [hidden]="expedu.controls.education.controls[j].controls.percentage.valid" class="text-danger">
+                    <small [hidden]="edu.controls.education.controls[j].controls.percentage.valid" class="text-danger">
                         Maximum characters allowed are 2.
                     </small>
                 </div>
             </div>
             <button (click)="addEducation()" ion-button clear>Add More Education Details</button>
         </div>
-        <button ion-button type="submit" (click)="submit_expEdu(expedu)" [disabled]="!expedu.valid">Submit</button>
+        <button ion-button type="submit" (click)="submit_expEdu(edu, 'Education')" [disabled]="!edu.valid">Submit</button>
     </form>
 
     <form [formGroup]="skills" (ngSubmit)="skillsEndo()" *ngIf="viewEdit == 'Featured Skills'">
@@ -99,7 +103,8 @@
                                 <ion-input type="text" formControlName="fskills" placeholder="Skills"></ion-input>
                             </ion-col>
                             <ion-col col-2>
-                                <ion-icon class="skills" name="remove-circle" *ngIf="skills.controls.skill.controls.length > 1" (click)="removeSkills(k)" float-right></ion-icon>
+                                <ion-icon class="skills" name="remove-circle" *ngIf="skills.controls.skill.controls.length > 1" (click)="removeSkills(k)"
+                                    float-right></ion-icon>
                             </ion-col>
                         </ion-row>
                         <small [hidden]="skills.controls.skill.controls[k].controls.fskills.valid" class="text-danger">
