@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
@@ -27,7 +27,7 @@ export class HomePage implements OnInit {
     viewmore_skill = false;
     rb_id;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert) {
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController) {
 
     }
 
@@ -47,7 +47,7 @@ export class HomePage implements OnInit {
                 this.navCtrl.popToRoot();
             }
         }).catch(function (err) {
-            console.log(err);
+            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
     }
 
@@ -65,43 +65,54 @@ export class HomePage implements OnInit {
                 //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
             } else {
                 this.toast.showToast('Your Session has expried!!!', 3000, 'bottom');
-                console.log('Something went worng', res.json());
+                //console.log('Something went worng', res.json());
             }
         },
-            (err) => { console.log(err); }
+            (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
         );
     }
 
     expedu(p) {
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         this.http.get(this.url.expedu_data_url + p, { headers: this.headers }).toPromise().then((res) => {
             var ee = res.json();
             if (ee.message == 'OK') {
                 this.expedu_data = ee;
                 //console.log(this.expedu_data);
                 //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
+            } else {
+                this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
             }
-            // else {
-            //     this.toast.showToast('Your Session has expried!!!', 3000, 'bottom');
-            // }
         },
-            (err) => { console.log(err); }
+            (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
         );
+        loader.dismiss();//Loading dismiss
     }
 
     skills(p) {
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         this.http.get(this.url.skills_data_url + p, { headers: this.headers }).toPromise().then((res) => {
             var sk = res.json();
             if (sk.message == 'OK') {
                 this.skills_data = sk;
                 //console.log(this.skills_data);
-                //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
+            } else {
+                this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
             }
-            // else {
-            //     this.toast.showToast('Your Session has expried!!!', 3000, 'bottom');
-            // }
         },
-            (err) => { console.log(err); }
+            (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
         );
+        loader.dismiss();//Loading dismiss
     }
 
     presentModal(opt) {
@@ -125,6 +136,12 @@ export class HomePage implements OnInit {
     }
 
     delete(id, name, delete_data) {
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         if (delete_data == 'exp') {
         } else if (delete_data == 'edu') {
         } else {
@@ -151,6 +168,7 @@ export class HomePage implements OnInit {
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             });
         }
+        loader.dismiss(); //Loading dismiss
     }
 
     logout() {

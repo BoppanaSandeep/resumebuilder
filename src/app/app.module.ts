@@ -8,6 +8,8 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ConfirmationAlerts } from '../pages/shared/alert';
 import { ToastAlert } from '../pages/shared/toast';
 import { UserVariables } from '../pages/shared/global_values';
+import { Loading } from '../pages/shared/loading';
+
 import { MyApp } from './app.component';
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
@@ -55,6 +57,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         UserVariables,
         ToastAlert,
         ConfirmationAlerts,
+        Loading,
         { provide: ErrorHandler, useClass: IonicErrorHandler }
     ]
 })

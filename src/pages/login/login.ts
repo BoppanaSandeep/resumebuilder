@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { TabsPage } from '../tabs/tabs';
 //import { HomePage } from '../home/home';
@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
     public headers = new Headers();
     public url = new Urls();
 
-    constructor(public navCtrl: NavController, public http: Http, private formBuilder: FormBuilder, public navParams: NavParams, private storage: Storage, public UserVariables: UserVariables, public toast: ToastAlert, public alerts: ConfirmationAlerts) {
+    constructor(public navCtrl: NavController, public http: Http, private formBuilder: FormBuilder, public navParams: NavParams, private storage: Storage, public UserVariables: UserVariables, public toast: ToastAlert, public alerts: ConfirmationAlerts, public loading: LoadingController) {
         this.loginForm = this.formBuilder.group({
             username: ['', Validators.required],
             password: ['', Validators.required],
@@ -37,6 +37,12 @@ export class LoginPage implements OnInit {
     login(action) {
 
         if (action == 'login') {
+            //Loading
+            let loader = this.loading.create({
+                content: "Please wait...",
+                duration: 2000
+            });
+            loader.present();
             this.headers.append('content-type', 'application/json');
             this.headers.append('Access-Control-Allow-Origin', '*');
             this.headers.append('Access-Control-Allow-Headers', '*');
@@ -50,7 +56,7 @@ export class LoginPage implements OnInit {
                     this.UserVariables.phonenumber = user.info.phonenumber;
                     this.UserVariables.joined_on = user.info.joined_on;
                     this.UserVariables.logged_in = user.info.logged_in;
-                    
+
                     this.storage.set('reg_id', user.info.reg_id);
                     this.storage.set('rb_id', user.info.rb_id);
                     this.storage.set('pagename', 'TabsPage');
@@ -64,14 +70,24 @@ export class LoginPage implements OnInit {
             },
                 (err) => {
                     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                    //console.log(err); 
+                    //console.log(err);
                 }
             );
             //console.log(this.loginForm.value);
+            loader.dismiss();//Loading dismiss
         } else if (action == 'register') {
-            this.navCtrl.push(RegisterPage);
+            let loader = this.loading.create({
+                content: "Please wait...",
+                duration: 2000
+            });
+            loader.present();
+
+                this.navCtrl.push(RegisterPage);
+
+            loader.dismiss();//Loading dismiss
         } else {
             this.alerts.presentPrompt('Forgot Password', 'Enter your registered Email Id', 'email', 'Email', 'Cancel', 'Submit');
         }
+
     }
 }

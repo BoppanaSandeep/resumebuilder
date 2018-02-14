@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
+
+import { ToastAlert } from '../shared/toast';
+
 import { LoginPage } from '../login/login';
 import { Http, Headers } from '@angular/http';
 import { Urls } from '../shared/urls';
@@ -16,7 +19,7 @@ export class RegisterPage implements OnInit {
     public registerForm: FormGroup;
     year;
 
-    constructor(public navCtrl: NavController, private formBuilder: FormBuilder, public navParams: NavParams, public http: Http) {
+    constructor(public navCtrl: NavController, private formBuilder: FormBuilder, public navParams: NavParams, public http: Http, public toast: ToastAlert, public loading: LoadingController) {
         this.registerForm = this.formBuilder.group({
             name_first: ['', [Validators.required, Validators.maxLength(50)]],
             name_last: ['', [Validators.required, Validators.maxLength(50)]],
@@ -29,12 +32,18 @@ export class RegisterPage implements OnInit {
         });
     }
 
-    ngOnInit(){
+    ngOnInit() {
         var d = new Date();
-        this.year=(d.getFullYear() - 17).toString();
+        this.year = (d.getFullYear() - 17).toString();
     }
 
     register(action) {
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         if (action == 'register') {
             var headers = new Headers();
             headers.append('content-type', 'application/json');
@@ -45,14 +54,15 @@ export class RegisterPage implements OnInit {
                 if (status.message == 'OK') {
                     this.navCtrl.push(LoginPage);
                 } else {
-                    console.log('Something went worng', res.json());
+                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                 }
             },
-                (err) => { console.log(err); }
+                (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
             );
-            console.log(this.registerForm.value);
+            //console.log(this.registerForm.value);
         } else {
             this.navCtrl.push(LoginPage);
         }
+        loader.dismiss();//Loading dismiss
     }
 }

@@ -92,7 +92,7 @@ export class ConfirmationAlerts {
             },
                 (err) => {
                     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                    //console.log(err); 
+                    //console.log(err);
                 }
             );
         } else {

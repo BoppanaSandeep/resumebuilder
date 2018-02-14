@@ -1,43 +1,36 @@
 page-home {
-    ion-content{
+    ion-content {
         background-color: #4786b9 !important;
     }
-
     .card-header-md {
         font-size: 1.5em;
     }
-
-    .card{
+    .card {
         border-radius: 6px;
     }
-
     ion-card img {
         width: 150px !important;
         margin-left: 30%;
     }
-
     .card-title-md {
         font-size: 1.8rem;
     }
-
-    .toolbar-title-md{
-        font-size:17px !important;
+    .toolbar-title-md {
+        font-size: 17px !important;
     }
-
-    ion-icon{
+    ion-icon {
         font-size: 25px;
         font-weight: 500;
     }
-
-    ion-icon[name="add"],ion-icon[name="add-circle"] {
+    ion-icon[name="add"],
+    ion-icon[name="add-circle"] {
         float: right;
         padding: 10px;
         font-size: 30px;
         color: #32db64;
         font-weight: bolder;
     }
-
-    ion-icon[name="power"]{
+    ion-icon[name="power"] {
         font-size: 30px;
         margin-right: 2%;
         color: red;
@@ -45,13 +38,15 @@ page-home {
         top: 20%;
         left: 91%;
     }
-
-    ion-icon[name="briefcase"], ion-icon[name="school"], ion-icon[name="checkmark-circle"]{
+    ion-icon[name="briefcase"],
+    ion-icon[name="school"],
+    ion-icon[name="checkmark-circle"] {
         font-size: 2.6em;
     }
-
     .scroll-content {
         padding: 2px !important;
     }
-    
+    ion-badge {
+        font-size: 16px;
+    }
 }

@@ -99,17 +99,30 @@
                 <div [formGroupName]="k">
                     <ion-grid>
                         <ion-row>
+                            <ion-col col-12>
+
+                                <ion-select formControlName="fskills" placeholder="Skills">
+                                    <div *ngFor="let tech of skill_options; let m=index">
+                                        <ion-option>{{tech.tech_name}}</ion-option>
+                                    </div>
+                                </ion-select>
+
+                            </ion-col>
                             <ion-col col-10>
-                                <ion-input type="text" formControlName="fskills" placeholder="Skills"></ion-input>
+
+                                <ion-select formControlName="rating" placeholder="Rating">
+                                    <ion-option>1</ion-option>
+                                    <ion-option>2</ion-option>
+                                    <ion-option>3</ion-option>
+                                    <ion-option>4</ion-option>
+                                    <ion-option>5</ion-option>
+                                </ion-select>
+
                             </ion-col>
                             <ion-col col-2>
-                                <ion-icon class="skills" name="remove-circle" *ngIf="skills.controls.skill.controls.length > 1" (click)="removeSkills(k)"
-                                    float-right></ion-icon>
+                                <ion-icon class="skills" name="remove-circle" *ngIf="skills.controls.skill.controls.length > 1" (click)="removeSkills(k)" float-right></ion-icon>
                             </ion-col>
                         </ion-row>
-                        <small [hidden]="skills.controls.skill.controls[k].controls.fskills.valid" class="text-danger">
-                            Maximum characters allowed are 50.
-                        </small>
                     </ion-grid>
                 </div>
             </div>

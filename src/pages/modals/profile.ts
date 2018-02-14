@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { NavController, ViewController, NavParams } from 'ionic-angular';
+import { NavController, ViewController, NavParams, LoadingController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { Storage } from '@ionic/storage';
 
@@ -25,10 +25,11 @@ export class Profile implements OnInit {
     public headers = new Headers();
     public url = new Urls();
     user_id;
+    skill_options;
     //#endregion
 
     //#region Constructor
-    constructor(public navCtrl: NavController, public http: Http, public viewCtrl: ViewController, private formBuilder: FormBuilder, public navParams: NavParams, public storage: Storage, public toast: ToastAlert) {
+    constructor(public navCtrl: NavController, public http: Http, public viewCtrl: ViewController, private formBuilder: FormBuilder, public navParams: NavParams, public storage: Storage, public toast: ToastAlert, public loading: LoadingController) {
         //var viewEdit = this.navParams.get('edit');
 
         this.profile = this.formBuilder.group({
@@ -61,6 +62,9 @@ export class Profile implements OnInit {
     ngOnInit() {
         this.viewEdit = this.navParams.get('edit');
         //console.log(this.viewEdit);
+        if(this.viewEdit == 'Featured Skills'){
+            this.SkillOptions();
+        }
     }
     //#endregion
 
@@ -84,7 +88,8 @@ export class Profile implements OnInit {
 
     addMutipleSkills() {
         return this.formBuilder.group({
-            fskills: ['', [Validators.required, Validators.maxLength(50)]],
+            fskills: ['', [Validators.required]],
+            rating: ['', [Validators.required]]
         });
     }
     //#endregion
@@ -129,6 +134,32 @@ export class Profile implements OnInit {
         this.viewCtrl.dismiss();
     }
 
+    SkillOptions() {
+        this.storage.get('reg_id').then((val) => {
+            if (val != null) {
+                this.headers.append('content-type', 'application/json');
+                this.headers.append('Access-Control-Allow-Origin', '*');
+                this.headers.append('Access-Control-Allow-Headers', '*');
+                this.http.get(this.url.skills_options_fetching_url + val, { headers: this.headers }).toPromise().then((res) => {
+                    var sko = res.json();
+                    if (sko.message == 'OK') {
+                        this.skill_options = sko.skilloptions;
+                        //console.log(this.skill_options);
+                        //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
+                    } else {
+                        //this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
+                    }
+                },
+                    (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
+                );
+            } else {
+                this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
+            }
+        }).catch(function (err) {
+            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+        });
+    }
+
     profileInfo() {
         console.log(this.profile.value);
     }
@@ -138,6 +169,12 @@ export class Profile implements OnInit {
 
     submit_expEdu(expEdu, submitted) {
         //console.log(expEdu.value);
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         this.storage.get('reg_id').then((val) => {
             if (val != null) {
                 var data = { "user_id": val, "expedu": expEdu.value };
@@ -164,6 +201,7 @@ export class Profile implements OnInit {
         }).catch(function (err) {
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
+        loader.dismiss();
     }
     //#endregion
 
@@ -171,6 +209,12 @@ export class Profile implements OnInit {
     skillsEndo() { }
 
     submit_skills(skills) {
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         //console.log(skills.value.skill);
         this.storage.get('reg_id').then((val) => {
             if (val != null) {
@@ -198,6 +242,7 @@ export class Profile implements OnInit {
         }).catch(function (err) {
             console.log(err);
         });
+        loader.dismiss();
     }
     //#endregion
 }

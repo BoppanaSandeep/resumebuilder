@@ -110,10 +110,15 @@
                 </div>
             </div>
             <ng-template #exp>
-                <button ion-item>
-                    <ion-icon name="briefcase" item-start></ion-icon>
-                    {{expedu_data?.info?.experience}}
-                </button>
+                <ion-item-sliding>
+                    <ion-item>
+                        <ion-avatar item-start>
+                            <!-- <img src="../../../screen.png"> -->
+                            <ion-icon name="briefcase"></ion-icon>
+                        </ion-avatar>
+                        <h2>{{expedu_data?.info?.experience}}</h2>
+                    </ion-item>
+                </ion-item-sliding>
             </ng-template>
         </ion-list>
         <ion-icon name="add" (click)="presentModal('Education')"></ion-icon>
@@ -219,7 +224,7 @@
                                 <ion-icon name="checkmark-circle"></ion-icon>
                             </ion-avatar>
                             <h2>{{data.skill_name}}</h2>
-                            <p>{{data.skill_rating}}/ 5</p>
+                            <ion-badge item-end color="">{{data.skill_rating}}/ 5</ion-badge>
                         </ion-item>
                         <ion-item-options side="left">
                             <button ion-button color="danger" (click)="delete(data.skill_id, data.skill_name, 'skill')">
@@ -236,7 +241,7 @@
                                     <ion-icon name="checkmark-circle"></ion-icon>
                                 </ion-avatar>
                                 <h2>{{data.skill_name}}</h2>
-                                <p>{{data.skill_rating}}/ 5</p>
+                                <ion-badge item-end color="">{{data.skill_rating}}/ 5</ion-badge>
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(data.skill_id, data.skill_name, 'skill')">
