@@ -9,4 +9,6 @@ export class Urls {
     public expedu_data_url = "http://localhost/resumebuilder/rb/expedu_data/";
     public skills_delete_data_url = "http://localhost/resumebuilder/rb/skill_delete_data";
     public skills_options_fetching_url = "http://localhost/resumebuilder/rb/itskilloptions/";
+    public exp_delete_data_url = "http://localhost/resumebuilder/rb/exp_delete_data"
+    public edu_delete_data_url = "http://localhost/resumebuilder/rb/edu_delete_data"
 }

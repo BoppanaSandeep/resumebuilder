@@ -35,14 +35,13 @@ export class LoginPage implements OnInit {
     ngOnInit() { }
 
     login(action) {
-
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         if (action == 'login') {
-            //Loading
-            let loader = this.loading.create({
-                content: "Please wait...",
-                duration: 2000
-            });
-            loader.present();
             this.headers.append('content-type', 'application/json');
             this.headers.append('Access-Control-Allow-Origin', '*');
             this.headers.append('Access-Control-Allow-Headers', '*');
@@ -65,29 +64,21 @@ export class LoginPage implements OnInit {
                     this.navCtrl.push(TabsPage);
                 } else {
                     this.toast.showToast('Username and Password are Wrong!!!', 3000, 'bottom');
-                    console.log('Something went worng', res.json());
                 }
+                loader.dismiss();//Loading dismiss
             },
                 (err) => {
+                    loader.dismiss();//Loading dismiss
                     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     //console.log(err);
                 }
             );
             //console.log(this.loginForm.value);
-            loader.dismiss();//Loading dismiss
         } else if (action == 'register') {
-            let loader = this.loading.create({
-                content: "Please wait...",
-                duration: 2000
-            });
-            loader.present();
-
-                this.navCtrl.push(RegisterPage);
-
-            loader.dismiss();//Loading dismiss
+            this.navCtrl.push(RegisterPage);
         } else {
+            loader.dismiss();//Loading dismiss
             this.alerts.presentPrompt('Forgot Password', 'Enter your registered Email Id', 'email', 'Email', 'Cancel', 'Submit');
         }
-
     }
 }

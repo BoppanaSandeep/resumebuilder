@@ -12,22 +12,6 @@
 </ion-header>
 
 <ion-content>
-    <form [formGroup]="profile" (ngSubmit)="profileInfo()" *ngIf="viewEdit == 'Profile Name'">
-        <ion-item>
-            <ion-input type="text" formControlName="role" placeholder="Role"></ion-input>
-        </ion-item>
-        <small [hidden]="profile.controls.role.valid" class="text-danger">
-            Maximum characters allowed are 50.
-        </small>
-        <ion-item>
-            <ion-textarea formControlName="description" placeholder="Description"></ion-textarea>
-        </ion-item>
-        <small [hidden]="profile.controls.description.valid" class="text-danger">
-            Maximum characters allowed are 500.
-        </small>
-        <button ion-button center type="submit" [disabled]="!profile.valid">Submit</button>
-    </form>
-
     <form [formGroup]="exp" (ngSubmit)="expEdu()" *ngIf="viewEdit == 'Experience'">
         <div formArrayName="experience">
             <div *ngFor="let experience of exp.controls.experience.controls; let i=index">
@@ -39,11 +23,17 @@
                 </ion-item>
                 <div [formGroupName]="i">
                     <ion-item>
-                        <ion-input type="text" formControlName="company" placeholder="Company"></ion-input>
+                        <ion-input type="text" formControlName="company" placeholder="Company Name"></ion-input>
                     </ion-item>
                     <small [hidden]="exp.controls.experience.controls[i].controls.company.valid" class="text-danger">
                         Maximum characters allowed are 50.
                     </small>
+                    <ion-item>
+                        <ion-input type="text" formControlName="role" placeholder="Desgination"></ion-input>
+                    </ion-item>
+                    <ion-item>
+                        <ion-textarea formControlName="job_desc" placeholder="Description"></ion-textarea>
+                    </ion-item>
                     <ion-item>
                         <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="startyear" placeholder="Working From (DD MMM YYYY)"></ion-datetime>
                     </ion-item>

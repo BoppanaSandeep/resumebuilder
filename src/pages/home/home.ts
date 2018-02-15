@@ -88,10 +88,13 @@ export class HomePage implements OnInit {
             } else {
                 this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
             }
+            loader.dismiss();//Loading dismiss
         },
-            (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
+            (err) => {
+                loader.dismiss();//Loading dismiss
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            }
         );
-        loader.dismiss();//Loading dismiss
     }
 
     skills(p) {
@@ -109,10 +112,13 @@ export class HomePage implements OnInit {
             } else {
                 this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
             }
+            loader.dismiss();//Loading dismiss
         },
-            (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
+            (err) => {
+                loader.dismiss();//Loading dismiss
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            }
         );
-        loader.dismiss();//Loading dismiss
     }
 
     presentModal(opt) {
@@ -139,11 +145,62 @@ export class HomePage implements OnInit {
         //Loading
         let loader = this.loading.create({
             content: "Please wait...",
-            duration: 2000
         });
         loader.present();
         if (delete_data == 'exp') {
+            this.storage.get('reg_id').then((val) => {
+                if (val != null) {
+                    var data = { "rb_id": this.rb_id, "user_id": val, exp_id: id }
+                    this.http.post(this.url.exp_delete_data_url, data, { headers: this.headers }).toPromise().then((res) => {
+                        var user = res.json();
+                        if (user.message == 'OK') {
+                            this.expedu(this.rb_id);
+                            this.toast.showToast('One of your Experience was deleted.', 3000, 'bottom');
+                        } else {
+                            this.toast.showToast('Something went Wrong to delete your Experience !!!', 3000, 'bottom');
+                        }
+                        loader.dismiss(); //Loading dismiss
+                    },
+                        (err) => {
+                            loader.dismiss(); //Loading dismiss
+                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                        }
+                    );
+                } else {
+                    loader.dismiss(); //Loading dismiss
+                    this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
+                }
+            }).catch(function (err) {
+                loader.dismiss(); //Loading dismiss
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            });
         } else if (delete_data == 'edu') {
+            this.storage.get('reg_id').then((val) => {
+                if (val != null) {
+                    var data = { "rb_id": this.rb_id, "user_id": val, edu_id: id }
+                    this.http.post(this.url.edu_delete_data_url, data, { headers: this.headers }).toPromise().then((res) => {
+                        var user = res.json();
+                        if (user.message == 'OK') {
+                            this.expedu(this.rb_id);
+                            this.toast.showToast('One of your Education was deleted.', 3000, 'bottom');
+                        } else {
+                            this.toast.showToast('Something went Wrong to delete your Education !!!', 3000, 'bottom');
+                        }
+                        loader.dismiss(); //Loading dismiss
+                    },
+                        (err) => {
+                            loader.dismiss(); //Loading dismiss
+                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                        }
+                    );
+                } else {
+                    loader.dismiss(); //Loading dismiss
+                    this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
+                }
+            }).catch(function (err) {
+                loader.dismiss(); //Loading dismiss
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            });
         } else {
             this.storage.get('reg_id').then((val) => {
                 if (val != null) {
@@ -156,19 +213,22 @@ export class HomePage implements OnInit {
                         } else {
                             this.toast.showToast('Something went Wrong to delete your skill !!!', 3000, 'bottom');
                         }
+                        loader.dismiss(); //Loading dismiss
                     },
                         (err) => {
+                            loader.dismiss(); //Loading dismiss
                             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                         }
                     );
                 } else {
+                    loader.dismiss(); //Loading dismiss
                     this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
                 }
             }).catch(function (err) {
+                loader.dismiss(); //Loading dismiss
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             });
         }
-        loader.dismiss(); //Loading dismiss
     }
 
     logout() {

@@ -47,22 +47,28 @@ export class RegisterPage implements OnInit {
         if (action == 'register') {
             var headers = new Headers();
             headers.append('content-type', 'application/json');
+            headers.append('Access-Control-Allow-Origin', '*');
+            headers.append('Access-Control-Allow-Headers', '*');
             var url = new Urls();
             this.http.post(url.registration_url, this.registerForm.value, { headers: headers }).toPromise().then((res) => {
-                console.log(res.status, res.json());
+                //console.log(res.status, res.json());
                 var status = res.json();
                 if (status.message == 'OK') {
                     this.navCtrl.push(LoginPage);
                 } else {
                     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                 }
+                loader.dismiss();//Loading dismiss
             },
-                (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
+                (err) => {
+                    loader.dismiss();//Loading dismiss
+                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                }
             );
             //console.log(this.registerForm.value);
         } else {
+            loader.dismiss();//Loading dismiss
             this.navCtrl.push(LoginPage);
         }
-        loader.dismiss();//Loading dismiss
     }
 }

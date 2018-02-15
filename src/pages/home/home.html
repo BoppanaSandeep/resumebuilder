@@ -5,29 +5,19 @@
     </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-    <ion-card>
-        <ion-icon name="add" (click)="presentModal('Profile Name')"></ion-icon>
-        <ion-grid>
-            <ion-row>
-                <ion-col col-12 col-sm-12 col-md-4>
-                    <img src="" width="150" height="150" />
-                    <!--http://localhost/resumebuilder/dairy-farm-cow-logo-.jfif -->
-                </ion-col>
-                <ion-col col-12 col-sm-12 col-md-8>
-                    <ion-card-content text-center>
-                        <ion-card-title>
-                            {{UserVariables?.name}}
-                        </ion-card-title>
-                        <p>
-                            Role
-                        </p>
-                    </ion-card-content>
-                </ion-col>
-            </ion-row>
-        </ion-grid>
+<ion-content>
+    <ion-card class="profile">
+        <img src="http://localhost/resumebuilder/screen.png" />
+        <ion-card-content>
+            <ion-card-title>
+                {{UserVariables?.name}}
+            </ion-card-title>
+            <span>
+                Role
+            </span>
+        </ion-card-content>
     </ion-card>
-    <ion-card>
+    <ion-card class="expedu">
         <ion-icon name="add" (click)="presentModal('Experience')"></ion-icon>
         <ion-card-header>
             Experience
@@ -42,6 +32,7 @@
                                 <ion-icon name="briefcase"></ion-icon>
                             </ion-avatar>
                             <h2>{{expdata.exp_company}}</h2>
+                            <p>Desgination: {{expdata.exp_role}}</p>
                             <p>From: {{expdata.exp_working_from}}</p>
                             <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here...</p>
                             <ng-template #work>
@@ -49,17 +40,17 @@
                             </ng-template>
                         </ion-item>
                         <ion-item-options side="left">
-                            <button ion-button>
-                                <ion-icon name="information-circle"></ion-icon>
-                                More
+                            <button ion-button color="danger" (click)="delete(expdata.exp_id, expdata.exp_company, 'exp')">
+                                <ion-icon name="close"></ion-icon>
+                                Delete
                             </button>
                             <button ion-button color="secondary">
                                 <ion-icon name="create"></ion-icon>
                                 Edit
                             </button>
-                            <button ion-button color="danger">
-                                <ion-icon name="close"></ion-icon>
-                                Delete
+                            <button ion-button>
+                                <ion-icon name="information-circle"></ion-icon>
+                                More
                             </button>
                         </ion-item-options>
                     </ion-item-sliding>
@@ -71,6 +62,7 @@
                                     <ion-icon name="briefcase"></ion-icon>
                                 </ion-avatar>
                                 <h2>{{expdata.exp_company}}</h2>
+                                <p>Desgination: {{expdata.exp_role}}</p>
                                 <p>From: {{expdata.exp_working_from}}</p>
                                 <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here..</p>
                                 <ng-template #work>
@@ -78,17 +70,17 @@
                                 </ng-template>
                             </ion-item>
                             <ion-item-options side="left">
-                                <button ion-button>
-                                    <ion-icon name="information-circle"></ion-icon>
-                                    More
+                                <button ion-button color="danger" (click)="delete(expdata.exp_id, expdata.exp_company, 'exp')">
+                                    <ion-icon name="close"></ion-icon>
+                                    Delete
                                 </button>
                                 <button ion-button color="secondary">
                                     <ion-icon name="create"></ion-icon>
                                     Edit
                                 </button>
-                                <button ion-button color="danger">
-                                    <ion-icon name="close"></ion-icon>
-                                    Delete
+                                <button ion-button>
+                                    <ion-icon name="information-circle"></ion-icon>
+                                    More
                                 </button>
                             </ion-item-options>
                         </ion-item-sliding>
@@ -139,17 +131,17 @@
                             <p>{{edudata.edu_passoutyear}} Passed Out</p>
                         </ion-item>
                         <ion-item-options side="left">
-                            <button ion-button>
-                                <ion-icon name="information-circle"></ion-icon>
-                                More
+                            <button ion-button color="danger" (click)="delete(edudata.edu_id, edudata.edu_university_clg_sch, 'edu')">
+                                <ion-icon name="close"></ion-icon>
+                                Delete
                             </button>
                             <button ion-button color="secondary">
                                 <ion-icon name="create"></ion-icon>
                                 Edit
                             </button>
-                            <button ion-button color="danger">
-                                <ion-icon name="close"></ion-icon>
-                                Delete
+                            <button ion-button>
+                                <ion-icon name="information-circle"></ion-icon>
+                                More
                             </button>
                         </ion-item-options>
                     </ion-item-sliding>
@@ -165,17 +157,17 @@
                                 <p>{{edudata.edu_passoutyear}} Passed Out</p>
                             </ion-item>
                             <ion-item-options side="left">
-                                <button ion-button>
-                                    <ion-icon name="information-circle"></ion-icon>
-                                    More
+                                <button ion-button color="danger" (click)="delete(edudata.edu_id, edudata.edu_university_clg_sch, 'edu')">
+                                    <ion-icon name="close"></ion-icon>
+                                    Delete
                                 </button>
                                 <button ion-button color="secondary">
                                     <ion-icon name="create"></ion-icon>
                                     Edit
                                 </button>
-                                <button ion-button color="danger">
-                                    <ion-icon name="close"></ion-icon>
-                                    Delete
+                                <button ion-button>
+                                    <ion-icon name="information-circle"></ion-icon>
+                                    More
                                 </button>
                             </ion-item-options>
                         </ion-item-sliding>
@@ -209,7 +201,7 @@
             </ng-template>
         </ion-list>
     </ion-card>
-    <ion-card>
+    <ion-card class="skills">
         <ion-icon name="add" (click)="presentModal('Featured Skills')"></ion-icon>
         <ion-card-header>
             Featured Skills

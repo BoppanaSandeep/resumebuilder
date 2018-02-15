@@ -2,21 +2,30 @@ page-home {
     ion-content {
         background-color: #4786b9 !important;
     }
-    .card-header-md {
-        font-size: 1.5em;
+    ion-card-header {
+        font-size: 1.5em !important;
     }
-    .card {
-        border-radius: 6px;
+    ion-card {
+        border-radius: 5px !important;
+    }
+    .profile {
+        padding: 5px 0px 0px 0px;
+        background: transparentize($color: rgba(243, 205, 166, 0.918), $amount: 0) !important;
     }
     ion-card img {
-        width: 150px !important;
-        margin-left: 30%;
+        width: 200px;
+        height: 200px;
+        background-size: cover;
+        display: block;
+        border-radius: 100px;
+        margin: 0 auto;
+        -webkit-border-radius: 100px;
+        -moz-border-radius: 100px;
     }
-    .card-title-md {
-        font-size: 1.8rem;
-    }
-    .toolbar-title-md {
-        font-size: 17px !important;
+    ion-card-content {
+        margin: 0 auto !important;
+        font-size: 2.2rem !important;
+        text-align: center
     }
     ion-icon {
         font-size: 25px;

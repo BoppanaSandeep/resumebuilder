@@ -18,7 +18,6 @@ export class Profile implements OnInit {
 
     //#region Variables
     public viewEdit: any;
-    public profile: FormGroup;
     public exp: FormGroup;
     public edu: FormGroup;
     public skills: FormGroup;
@@ -31,11 +30,6 @@ export class Profile implements OnInit {
     //#region Constructor
     constructor(public navCtrl: NavController, public http: Http, public viewCtrl: ViewController, private formBuilder: FormBuilder, public navParams: NavParams, public storage: Storage, public toast: ToastAlert, public loading: LoadingController) {
         //var viewEdit = this.navParams.get('edit');
-
-        this.profile = this.formBuilder.group({
-            role: ['', [Validators.maxLength(50)]],
-            description: ['', [Validators.maxLength(500)]],
-        });
 
         this.exp = this.formBuilder.group({
             experience: this.formBuilder.array([
@@ -62,7 +56,7 @@ export class Profile implements OnInit {
     ngOnInit() {
         this.viewEdit = this.navParams.get('edit');
         //console.log(this.viewEdit);
-        if(this.viewEdit == 'Featured Skills'){
+        if (this.viewEdit == 'Featured Skills') {
             this.SkillOptions();
         }
     }
@@ -74,6 +68,8 @@ export class Profile implements OnInit {
             company: ['', [Validators.required, Validators.maxLength(50)]],
             startyear: ['', [Validators.required]],
             endyear: [''],
+            role: [''],
+            job_desc: [''],
             current: ['false'],
         });
     }
@@ -135,8 +131,15 @@ export class Profile implements OnInit {
     }
 
     SkillOptions() {
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         this.storage.get('reg_id').then((val) => {
             if (val != null) {
+
                 this.headers.append('content-type', 'application/json');
                 this.headers.append('Access-Control-Allow-Origin', '*');
                 this.headers.append('Access-Control-Allow-Headers', '*');
@@ -145,23 +148,24 @@ export class Profile implements OnInit {
                     if (sko.message == 'OK') {
                         this.skill_options = sko.skilloptions;
                         //console.log(this.skill_options);
-                        //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
                     } else {
-                        //this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
+                        this.toast.showToast('Issue in Loading options, try again later!!!', 3000, 'bottom');
                     }
+                    loader.dismiss();
                 },
-                    (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
+                    (err) => {
+                        loader.dismiss();
+                        this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                    }
                 );
             } else {
+                loader.dismiss();
                 this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
             }
         }).catch(function (err) {
+            loader.dismiss();
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
-    }
-
-    profileInfo() {
-        console.log(this.profile.value);
     }
 
     //#region Submitting Experience and Education Form
@@ -190,18 +194,21 @@ export class Profile implements OnInit {
                     } else {
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
+                    loader.dismiss();
                 },
                     (err) => {
+                        loader.dismiss();
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
                 );
             } else {
+                loader.dismiss();
                 this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
             }
         }).catch(function (err) {
+            loader.dismiss();
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
-        loader.dismiss();
     }
     //#endregion
 
@@ -231,18 +238,21 @@ export class Profile implements OnInit {
                     } else {
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
+                    loader.dismiss();
                 },
                     (err) => {
+                        loader.dismiss();
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
                 );
             } else {
+                loader.dismiss();
                 this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
             }
         }).catch(function (err) {
-            console.log(err);
+            loader.dismiss();
+            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
-        loader.dismiss();
     }
     //#endregion
 }
