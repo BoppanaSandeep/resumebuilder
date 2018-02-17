@@ -12,9 +12,9 @@
             <ion-card-title>
                 {{UserVariables?.name}}
             </ion-card-title>
-            <span>
-                Role
-            </span>
+            <label>
+                {{role}}
+            </label>
         </ion-card-content>
     </ion-card>
     <ion-card class="expedu">
@@ -31,24 +31,24 @@
                                 <!-- <img src="../../../screen.png"> -->
                                 <ion-icon name="briefcase"></ion-icon>
                             </ion-avatar>
-                            <h2>{{expdata.exp_company}}</h2>
-                            <p>Desgination: {{expdata.exp_role}}</p>
-                            <p>From: {{expdata.exp_working_from}}</p>
+                            <h2>{{expdata.exp_company || 'Not Found'}}</h2>
+                            <p>Desgination: {{expdata.exp_role || 'Not Found'}}</p>
+                            <p>From: {{expdata.exp_working_from || 'Not Found'}}</p>
                             <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here...</p>
                             <ng-template #work>
-                                <p>To: {{expdata.exp_last_work_date}}</p>
+                                <p>To: {{expdata.exp_last_work_date || 'Not Found'}}</p>
                             </ng-template>
                         </ion-item>
                         <ion-item-options side="left">
                             <button ion-button color="danger" (click)="delete(expdata.exp_id, expdata.exp_company, 'exp')">
                                 <ion-icon name="close"></ion-icon>
-                                Delete
+                                Del
                             </button>
                             <button ion-button color="secondary">
                                 <ion-icon name="create"></ion-icon>
                                 Edit
                             </button>
-                            <button ion-button>
+                            <button ion-button (click)="moreDescModal(i,expdata,'Experience')">
                                 <ion-icon name="information-circle"></ion-icon>
                                 More
                             </button>
@@ -61,24 +61,24 @@
                                     <!-- <img src="../../../screen.png"> -->
                                     <ion-icon name="briefcase"></ion-icon>
                                 </ion-avatar>
-                                <h2>{{expdata.exp_company}}</h2>
-                                <p>Desgination: {{expdata.exp_role}}</p>
-                                <p>From: {{expdata.exp_working_from}}</p>
+                                <h2>{{expdata.exp_company || 'Not Found'}}</h2>
+                                <p>Desgination: {{expdata.exp_role || 'Not Found'}}</p>
+                                <p>From: {{expdata.exp_working_from || 'Not Found'}}</p>
                                 <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here..</p>
                                 <ng-template #work>
-                                    <p>To: {{expdata.exp_last_work_date}}</p>
+                                    <p>To: {{expdata.exp_last_work_date || 'Not Found'}}</p>
                                 </ng-template>
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(expdata.exp_id, expdata.exp_company, 'exp')">
                                     <ion-icon name="close"></ion-icon>
-                                    Delete
+                                    Del
                                 </button>
                                 <button ion-button color="secondary">
                                     <ion-icon name="create"></ion-icon>
                                     Edit
                                 </button>
-                                <button ion-button>
+                                <button ion-button (click)="moreDescModal(i,expdata,'Experience')">
                                     <ion-icon name="information-circle"></ion-icon>
                                     More
                                 </button>
@@ -108,7 +108,7 @@
                             <!-- <img src="../../../screen.png"> -->
                             <ion-icon name="briefcase"></ion-icon>
                         </ion-avatar>
-                        <h2>{{expedu_data?.info?.experience}}</h2>
+                        <h2>{{expedu_data?.info?.experience || 'Not Found'}}</h2>
                     </ion-item>
                 </ion-item-sliding>
             </ng-template>
@@ -126,20 +126,21 @@
                                 <!-- <img src="../../../screen.png"> -->
                                 <ion-icon name="school"></ion-icon>
                             </ion-avatar>
-                            <h2>{{edudata.edu_university_clg_sch}}</h2>
-                            <p>{{edudata.edu_percentage}} %</p>
-                            <p>{{edudata.edu_passoutyear}} Passed Out</p>
+                            <h2>{{edudata.edu_university_clg_sch || 'Not Found'}}</h2>
+                            <p>Specialization: {{edudata.edu_specialization || 'Not Found'}}</p>
+                            <p>Percentage: {{edudata.edu_percentage+' %' || 'Not Found'}}</p>
+                            <p>Passout Year: {{edudata.edu_passoutyear || 'Not Found'}}</p>
                         </ion-item>
                         <ion-item-options side="left">
                             <button ion-button color="danger" (click)="delete(edudata.edu_id, edudata.edu_university_clg_sch, 'edu')">
                                 <ion-icon name="close"></ion-icon>
-                                Delete
+                                Del
                             </button>
                             <button ion-button color="secondary">
                                 <ion-icon name="create"></ion-icon>
                                 Edit
                             </button>
-                            <button ion-button>
+                            <button ion-button (click)="moreDescModal(j,edudata,'Education')">
                                 <ion-icon name="information-circle"></ion-icon>
                                 More
                             </button>
@@ -152,20 +153,21 @@
                                     <!-- <img src="../../../screen.png"> -->
                                     <ion-icon name="school"></ion-icon>
                                 </ion-avatar>
-                                <h2>{{edudata.edu_university_clg_sch}}</h2>
-                                <p>{{edudata.edu_percentage}} %</p>
-                                <p>{{edudata.edu_passoutyear}} Passed Out</p>
+                                <h2>{{edudata.edu_university_clg_sch || 'Not Found'}}</h2>
+                                <p>Specialization: {{edudata.edu_specialization || 'Not Found'}}</p>
+                                <p>Percentage: {{edudata.edu_percentage+' %' || 'Not Found'}}</p>
+                                <p>Passout Year: {{edudata.edu_passoutyear || 'Not Found'}}</p>
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(edudata.edu_id, edudata.edu_university_clg_sch, 'edu')">
                                     <ion-icon name="close"></ion-icon>
-                                    Delete
+                                    Del
                                 </button>
                                 <button ion-button color="secondary">
                                     <ion-icon name="create"></ion-icon>
                                     Edit
                                 </button>
-                                <button ion-button>
+                                <button ion-button (click)="moreDescModal(j,edudata,'Education')">
                                     <ion-icon name="information-circle"></ion-icon>
                                     More
                                 </button>
@@ -195,7 +197,7 @@
                             <!-- <img src="../../../screen.png"> -->
                             <ion-icon name="school"></ion-icon>
                         </ion-avatar>
-                        <h2>{{expedu_data?.info?.education}}</h2>
+                        <h2>{{expedu_data?.info?.education || 'Not Found'}}</h2>
                     </ion-item>
                 </ion-item-sliding>
             </ng-template>
@@ -215,13 +217,13 @@
                                 <!-- <img src="../../../screen.png"> -->
                                 <ion-icon name="checkmark-circle"></ion-icon>
                             </ion-avatar>
-                            <h2>{{data.skill_name}}</h2>
-                            <ion-badge item-end color="">{{data.skill_rating}}/ 5</ion-badge>
+                            <h2>{{data.skill_name || 'Not Found'}}</h2>
+                            <ion-badge item-end color="">{{data.skill_rating || 'NA'}}/ 5</ion-badge>
                         </ion-item>
                         <ion-item-options side="left">
                             <button ion-button color="danger" (click)="delete(data.skill_id, data.skill_name, 'skill')">
                                 <ion-icon name="close"></ion-icon>
-                                Delete
+                                Del
                             </button>
                         </ion-item-options>
                     </ion-item-sliding>
@@ -232,13 +234,13 @@
                                     <!-- <img src="../../../screen.png"> -->
                                     <ion-icon name="checkmark-circle"></ion-icon>
                                 </ion-avatar>
-                                <h2>{{data.skill_name}}</h2>
-                                <ion-badge item-end color="">{{data.skill_rating}}/ 5</ion-badge>
+                                <h2>{{data.skill_name || 'Not Found'}}</h2>
+                                <ion-badge item-end color="">{{data.skill_rating || 'NA'}}/ 5</ion-badge>
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(data.skill_id, data.skill_name, 'skill')">
                                     <ion-icon name="close"></ion-icon>
-                                    Delete
+                                    Del
                                 </button>
                             </ion-item-options>
                         </ion-item-sliding>
@@ -266,7 +268,7 @@
                             <!-- <img src="../../../screen.png"> -->
                             <ion-icon name="checkmark-circle"></ion-icon>
                         </ion-avatar>
-                        <h2>{{skills_data?.info}}</h2>
+                        <h2>{{skills_data?.info || 'Not Found'}}</h2>
                     </ion-item>
                 </ion-item-sliding>
             </ng-template>

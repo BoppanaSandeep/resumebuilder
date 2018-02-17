@@ -68,7 +68,7 @@ export class Profile implements OnInit {
             company: ['', [Validators.required, Validators.maxLength(50)]],
             startyear: ['', [Validators.required]],
             endyear: [''],
-            role: [''],
+            role: ['', [Validators.required]],
             job_desc: [''],
             current: ['false'],
         });
@@ -77,6 +77,7 @@ export class Profile implements OnInit {
     addMutipleEducation() {
         return this.formBuilder.group({
             university: ['', [Validators.required, Validators.maxLength(50)]],
+            specialization: ['', [Validators.required, Validators.maxLength(100)]],
             passoutyear: ['', [Validators.required]],
             percentage: ['', [Validators.maxLength(2), Validators.pattern('^[0-9]+$')]],
         });

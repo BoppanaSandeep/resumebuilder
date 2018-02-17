@@ -5,12 +5,12 @@ import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
 
 //import { MyApp } from '../../app/app.component';
-import { Profile } from '../modals/profile';
+import { Profile } from '../profile_modals/profile';
 import { LoginPage } from '../login/login';
 import { UserVariables } from '../shared/global_values';
 import { Urls } from '../shared/urls';
 import { ToastAlert } from '../shared/toast';
-//import { TabsPage } from '../tabs/tabs';
+import { MoreDesc } from '../more_modals/more.description';
 
 @Component({
     selector: 'page-home',
@@ -26,6 +26,7 @@ export class HomePage implements OnInit {
     viewmore_edu = false;
     viewmore_skill = false;
     rb_id;
+    role;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController) {
 
@@ -84,6 +85,7 @@ export class HomePage implements OnInit {
             if (ee.message == 'OK') {
                 this.expedu_data = ee;
                 //console.log(this.expedu_data);
+                this.role = this.expedu_data.info.experience[0].exp_role;
                 //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
             } else {
                 this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
@@ -125,9 +127,16 @@ export class HomePage implements OnInit {
         var data = { edit: opt };
         //console.log(data);
         let modal = this.modalCtrl.create(Profile, data);
-        modal.onDidDismiss(data => {
-            //console.log(data);
-        });
+        // modal.onDidDismiss(data => {
+        //     console.log(data);
+        // });
+        modal.present();
+    }
+
+    moreDescModal(index, expedu_data, expedu) {
+        var data = { more: index, data: expedu_data, title: expedu };
+        //console.log(data);
+        let modal = this.modalCtrl.create(MoreDesc, data);
         modal.present();
     }
 

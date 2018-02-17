@@ -1,0 +1,161 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            {{viewMoreDescTitle}}
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <span ion-text color="primary">Cancel</span>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="viewMoreDescTitle == 'Experience'">
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-4>
+                            <strong>Company: </strong>
+                        </ion-col>
+                        <ion-col col-8>
+                            {{viewMoreDesc.exp_company || 'Not Found'}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-4>
+                            <strong>Desgination: </strong>
+                        </ion-col>
+                        <ion-col col-8>
+                            {{viewMoreDesc.exp_role || 'Not Found'}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-4>
+                            <strong>From: </strong>
+                        </ion-col>
+                        <ion-col col-8>
+                            {{viewMoreDesc.exp_working_from || 'Not Found'}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <div *ngIf="viewMoreDesc.exp_currently_working==1; else work">
+                <ion-item color="secondary">
+                    <strong>Currently Working here..</strong>
+                </ion-item>
+            </div>
+            <ng-template #work>
+                <ion-item>
+                    <ion-grid>
+                        <ion-row>
+                            <ion-col col-4>
+                                <strong>To: </strong>
+                            </ion-col>
+                            <ion-col col-8>
+                                {{viewMoreDesc.exp_last_work_date || 'Not Found'}}
+                            </ion-col>
+                        </ion-row>
+                    </ion-grid>
+                </ion-item>
+            </ng-template>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-item>
+            <strong>Job Description</strong>
+        </ion-item>
+        <ion-card-content>
+            {{viewMoreDesc?.exp_job_desc || 'Not Found'}}
+        </ion-card-content>
+    </ion-card>
+</ion-content>
+
+<ion-content *ngIf="viewMoreDescTitle == 'Education'">
+    <ion-card>
+        <ion-card-content>
+            <ion-item text-wrap>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-5>
+                            <strong>University/ College/ School: </strong>
+                        </ion-col>
+                        <ion-col col-7>
+                            {{viewMoreDesc.edu_university_clg_sch || 'Not Found'}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <ion-item text-wrap>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-5>
+                            <strong>Specialization: </strong>
+                        </ion-col>
+                        <ion-col col-7>
+                            {{viewMoreDesc.edu_specialization || 'Not Found'}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-5>
+                            <strong>Percentage: </strong>
+                        </ion-col>
+                        <ion-col col-7>
+                            {{viewMoreDesc.edu_percentage+' %' || 'Not Found'}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+    <ion-card>
+        <ion-card-content>
+            <ion-item>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-5>
+                            <strong>Passout Year: </strong>
+                        </ion-col>
+                        <ion-col col-7>
+                            {{viewMoreDesc.edu_passoutyear || 'Not Found'}}
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-item>
+        </ion-card-content>
+    </ion-card>
+</ion-content>

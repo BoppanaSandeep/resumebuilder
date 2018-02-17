@@ -7,7 +7,7 @@ profile {
         color: red;
     }
     ion-label[title="Experience"],
-    ion-label[title="Education"] {
+    ion-label[title="Education"],ion-icon[name="add"],ion-icon[name="remove"] {
         font-size: 20px;
     }
     .text-danger {
@@ -17,5 +17,13 @@ profile {
     }
     ion-select {
         width: 100% !important;
+    }
+
+    ion-icon.skills{    
+        margin-top: 100% !important;
+    }
+
+    ion-option {
+        word-break: break-all !important;
     }
 }

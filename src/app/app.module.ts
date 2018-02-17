@@ -15,9 +15,10 @@ import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
 import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
-import { Profile } from '../pages/modals/profile';
+import { Profile } from '../pages/profile_modals/profile';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from './../pages/register/register';
+import { MoreDesc } from '../pages/more_modals/more.description';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -31,7 +32,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         TabsPage,
         Profile,
         LoginPage,
-        RegisterPage
+        RegisterPage,
+        MoreDesc
     ],
     imports: [
         BrowserModule,
@@ -49,7 +51,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         TabsPage,
         Profile,
         LoginPage,
-        RegisterPage
+        RegisterPage,
+        MoreDesc
     ],
     providers: [
         StatusBar,

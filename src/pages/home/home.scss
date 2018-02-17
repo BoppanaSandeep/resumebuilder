@@ -1,6 +1,12 @@
 page-home {
+    .toolbar-background {
+        background-color: #32db64;
+    }
+    .toolbar-title {
+        color: #fff !important;
+    }
     ion-content {
-        background-color: #4786b9 !important;
+        background-color: #858d94 !important;
     }
     ion-card-header {
         font-size: 1.5em !important;
@@ -9,8 +15,8 @@ page-home {
         border-radius: 5px !important;
     }
     .profile {
-        padding: 5px 0px 0px 0px;
-        background: transparentize($color: rgba(243, 205, 166, 0.918), $amount: 0) !important;
+        padding: 30px 0px 0px 0px;
+        background: transparentize($color: rgba(132, 255, 199, 0.85), $amount: 0) !important;
     }
     ion-card img {
         width: 200px;
@@ -24,7 +30,7 @@ page-home {
     }
     ion-card-content {
         margin: 0 auto !important;
-        font-size: 2.2rem !important;
+        font-size: 1.8rem !important;
         text-align: center
     }
     ion-icon {

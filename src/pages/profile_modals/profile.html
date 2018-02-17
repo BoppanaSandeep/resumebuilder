@@ -68,6 +68,12 @@
                         Maximum characters allowed are 50.
                     </small>
                     <ion-item>
+                            <ion-input type="text" formControlName="specialization" placeholder="Specialization"></ion-input>
+                        </ion-item>
+                        <small [hidden]="edu.controls.education.controls[j].controls.specialization.valid" class="text-danger">
+                            Maximum characters allowed are 100.
+                        </small>
+                    <ion-item>
                         <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" formControlName="passoutyear" placeholder="Passout Year"></ion-datetime>
                     </ion-item>
                     <ion-item>
@@ -90,27 +96,25 @@
                     <ion-grid>
                         <ion-row>
                             <ion-col col-12>
-
-                                <ion-select formControlName="fskills" placeholder="Skills">
-                                    <div *ngFor="let tech of skill_options; let m=index">
-                                        <ion-option>{{tech.tech_name}}</ion-option>
-                                    </div>
-                                </ion-select>
-
+                                <ion-item>
+                                    <ion-label color="primary" stacked>Select your skills</ion-label>
+                                    <ion-select formControlName="fskills" placeholder="Skills" interface="action-sheet">
+                                        <div *ngFor="let tech of skill_options; let m=index">
+                                            <ion-option>{{tech.tech_name}}</ion-option>
+                                        </div>
+                                    </ion-select>
+                                </ion-item>
                             </ion-col>
                             <ion-col col-10>
-
-                                <ion-select formControlName="rating" placeholder="Rating">
-                                    <ion-option>1</ion-option>
-                                    <ion-option>2</ion-option>
-                                    <ion-option>3</ion-option>
-                                    <ion-option>4</ion-option>
-                                    <ion-option>5</ion-option>
-                                </ion-select>
-
+                                <ion-label color="primary" stacked>Rate Your Skill</ion-label>
+                                <ion-range min="0" max="5" snaps="true" pin="true" formControlName="rating" color="secondary">
+                                    <ion-icon range-left small name="remove"></ion-icon>
+                                    <ion-icon range-right name="add"></ion-icon>
+                                </ion-range>
                             </ion-col>
                             <ion-col col-2>
-                                <ion-icon class="skills" name="remove-circle" *ngIf="skills.controls.skill.controls.length > 1" (click)="removeSkills(k)" float-right></ion-icon>
+                                <ion-icon class="skills" name="remove-circle" *ngIf="skills.controls.skill.controls.length > 1" (click)="removeSkills(k)"
+                                    float-right></ion-icon>
                             </ion-col>
                         </ion-row>
                     </ion-grid>
