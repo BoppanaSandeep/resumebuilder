@@ -23,21 +23,26 @@
                 </ion-item>
                 <div [formGroupName]="i">
                     <ion-item>
+                        <ion-label color="primary" stacked>Company Name</ion-label>
                         <ion-input type="text" formControlName="company" placeholder="Company Name"></ion-input>
                     </ion-item>
                     <small [hidden]="exp.controls.experience.controls[i].controls.company.valid" class="text-danger">
                         Maximum characters allowed are 50.
                     </small>
                     <ion-item>
+                        <ion-label color="primary" stacked>Desgination</ion-label>
                         <ion-input type="text" formControlName="role" placeholder="Desgination"></ion-input>
                     </ion-item>
                     <ion-item>
+                        <ion-label color="primary" stacked>Job Description</ion-label>
                         <ion-textarea formControlName="job_desc" placeholder="Description"></ion-textarea>
                     </ion-item>
                     <ion-item>
+                        <ion-label color="primary" stacked>Working From</ion-label>
                         <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="startyear" placeholder="Working From (DD MMM YYYY)"></ion-datetime>
                     </ion-item>
                     <ion-item>
+                        <ion-label color="primary" stacked>Last Worked </ion-label>
                         <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="endyear" placeholder="Last Worked (DD MMM YYYY)"></ion-datetime>
                     </ion-item>
                     <ion-item>
@@ -62,21 +67,25 @@
                 </ion-item>
                 <div [formGroupName]="j">
                     <ion-item>
+                        <ion-label color="primary" stacked>University/ College/ School</ion-label>
                         <ion-input type="text" formControlName="university" placeholder="University/ College/ School"></ion-input>
                     </ion-item>
                     <small [hidden]="edu.controls.education.controls[j].controls.university.valid" class="text-danger">
                         Maximum characters allowed are 50.
                     </small>
                     <ion-item>
-                            <ion-input type="text" formControlName="specialization" placeholder="Specialization"></ion-input>
-                        </ion-item>
-                        <small [hidden]="edu.controls.education.controls[j].controls.specialization.valid" class="text-danger">
-                            Maximum characters allowed are 100.
-                        </small>
+                        <ion-label color="primary" stacked>Specialization</ion-label>
+                        <ion-input type="text" formControlName="specialization" placeholder="Specialization"></ion-input>
+                    </ion-item>
+                    <small [hidden]="edu.controls.education.controls[j].controls.specialization.valid" class="text-danger">
+                        Maximum characters allowed are 100.
+                    </small>
                     <ion-item>
+                        <ion-label color="primary" stacked>Passout Year</ion-label>
                         <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" formControlName="passoutyear" placeholder="Passout Year"></ion-datetime>
                     </ion-item>
                     <ion-item>
+                        <ion-label color="primary" stacked>Percentage</ion-label>
                         <ion-input type="number" formControlName="percentage" placeholder="Percentage"></ion-input>
                     </ion-item>
                     <small [hidden]="edu.controls.education.controls[j].controls.percentage.valid" class="text-danger">

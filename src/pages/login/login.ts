@@ -26,7 +26,7 @@ export class LoginPage implements OnInit {
 
     constructor(public navCtrl: NavController, public http: Http, private formBuilder: FormBuilder, public navParams: NavParams, private storage: Storage, public UserVariables: UserVariables, public toast: ToastAlert, public alerts: ConfirmationAlerts, public loading: LoadingController) {
         this.loginForm = this.formBuilder.group({
-            username: ['', Validators.required],
+            username: ['', [Validators.required]],
             password: ['', Validators.required],
         });
 
@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
         //Loading
         let loader = this.loading.create({
             content: "Please wait...",
-            duration: 2000
+            duration: 1000
         });
         loader.present();
         if (action == 'login') {
@@ -75,6 +75,7 @@ export class LoginPage implements OnInit {
             );
             //console.log(this.loginForm.value);
         } else if (action == 'register') {
+            loader.dismiss();//Loading dismiss
             this.navCtrl.push(RegisterPage);
         } else {
             loader.dismiss();//Loading dismiss

@@ -3,7 +3,7 @@ login{
     ion-card-title{
         background-color: #4786b9;
         color: white !important;
-        font-style: bold;
+        font-style: bolder;
         font-size: 16px !important;
     }
 
@@ -15,13 +15,15 @@ login{
         margin-top: 30%;
     }
 
+    .text-danger{
+        color: maroon;
+        font-size: 14px;
+        margin-left: 5%;
+    }
+
     @media only screen and (min-width: 768px) {
         .card{
             margin-top: 10%;
         }
-    }
-
-    button[type="submit"] {
-        margin-left: 40%;
     }
 }

@@ -6,47 +6,54 @@
 
 <ion-content>
     <ion-card class="card">
-        <ion-card-title text-center>
-            Registration
+        <ion-card-title text-center text-uppercase>
+            Sign Up
         </ion-card-title>
         <form [formGroup]="registerForm" (ngSubmit)="register('register')">
             <ion-item>
+                <ion-label color="primary" stacked>First Name</ion-label>
                 <ion-input type="text" formControlName="name_first" placeholder="First Name"></ion-input>
             </ion-item>
             <small [hidden]="registerForm.controls.name_first.valid" class="text-danger">
                 Maximum characters should be 50.
             </small>
             <ion-item>
+                <ion-label color="primary" stacked>Last Name</ion-label>
                 <ion-input type="text" formControlName="name_last" placeholder="Last Name"></ion-input>
             </ion-item>
             <small [hidden]="registerForm.controls.name_last.valid" class="text-danger">
                 Maximum characters should be 50.
             </small>
             <ion-item>
+                <ion-label color="primary" stacked>Email</ion-label>
                 <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
             </ion-item>
             <small [hidden]="registerForm.controls.email.valid" class="text-danger">
                 Enter valid Email.
             </small>
             <ion-item>
+                <ion-label color="primary" stacked>Password</ion-label>
                 <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
             </ion-item>
             <small [hidden]="registerForm.controls.password.valid" class="text-danger">
                 Minimum characters should be 8.
             </small>
             <ion-item>
+                <ion-label color="primary" stacked>Confirm Password</ion-label>
                 <ion-input type="password" formControlName="cpassword" placeholder="Confirm Password"></ion-input>
             </ion-item>
             <small [hidden]="registerForm.controls.cpassword.valid" class="text-danger">
                 Minimum characters should be 8.
             </small>
             <ion-item>
+                <ion-label color="primary" stacked>Mobile Number</ion-label>
                 <ion-input type="number" formControlName="phonenumber" placeholder="Mobile Number"></ion-input>
             </ion-item>
             <small [hidden]="registerForm.controls.phonenumber.valid" class="text-danger">
                 Enter valid phonenumber.
             </small>
             <ion-item>
+                <ion-label color="primary" stacked>Date of Birth</ion-label>
                 <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" max="2001" formControlName="dob" placeholder="Date of Birth"></ion-datetime>
             </ion-item>
             <ion-list radio-group formControlName="gender">
@@ -66,16 +73,12 @@
                     <ion-radio value="3"></ion-radio>
                 </ion-item>
             </ion-list>
-            <button ion-button type="submit" [disabled]="!registerForm.valid">Register</button>
+            <div padding>
+                <button ion-button type="submit" [disabled]="!registerForm.valid" block>Sign Up</button>
+            </div>
+            <div padding>
+                <button ion-button (click)="register('pushtologin')" block>Sign In</button>
+            </div>
         </form>
-        <ion-list>
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-12 col-sm-12 col-md-12 text-center>
-                        <span ion-text color="primary" (click)="register('pushtologin')">Login here</span>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-list>
     </ion-card>
 </ion-content>

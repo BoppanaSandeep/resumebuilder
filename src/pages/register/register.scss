@@ -1,22 +1,18 @@
 register{
-        ion-card-title{
-            background-color: #4786b9;
-            color: white !important;
-            font-style: bold;
-            font-size: 16px !important;
-        }
-    
-        @media only screen and (min-width: 768px) {
-            
-        }
-    
-        button[type="submit"] {
-            margin-left: 40%;
-        }
-
-        .text-danger{
-            color: maroon;
-            font-size: 14px;
-            margin-left: 5%;
-        }
+    ion-card-title{
+        background-color: #4786b9;
+        color: white !important;
+        font-style: bold;
+        font-size: 16px !important;
     }
+
+    @media only screen and (min-width: 768px) {
+        
+    }
+
+    .text-danger{
+        color: maroon;
+        font-size: 14px;
+        margin-left: 5%;
+    }
+}
