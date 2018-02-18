@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Http, Headers } from '@angular/http';
-import { AlertController } from 'ionic-angular';
+import { AlertController, LoadingController } from 'ionic-angular';
 
 import { Urls } from './urls';
 import { ToastAlert } from './toast';
@@ -10,7 +10,7 @@ export class ConfirmationAlerts {
     public headers = new Headers();
     public url = new Urls();
 
-    constructor(private alertCtrl: AlertController, public http: Http, public toast: ToastAlert) {
+    constructor(private alertCtrl: AlertController, public http: Http, public toast: ToastAlert, public loading: LoadingController) {
 
     }
 
@@ -76,6 +76,12 @@ export class ConfirmationAlerts {
     }
 
     forgotPassword(data) {
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         if (data.email != '') {
             data = { "email": btoa(data.email) }
             this.headers.append('content-type', 'application/json');
@@ -84,18 +90,22 @@ export class ConfirmationAlerts {
             this.http.post(this.url.forgotpwd_url, data, { headers: this.headers }).toPromise().then((res) => {
                 var user = res.json();
                 if (user.message == 'OK') {
+                    loader.dismiss();//Loading dismiss
                     this.toast.showToast('Password was sent to ' + atob(user.email), 3000, 'bottom');
                 } else {
+                    loader.dismiss();//Loading dismiss
                     this.toast.showToast('Email you entered is wrong!!!', 3000, 'bottom');
                     //console.log('Something went worng', res.json());
                 }
             },
                 (err) => {
+                    loader.dismiss();//Loading dismiss
                     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     //console.log(err);
                 }
             );
         } else {
+            loader.dismiss();//Loading dismiss
             this.toast.showToast('Please enter your Email ID !!!', 3000, 'bottom');
         }
     }

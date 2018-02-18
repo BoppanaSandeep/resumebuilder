@@ -1,6 +1,11 @@
 <ion-header color="primary">
     <ion-navbar color="primary">
-        <ion-title>Messaging</ion-title>
+        <ion-title text-center text-uppercase>Messaging</ion-title>
+        <ion-buttons end>
+            <button ion-button icon-only (click)="popOver($event)">
+                <ion-icon name="more"></ion-icon>
+            </button>
+        </ion-buttons>
     </ion-navbar>
 </ion-header>
 

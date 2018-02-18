@@ -3,7 +3,11 @@ page-message {
         background-color: #858d94 !important;
     }
     ion-list{
-        margin: 0 !important
+        margin: 0 !important;
+        padding: 10px;
+    }
+    ion-list-header{
+        margin-bottom: 0px !important;
     }
     .list-avatar-page {
         ion-note {

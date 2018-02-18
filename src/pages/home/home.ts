@@ -1,16 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController, PopoverController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
 
-//import { MyApp } from '../../app/app.component';
+import { PopoverPage } from '../popover/popover';
 import { Profile } from '../profile_modals/profile';
 import { LoginPage } from '../login/login';
 import { UserVariables } from '../shared/global_values';
 import { Urls } from '../shared/urls';
 import { ToastAlert } from '../shared/toast';
 import { MoreDesc } from '../more_modals/more.description';
+import { EditExpEdu } from '../edit_modals/edit_expedu';
 
 @Component({
     selector: 'page-home',
@@ -28,11 +29,17 @@ export class HomePage implements OnInit {
     rb_id;
     role;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController) {
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController, public popoverCtrl: PopoverController) {
 
     }
 
     ngOnInit() {
+        //Loading
+        let loader = this.loading.create({
+            content: "Please wait...",
+            duration: 2000
+        });
+        loader.present();
         this.headers.append('content-type', 'application/json');
         this.headers.append('Access-Control-Allow-Origin', '*');
         this.headers.append('Access-Control-Allow-Headers', '*');
@@ -50,6 +57,7 @@ export class HomePage implements OnInit {
         }).catch(function (err) {
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
+        loader.dismiss();//Loading dismiss
     }
 
     reload(p) {
@@ -74,12 +82,6 @@ export class HomePage implements OnInit {
     }
 
     expedu(p) {
-        //Loading
-        let loader = this.loading.create({
-            content: "Please wait...",
-            duration: 2000
-        });
-        loader.present();
         this.http.get(this.url.expedu_data_url + p, { headers: this.headers }).toPromise().then((res) => {
             var ee = res.json();
             if (ee.message == 'OK') {
@@ -90,22 +92,14 @@ export class HomePage implements OnInit {
             } else {
                 this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
             }
-            loader.dismiss();//Loading dismiss
         },
             (err) => {
-                loader.dismiss();//Loading dismiss
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             }
         );
     }
 
     skills(p) {
-        //Loading
-        let loader = this.loading.create({
-            content: "Please wait...",
-            duration: 2000
-        });
-        loader.present();
         this.http.get(this.url.skills_data_url + p, { headers: this.headers }).toPromise().then((res) => {
             var sk = res.json();
             if (sk.message == 'OK') {
@@ -114,10 +108,8 @@ export class HomePage implements OnInit {
             } else {
                 this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
             }
-            loader.dismiss();//Loading dismiss
         },
             (err) => {
-                loader.dismiss();//Loading dismiss
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             }
         );
@@ -127,9 +119,6 @@ export class HomePage implements OnInit {
         var data = { edit: opt };
         //console.log(data);
         let modal = this.modalCtrl.create(Profile, data);
-        // modal.onDidDismiss(data => {
-        //     console.log(data);
-        // });
         modal.present();
     }
 
@@ -137,6 +126,13 @@ export class HomePage implements OnInit {
         var data = { more: index, data: expedu_data, title: expedu };
         //console.log(data);
         let modal = this.modalCtrl.create(MoreDesc, data);
+        modal.present();
+    }
+
+    expeduEditModel(id, expedu_data, expedu) {
+        var data = { expedu_id: id, data: expedu_data, title: expedu };
+        //console.log(data);
+        let modal = this.modalCtrl.create(EditExpEdu, data);
         modal.present();
     }
 
@@ -164,11 +160,12 @@ export class HomePage implements OnInit {
                         var user = res.json();
                         if (user.message == 'OK') {
                             this.expedu(this.rb_id);
+                            loader.dismiss(); //Loading dismiss
                             this.toast.showToast('One of your Experience was deleted.', 3000, 'bottom');
                         } else {
+                            loader.dismiss(); //Loading dismiss
                             this.toast.showToast('Something went Wrong to delete your Experience !!!', 3000, 'bottom');
                         }
-                        loader.dismiss(); //Loading dismiss
                     },
                         (err) => {
                             loader.dismiss(); //Loading dismiss
@@ -191,11 +188,12 @@ export class HomePage implements OnInit {
                         var user = res.json();
                         if (user.message == 'OK') {
                             this.expedu(this.rb_id);
+                            loader.dismiss(); //Loading dismiss
                             this.toast.showToast('One of your Education was deleted.', 3000, 'bottom');
                         } else {
+                            loader.dismiss(); //Loading dismiss
                             this.toast.showToast('Something went Wrong to delete your Education !!!', 3000, 'bottom');
                         }
-                        loader.dismiss(); //Loading dismiss
                     },
                         (err) => {
                             loader.dismiss(); //Loading dismiss
@@ -218,11 +216,12 @@ export class HomePage implements OnInit {
                         var user = res.json();
                         if (user.message == 'OK') {
                             this.skills(this.rb_id);
+                            loader.dismiss(); //Loading dismiss
                             this.toast.showToast('One of your skill was deleted.', 3000, 'bottom');
                         } else {
+                            loader.dismiss(); //Loading dismiss
                             this.toast.showToast('Something went Wrong to delete your skill !!!', 3000, 'bottom');
                         }
-                        loader.dismiss(); //Loading dismiss
                     },
                         (err) => {
                             loader.dismiss(); //Loading dismiss
@@ -240,11 +239,11 @@ export class HomePage implements OnInit {
         }
     }
 
-    logout() {
-        this.storage.clear();
-        this.navCtrl.parent.parent.setRoot(LoginPage);
-        //window.location.reload();
-        this.navCtrl.popToRoot();
+    popOver(myEvent) {
+        let popover = this.popoverCtrl.create(PopoverPage);
+        popover.present({
+            ev: myEvent
+        });
     }
 
 }

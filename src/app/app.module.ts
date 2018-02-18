@@ -19,6 +19,8 @@ import { Profile } from '../pages/profile_modals/profile';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from './../pages/register/register';
 import { MoreDesc } from '../pages/more_modals/more.description';
+import { EditExpEdu } from '../pages/edit_modals/edit_expedu';
+import { PopoverPage } from '../pages/popover/popover';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -33,7 +35,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         Profile,
         LoginPage,
         RegisterPage,
-        MoreDesc
+        MoreDesc,
+        EditExpEdu,
+        PopoverPage
     ],
     imports: [
         BrowserModule,
@@ -52,7 +56,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         Profile,
         LoginPage,
         RegisterPage,
-        MoreDesc
+        MoreDesc,
+        EditExpEdu,
+        PopoverPage
     ],
     providers: [
         StatusBar,

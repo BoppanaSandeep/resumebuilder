@@ -1,0 +1,74 @@
+<ion-header>
+    <ion-toolbar>
+        <ion-title>
+            {{viewEditExpEduTitle}}
+        </ion-title>
+        <ion-buttons start>
+            <button ion-button (click)="dismiss()">
+                <span ion-text color="primary">Cancel</span>
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <form [formGroup]="exp" (ngSubmit)="expEdu()" *ngIf="viewEditExpEduTitle == 'Experience'">
+        <ion-item>
+            <ion-label color="primary" stacked>Company Name</ion-label>
+            <ion-input type="text" formControlName="company" placeholder="Company Name" clearInput></ion-input>
+        </ion-item>
+        <small [hidden]="exp.controls.company.valid" class="text-danger">
+            Maximum characters allowed are 50.
+        </small>
+        <ion-item>
+            <ion-label color="primary" stacked>Desgination</ion-label>
+            <ion-input type="text" formControlName="role" placeholder="Desgination" clearInput></ion-input>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Job Description</ion-label>
+            <ion-textarea formControlName="job_desc" placeholder="Description"></ion-textarea>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Working From</ion-label>
+            <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="startyear" placeholder="Working From (DD MMM YYYY)" clearInput></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Last Worked </ion-label>
+            <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" formControlName="endyear" placeholder="Last Worked (DD MMM YYYY)"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label>Current</ion-label>
+            <ion-checkbox formControlName="current" checked="false"></ion-checkbox>
+        </ion-item>
+        <button ion-button type="submit" (click)="edit_expEdu(exp, 'experience')" [disabled]="!exp.valid">Submit</button>
+    </form>
+
+    <form [formGroup]="edu" (ngSubmit)="expEdu()" *ngIf="viewEditExpEduTitle == 'Education'">
+        <ion-item>
+            <ion-label color="primary" stacked>University/ College/ School</ion-label>
+            <ion-input type="text" formControlName="university" placeholder="University/ College/ School" clearInput></ion-input>
+        </ion-item>
+        <small [hidden]="edu.controls.university.valid" class="text-danger">
+            Maximum characters allowed are 50.
+        </small>
+        <ion-item>
+            <ion-label color="primary" stacked>Specialization</ion-label>
+            <ion-input type="text" formControlName="specialization" placeholder="Specialization" clearInput></ion-input>
+        </ion-item>
+        <small [hidden]="edu.controls.specialization.valid" class="text-danger">
+            Maximum characters allowed are 100.
+        </small>
+        <ion-item>
+            <ion-label color="primary" stacked>Passout Year</ion-label>
+            <ion-datetime displayFormat="YYYY" pickerFormat="YYYY" formControlName="passoutyear" placeholder="Passout Year"></ion-datetime>
+        </ion-item>
+        <ion-item>
+            <ion-label color="primary" stacked>Percentage</ion-label>
+            <ion-input type="number" formControlName="percentage" placeholder="Percentage" clearInput></ion-input>
+        </ion-item>
+        <small [hidden]="edu.controls.percentage.valid" class="text-danger">
+            Maximum characters allowed are 2.
+        </small>
+        <button ion-button type="submit" (click)="edit_expEdu(edu, 'education')" [disabled]="!edu.valid">Submit</button>
+    </form>
+</ion-content>

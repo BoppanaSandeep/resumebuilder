@@ -61,11 +61,12 @@ export class LoginPage implements OnInit {
                     this.storage.set('pagename', 'TabsPage');
 
                     this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
-                    this.navCtrl.push(TabsPage);
+                    loader.dismiss();//Loading dismiss
+                    this.navCtrl.push(TabsPage, { tabIndex: 1 });
                 } else {
+                    loader.dismiss();//Loading dismiss
                     this.toast.showToast('Username and Password are Wrong!!!', 3000, 'bottom');
                 }
-                loader.dismiss();//Loading dismiss
             },
                 (err) => {
                     loader.dismiss();//Loading dismiss

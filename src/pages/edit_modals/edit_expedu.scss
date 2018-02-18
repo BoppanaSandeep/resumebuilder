@@ -1,0 +1,29 @@
+editexpedu {
+    button[type="submit"] {
+        margin-left: 40%;
+    }
+    ion-icon[name="remove-circle"] {
+        font-size: 28px;
+        color: red;
+    }
+    ion-label[title="Experience"],
+    ion-label[title="Education"],ion-icon[name="add"],ion-icon[name="remove"] {
+        font-size: 20px;
+    }
+    .text-danger {
+        color: maroon;
+        font-size: 14px;
+        margin-left: 5%;
+    }
+    ion-select {
+        width: 100% !important;
+    }
+
+    ion-icon.skills{    
+        margin-top: 100% !important;
+    }
+
+    ion-option {
+        word-break: break-all !important;
+    }
+}
