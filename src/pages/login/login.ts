@@ -62,7 +62,12 @@ export class LoginPage implements OnInit {
 
                     this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
                     loader.dismiss();//Loading dismiss
-                    this.navCtrl.push(TabsPage, { tabIndex: 1 });
+                    this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
+                        this.navCtrl.remove(this.navCtrl.getPrevious().index);
+                    }).catch(function (err) {
+                        loader.dismiss();//Loading dismiss
+                        this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                    });
                 } else {
                     loader.dismiss();//Loading dismiss
                     this.toast.showToast('Username and Password are Wrong!!!', 3000, 'bottom');
@@ -77,7 +82,12 @@ export class LoginPage implements OnInit {
             //console.log(this.loginForm.value);
         } else if (action == 'register') {
             loader.dismiss();//Loading dismiss
-            this.navCtrl.push(RegisterPage);
+            this.navCtrl.push(RegisterPage).then(() => {
+                this.navCtrl.remove(this.navCtrl.getPrevious().index);
+            }).catch(function (err) {
+                loader.dismiss();//Loading dismiss
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            });
         } else {
             loader.dismiss();//Loading dismiss
             this.alerts.presentPrompt('Forgot Password', 'Enter your registered Email Id', 'email', 'Email', 'Cancel', 'Submit');
