@@ -90,8 +90,8 @@ export class ConfirmationAlerts {
             this.http.post(this.url.forgotpwd_url, data, { headers: this.headers }).toPromise().then((res) => {
                 var user = res.json();
                 if (user.message == 'OK') {
-                    loader.dismiss();//Loading dismiss
                     this.toast.showToast('Password was sent to ' + atob(user.email), 3000, 'bottom');
+                    loader.dismiss();//Loading dismiss
                 } else {
                     loader.dismiss();//Loading dismiss
                     this.toast.showToast('Email you entered is wrong!!!', 3000, 'bottom');

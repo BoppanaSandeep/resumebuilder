@@ -35,13 +35,13 @@ export class LoginPage implements OnInit {
     ngOnInit() { }
 
     login(action) {
-        //Loading
-        let loader = this.loading.create({
-            content: "Please wait...",
-            duration: 1000
-        });
-        loader.present();
         if (action == 'login') {
+            //Loading
+            let loader = this.loading.create({
+                content: "Please wait...",
+                duration: 1000
+            });
+            loader.present();
             this.headers.append('content-type', 'application/json');
             this.headers.append('Access-Control-Allow-Origin', '*');
             this.headers.append('Access-Control-Allow-Headers', '*');
@@ -81,6 +81,12 @@ export class LoginPage implements OnInit {
             );
             //console.log(this.loginForm.value);
         } else if (action == 'register') {
+            //Loading
+            let loader = this.loading.create({
+                content: "Please wait...",
+                duration: 1000
+            });
+            loader.present();
             loader.dismiss();//Loading dismiss
             this.navCtrl.push(RegisterPage).then(() => {
                 this.navCtrl.remove(this.navCtrl.getPrevious().index);
@@ -89,7 +95,6 @@ export class LoginPage implements OnInit {
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             });
         } else {
-            loader.dismiss();//Loading dismiss
             this.alerts.presentPrompt('Forgot Password', 'Enter your registered Email Id', 'email', 'Email', 'Cancel', 'Submit');
         }
     }

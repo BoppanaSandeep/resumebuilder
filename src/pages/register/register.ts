@@ -73,12 +73,7 @@ export class RegisterPage implements OnInit {
             //console.log(this.registerForm.value);
         } else {
             loader.dismiss();//Loading dismiss
-            this.navCtrl.push(LoginPage).then(() => {
-                this.navCtrl.remove(this.navCtrl.getPrevious().index);
-            }).catch(function (err) {
-                loader.dismiss();//Loading dismiss
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            });
+            this.navCtrl.popToRoot();
         }
     }
 }
