@@ -12,7 +12,12 @@
 
 <ion-content>
     <ion-card class="profile">
-        <img src="http://localhost/resumebuilder/screen.png" />
+        <ion-card-content class="imagediv">
+            <img src="http://localhost/resumebuilder/screen.png" />
+            <ion-label class="profileimg">
+                <ion-icon class="profileimgicon" name="create" (click)="editProfileImage()" color="primary"></ion-icon>
+            </ion-label>
+        </ion-card-content>
         <ion-card-content>
             <ion-card-title>
                 {{UserVariables?.name}}

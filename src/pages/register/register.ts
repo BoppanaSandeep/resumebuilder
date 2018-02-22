@@ -1,3 +1,4 @@
+import { MyApp } from './../../app/app.component';
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, LoadingController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
@@ -72,7 +73,7 @@ export class RegisterPage implements OnInit {
             //console.log(this.registerForm.value);
         } else {
             loader.dismiss();//Loading dismiss
-            this.navCtrl.push(LoginPage).then(() => {
+            this.navCtrl.push(MyApp).then(() => {
                 this.navCtrl.remove(this.navCtrl.getPrevious().index);
             }).catch(function (err) {
                 loader.dismiss();//Loading dismiss

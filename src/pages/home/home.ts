@@ -12,6 +12,7 @@ import { Urls } from '../shared/urls';
 import { ToastAlert } from '../shared/toast';
 import { MoreDesc } from '../more_modals/more.description';
 import { EditExpEdu } from '../edit_modals/edit_expedu';
+import { ProfileImage } from './../profile_image/profile.image';
 
 @Component({
     selector: 'page-home',
@@ -134,6 +135,14 @@ export class HomePage implements OnInit {
         //console.log(data);
         let modal = this.modalCtrl.create(EditExpEdu, data);
         modal.present();
+    }
+
+    editProfileImage() {
+        this.navCtrl.push(ProfileImage).then(() => {
+            //this.navCtrl.remove(this.navCtrl.getPrevious().index);
+        }).catch(function (err) {
+            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+        });
     }
 
     viewmore(view): void {

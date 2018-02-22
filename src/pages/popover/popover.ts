@@ -1,8 +1,8 @@
+import { MyApp } from './../../app/app.component';
 import { Component, OnInit } from '@angular/core';
 import { NavController, ViewController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
-
-//import { LoginPage } from '../login/login';
+import { ToastAlert } from '../shared/toast';
 
 @Component({
     selector: 'page-popover',
@@ -10,7 +10,7 @@ import { Storage } from '@ionic/storage';
 })
 
 export class PopoverPage implements OnInit {
-    constructor(public viewCtrl: ViewController, public navCtrl: NavController, public storage: Storage, public loading: LoadingController) { }
+    constructor(public viewCtrl: ViewController, public navCtrl: NavController, public storage: Storage, public loading: LoadingController, public toast: ToastAlert) { }
 
     ngOnInit() {
 
@@ -25,9 +25,10 @@ export class PopoverPage implements OnInit {
         loader.present();
         this.viewCtrl.dismiss();
         this.storage.clear();
-        //this.navCtrl.setRoot(LoginPage);
-        window.location.reload();
-        //this.navCtrl.popToRoot();
+        this.navCtrl.push(MyApp).then(() => {
+            this.navCtrl.remove(this.navCtrl.getPrevious().index);
+        }).catch(function (err) {
+        });
         loader.dismiss();//Loading dismiss
     }
 }

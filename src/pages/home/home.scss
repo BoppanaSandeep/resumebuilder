@@ -12,15 +12,24 @@ page-home {
         padding: 30px 0px 0px 0px;
         background: transparentize($color: rgba(132, 255, 199, 0.85), $amount: 0) !important;
     }
-    ion-card img {
+    .imagediv {
         width: 200px;
         height: 200px;
         background-size: cover;
         display: block;
-        border-radius: 100px;
-        margin: 0 auto;
-        -webkit-border-radius: 100px;
-        -moz-border-radius: 100px;
+        border-radius: 100%;
+        /* margin: 0 auto; */
+        -webkit-border-radius: 100%;
+        -moz-border-radius: 100%;
+        background: white;
+        overflow: hidden;
+    }
+    .profileimg {
+        top: 34%;
+        left: 0;
+        right: 0;
+        width: 100%;
+        position: absolute;
     }
     ion-card-content {
         margin: 0 auto !important;

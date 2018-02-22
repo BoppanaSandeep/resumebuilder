@@ -10,6 +10,12 @@ import { ToastAlert } from '../pages/shared/toast';
 import { UserVariables } from '../pages/shared/global_values';
 import { Loading } from '../pages/shared/loading';
 
+import { File } from '@ionic-native/file';
+import { Transfer } from '@ionic-native/transfer';
+import { FilePath } from '@ionic-native/file-path';
+import { Camera } from '@ionic-native/camera';
+
+
 import { MyApp } from './app.component';
 import { JobsPage } from '../pages/jobs/jobs';
 import { MessagingPage } from '../pages/message/message';
@@ -21,6 +27,7 @@ import { RegisterPage } from './../pages/register/register';
 import { MoreDesc } from '../pages/more_modals/more.description';
 import { EditExpEdu } from '../pages/edit_modals/edit_expedu';
 import { PopoverPage } from '../pages/popover/popover';
+import { ProfileImage } from '../pages/profile_image/profile.image';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -37,7 +44,8 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         RegisterPage,
         MoreDesc,
         EditExpEdu,
-        PopoverPage
+        PopoverPage,
+        ProfileImage
     ],
     imports: [
         BrowserModule,
@@ -58,9 +66,14 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         RegisterPage,
         MoreDesc,
         EditExpEdu,
-        PopoverPage
+        PopoverPage,
+        ProfileImage
     ],
     providers: [
+        File,
+        Transfer,
+        Camera,
+        FilePath,
         StatusBar,
         SplashScreen,
         UserVariables,
