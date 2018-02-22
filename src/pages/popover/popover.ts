@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, ViewController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
-import { LoginPage } from '../login/login';
+//import { LoginPage } from '../login/login';
 
 @Component({
     selector: 'page-popover',
@@ -25,9 +25,9 @@ export class PopoverPage implements OnInit {
         loader.present();
         this.viewCtrl.dismiss();
         this.storage.clear();
-        this.navCtrl.setRoot(LoginPage);
-        //window.location.reload();
-        this.navCtrl.popToRoot();
+        //this.navCtrl.setRoot(LoginPage);
+        window.location.reload();
+        //this.navCtrl.popToRoot();
         loader.dismiss();//Loading dismiss
     }
 }
