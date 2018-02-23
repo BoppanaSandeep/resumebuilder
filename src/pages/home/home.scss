@@ -13,22 +13,40 @@ page-home {
         background: transparentize($color: rgba(132, 255, 199, 0.85), $amount: 0) !important;
     }
     .imagediv {
-        width: 200px;
-        height: 200px;
+        width: 250px;
+        height: 250px;
         background-size: cover;
         display: block;
         border-radius: 100%;
         /* margin: 0 auto; */
         -webkit-border-radius: 100%;
         -moz-border-radius: 100%;
-        background: white;
+        background: #d6d6d6;
         overflow: hidden;
+    }
+    ion-card img {
+        display: block;
+        width: 225px;
+        height: 225px;
+        border-radius: 100%;
+        margin: 0 auto;
+    }
+    .ion-md-create:before,
+    .ion-ios-create:before {
+        margin-top: 5px;
+    }
+    ion-icon.profileimgicon {
+        background: white;
+        border-radius: 100%;
+        width: 35px;
+        height: 35px;
+        -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
     .profileimg {
         top: 34%;
         left: 0;
         right: 0;
-        width: 100%;
         position: absolute;
     }
     ion-card-content {
