@@ -58,17 +58,19 @@ export class HomePage implements OnInit {
         }).catch(function (err) {
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
-        loader.dismiss();//Loading dismiss
+        loader.dismissAll();//Loading dismiss
     }
 
     reload(p) {
         this.http.get(this.url.login_status_url + p, { headers: this.headers }).toPromise().then((res) => {
             var user = res.json();
+            //console.log(user);
             if (user.message == 'OK') {
                 this.UserVariables.reg_id = user.info.reg_id;
                 this.UserVariables.rb_id = user.info.rb_id;
                 this.UserVariables.email = user.info.email;
                 this.UserVariables.name = user.info.name;
+                this.UserVariables.profile_pic= user.info.profile_pic;
                 this.UserVariables.phonenumber = user.info.phonenumber;
                 this.UserVariables.joined_on = user.info.joined_on;
                 this.UserVariables.logged_in = user.info.logged_in;
@@ -169,24 +171,24 @@ export class HomePage implements OnInit {
                         var user = res.json();
                         if (user.message == 'OK') {
                             this.expedu(this.rb_id);
-                            loader.dismiss(); //Loading dismiss
+                            loader.dismissAll(); //Loading dismiss
                             this.toast.showToast('One of your Experience was deleted.', 3000, 'bottom');
                         } else {
-                            loader.dismiss(); //Loading dismiss
+                            loader.dismissAll(); //Loading dismiss
                             this.toast.showToast('Something went Wrong to delete your Experience !!!', 3000, 'bottom');
                         }
                     },
                         (err) => {
-                            loader.dismiss(); //Loading dismiss
+                            loader.dismissAll(); //Loading dismiss
                             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                         }
                     );
                 } else {
-                    loader.dismiss(); //Loading dismiss
+                    loader.dismissAll(); //Loading dismiss
                     this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
                 }
             }).catch(function (err) {
-                loader.dismiss(); //Loading dismiss
+                loader.dismissAll(); //Loading dismiss
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             });
         } else if (delete_data == 'edu') {
@@ -197,24 +199,24 @@ export class HomePage implements OnInit {
                         var user = res.json();
                         if (user.message == 'OK') {
                             this.expedu(this.rb_id);
-                            loader.dismiss(); //Loading dismiss
+                            loader.dismissAll(); //Loading dismiss
                             this.toast.showToast('One of your Education was deleted.', 3000, 'bottom');
                         } else {
-                            loader.dismiss(); //Loading dismiss
+                            loader.dismissAll(); //Loading dismiss
                             this.toast.showToast('Something went Wrong to delete your Education !!!', 3000, 'bottom');
                         }
                     },
                         (err) => {
-                            loader.dismiss(); //Loading dismiss
+                            loader.dismissAll(); //Loading dismiss
                             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                         }
                     );
                 } else {
-                    loader.dismiss(); //Loading dismiss
+                    loader.dismissAll(); //Loading dismiss
                     this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
                 }
             }).catch(function (err) {
-                loader.dismiss(); //Loading dismiss
+                loader.dismissAll(); //Loading dismiss
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             });
         } else {
@@ -225,24 +227,24 @@ export class HomePage implements OnInit {
                         var user = res.json();
                         if (user.message == 'OK') {
                             this.skills(this.rb_id);
-                            loader.dismiss(); //Loading dismiss
+                            loader.dismissAll(); //Loading dismiss
                             this.toast.showToast('One of your skill was deleted.', 3000, 'bottom');
                         } else {
-                            loader.dismiss(); //Loading dismiss
+                            loader.dismissAll(); //Loading dismiss
                             this.toast.showToast('Something went Wrong to delete your skill !!!', 3000, 'bottom');
                         }
                     },
                         (err) => {
-                            loader.dismiss(); //Loading dismiss
+                            loader.dismissAll(); //Loading dismiss
                             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                         }
                     );
                 } else {
-                    loader.dismiss(); //Loading dismiss
+                    loader.dismissAll(); //Loading dismiss
                     this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
                 }
             }).catch(function (err) {
-                loader.dismiss(); //Loading dismiss
+                loader.dismissAll(); //Loading dismiss
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             });
         }

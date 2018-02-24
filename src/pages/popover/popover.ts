@@ -27,8 +27,7 @@ export class PopoverPage implements OnInit {
         this.storage.clear();
         this.navCtrl.push(MyApp).then(() => {
             this.navCtrl.remove(this.navCtrl.getPrevious().index);
-        }).catch(function (err) {
-        });
-        loader.dismiss();//Loading dismiss
+        }).catch(function (err) { });
+        loader.dismissAll();//Loading dismiss
     }
 }

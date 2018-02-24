@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
+import { Storage } from '@ionic/storage';
 
 import { File } from '@ionic-native/file';
 import { Transfer, TransferObject } from '@ionic-native/transfer';
@@ -7,6 +8,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
 import { Urls } from '../shared/urls';
+import { TabsPage } from '../tabs/tabs';
 
 declare var cordova: any;
 
@@ -18,10 +20,22 @@ export class ProfileImage {
     lastImage: string = null;
     loading: Loading;
     public url = new Urls();
+    rb_id = '';
+    res;
+    //r;
 
-    error;
+    constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, public storage: Storage) {
 
-    constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController) { }
+        this.storage.get('rb_id').then((val) => {
+            var p = val == null ? 0 : val;
+            if (p != 0) {
+                this.rb_id = p;
+            }
+        }).catch(function (err) {
+            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+        });
+
+    }
 
     public presentActionSheet() {
         let actionSheet = this.actionSheetCtrl.create({
@@ -95,7 +109,7 @@ export class ProfileImage {
     private presentToast(text) {
         let toast = this.toastCtrl.create({
             message: text,
-            duration: 10000,
+            duration: 5000,
             position: 'top'
         });
         toast.present();
@@ -111,37 +125,54 @@ export class ProfileImage {
     }
 
     public uploadImage() {
-        // Destination URL
-        var url = this.url.profile_image_upload;
-        // File for Upload
-        var targetPath = this.pathForImage(this.lastImage);
+        this.storage.get('reg_id').then((val) => {
+            if (val != null) {
+                // Destination URL
+                var url = this.url.profile_image_upload;
+                // File for Upload
+                var targetPath = this.pathForImage(this.lastImage);
 
-        // File name only
-        var filename = this.lastImage;
+                // File name only
+                var filename = this.lastImage;
 
-        var options = {
-            fileKey: "file",
-            fileName: filename,
-            chunkedMode: false,
-            mimeType: "multipart/form-data",
-            params: { 'fileName': filename }
-        };
+                var options = {
+                    fileKey: "file",
+                    fileName: filename,
+                    chunkedMode: false,
+                    mimeType: "multipart/form-data",
+                    params: { 'fileName': filename, reg_id: val, rb_id: this.rb_id }
+                };
 
-        const fileTransfer: TransferObject = this.transfer.create();
+                const fileTransfer: TransferObject = this.transfer.create();
 
-        this.loading = this.loadingCtrl.create({
-            content: 'Uploading...',
-        });
-        this.loading.present();
-        this.presentToast(options);
-        // Use the FileTransfer to upload the image
-        fileTransfer.upload(targetPath, url, options).then(data => {
-            this.loading.dismissAll()
-            this.error = data.response;
-            this.presentToast('Image succesful uploaded.'+data.response);
-        }, err => {
-            this.loading.dismissAll()
-            this.presentToast('Error while uploading file.');
+                this.loading = this.loadingCtrl.create({
+                    content: 'Uploading...',
+                });
+                this.loading.present();
+                // Use the FileTransfer to upload the image
+                fileTransfer.upload(targetPath, url, options).then(data => {
+                    this.loading.dismissAll()
+                    //this.r = data.response; for testing
+                    this.res = JSON.parse(data.response);
+                    if (this.res.status == 200) {
+                        this.presentToast(this.res.message);
+                        this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
+                            this.navCtrl.remove(this.navCtrl.getPrevious().index);
+                        }).catch(function (err) {
+                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                        });
+                    } else {
+                        this.presentToast(this.res.message);
+                    }
+                }, err => {
+                    this.loading.dismissAll()
+                    this.presentToast('Error while uploading file.');
+                });
+            } else {
+                this.presentToast('Error while uploading file.');
+            }
+        }).catch(function (err) {
+            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
     }
 }
