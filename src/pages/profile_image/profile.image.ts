@@ -6,6 +6,8 @@ import { Transfer, TransferObject } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
+import { Urls } from '../shared/urls';
+
 declare var cordova: any;
 
 @Component({
@@ -15,6 +17,9 @@ declare var cordova: any;
 export class ProfileImage {
     lastImage: string = null;
     loading: Loading;
+    public url = new Urls();
+
+    error;
 
     constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController) { }
 
@@ -90,7 +95,7 @@ export class ProfileImage {
     private presentToast(text) {
         let toast = this.toastCtrl.create({
             message: text,
-            duration: 3000,
+            duration: 10000,
             position: 'top'
         });
         toast.present();
@@ -107,8 +112,7 @@ export class ProfileImage {
 
     public uploadImage() {
         // Destination URL
-        var url = "http://10.0.0.159/ionic/upload.php";
-
+        var url = this.url.profile_image_upload;
         // File for Upload
         var targetPath = this.pathForImage(this.lastImage);
 
@@ -129,11 +133,12 @@ export class ProfileImage {
             content: 'Uploading...',
         });
         this.loading.present();
-
+        this.presentToast(options);
         // Use the FileTransfer to upload the image
         fileTransfer.upload(targetPath, url, options).then(data => {
             this.loading.dismissAll()
-            this.presentToast('Image succesful uploaded.');
+            this.error = data.response;
+            this.presentToast('Image succesful uploaded.'+data.response);
         }, err => {
             this.loading.dismissAll()
             this.presentToast('Error while uploading file.');
