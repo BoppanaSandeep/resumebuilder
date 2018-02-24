@@ -22,7 +22,8 @@ page-home {
         -webkit-border-radius: 100%;
         -moz-border-radius: 100%;
         background: #d6d6d6;
-        overflow: hidden;
+        -webkit-box-shadow: 0px 1px 5px 3px rgba(228, 2, 2, 0.27), 0 3px 8px -2px #488aff, 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
     ion-card img {
         display: block;
@@ -30,6 +31,8 @@ page-home {
         height: 225px;
         border-radius: 100%;
         margin: 0 auto;
+        z-index: 3;
+        position: relative;
     }
     .ion-md-create:before,
     .ion-ios-create:before {
@@ -40,14 +43,14 @@ page-home {
         border-radius: 100%;
         width: 35px;
         height: 35px;
-        -webkit-box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
+        -webkit-box-shadow: 0px 1px 5px 3px rgba(228, 2, 2, 0.27), 0 3px 8px -2px #488aff, 0 1px 5px 0 rgba(0, 0, 0, 0.12);
         box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 3px 1px -2px rgba(0, 0, 0, 0.2), 0 1px 5px 0 rgba(0, 0, 0, 0.12);
     }
     .profileimg {
-        top: 34%;
-        left: 0;
-        right: 0;
-        position: absolute;
+        left: 30%;
+        position: relative;
+        z-index: 4;
+        bottom: 16%;
     }
     ion-card-content {
         margin: 0 auto !important;
