@@ -148,25 +148,25 @@ export class Profile implements OnInit {
                     var sko = res.json();
                     if (sko.message == 'OK') {
                         this.skill_options = sko.skilloptions;
-                        loader.dismiss();
+                        loader.dismissAll();
                         //console.log(this.skill_options);
                     } else {
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Issue in Loading options, try again later!!!', 3000, 'bottom');
                     }
 
                 },
                     (err) => {
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
                 );
             } else {
-                loader.dismiss();//Loading dismiss
+                loader.dismissAll();//Loading dismiss
                 this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
             }
         }).catch(function (err) {
-            loader.dismiss();//Loading dismiss
+            loader.dismissAll();//Loading dismiss
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
     }
@@ -193,29 +193,29 @@ export class Profile implements OnInit {
                     var user = res.json();
                     if (user.message == 'OK') {
                         this.toast.showToast('Submitted your ' + submitted + ' Details.', 3000, 'bottom');
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
                             this.navCtrl.remove(this.navCtrl.getPrevious().index);
                         }).catch(function (err) {
-                            loader.dismiss();//Loading dismiss
+                            loader.dismissAll();//Loading dismiss
                             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                         });
                     } else {
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
                 },
                     (err) => {
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
                 );
             } else {
-                loader.dismiss();//Loading dismiss
+                loader.dismissAll();//Loading dismiss
                 this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
             }
         }).catch(function (err) {
-            loader.dismiss();//Loading dismiss
+            loader.dismissAll();//Loading dismiss
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
     }
@@ -243,29 +243,29 @@ export class Profile implements OnInit {
                     var user = res.json();
                     if (user.message == 'OK') {
                         this.toast.showToast('Submitted your skills', 3000, 'bottom');
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
                             this.navCtrl.remove(this.navCtrl.getPrevious().index);
                         }).catch(function (err) {
-                            loader.dismiss();//Loading dismiss
+                            loader.dismissAll();//Loading dismiss
                             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                         });
                     } else {
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
                 },
                     (err) => {
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
                 );
             } else {
-                loader.dismiss();//Loading dismiss
+                loader.dismissAll();//Loading dismiss
                 this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
             }
         }).catch(function (err) {
-            loader.dismiss();//Loading dismiss
+            loader.dismissAll();//Loading dismiss
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
     }

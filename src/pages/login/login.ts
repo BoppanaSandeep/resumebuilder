@@ -61,20 +61,20 @@ export class LoginPage implements OnInit {
                     this.storage.set('pagename', 'TabsPage');
 
                     this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
-                    loader.dismiss();//Loading dismiss
+                    loader.dismissAll();//Loading dismiss
                     this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
                         this.navCtrl.remove(this.navCtrl.getPrevious().index);
                     }).catch(function (err) {
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     });
                 } else {
-                    loader.dismiss();//Loading dismiss
+                    loader.dismissAll();//Loading dismiss
                     this.toast.showToast('Username and Password are Wrong!!!', 3000, 'bottom');
                 }
             },
                 (err) => {
-                    loader.dismiss();//Loading dismiss
+                    loader.dismissAll();//Loading dismiss
                     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     //console.log(err);
                 }
@@ -87,11 +87,11 @@ export class LoginPage implements OnInit {
                 duration: 1000
             });
             loader.present();
-            loader.dismiss();//Loading dismiss
+            loader.dismissAll();//Loading dismiss
             this.navCtrl.push(RegisterPage).then(() => {
                 this.navCtrl.remove(this.navCtrl.getPrevious().index);
             }).catch(function (err) {
-                loader.dismiss();//Loading dismiss
+                loader.dismissAll();//Loading dismiss
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             });
         } else {

@@ -92,19 +92,19 @@ export class EditExpEdu implements OnInit {
                     } else {
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
-                    loader.dismiss();
+                    loader.dismissAll();
                 },
                     (err) => {
-                        loader.dismiss();
+                        loader.dismissAll();
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }
                 );
             } else {
-                loader.dismiss();
+                loader.dismissAll();
                 this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
             }
         }).catch(function (err) {
-            loader.dismiss();
+            loader.dismissAll();
             this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
         });
     }

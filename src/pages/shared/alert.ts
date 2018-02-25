@@ -91,21 +91,21 @@ export class ConfirmationAlerts {
                 var user = res.json();
                 if (user.message == 'OK') {
                     this.toast.showToast('Password was sent to ' + atob(user.email), 3000, 'bottom');
-                    loader.dismiss();//Loading dismiss
+                    loader.dismissAll();//Loading dismiss
                 } else {
-                    loader.dismiss();//Loading dismiss
+                    loader.dismissAll();//Loading dismiss
                     this.toast.showToast('Email you entered is wrong!!!', 3000, 'bottom');
                     //console.log('Something went worng', res.json());
                 }
             },
                 (err) => {
-                    loader.dismiss();//Loading dismiss
+                    loader.dismissAll();//Loading dismiss
                     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     //console.log(err);
                 }
             );
         } else {
-            loader.dismiss();//Loading dismiss
+            loader.dismissAll();//Loading dismiss
             this.toast.showToast('Please enter your Email ID !!!', 3000, 'bottom');
         }
     }

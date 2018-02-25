@@ -57,26 +57,26 @@ export class RegisterPage implements OnInit {
                     this.navCtrl.push(LoginPage).then(() => {
                         this.navCtrl.remove(this.navCtrl.getPrevious().index);
                     }).catch(function (err) {
-                        loader.dismiss();//Loading dismiss
+                        loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     });
                 } else {
                     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                 }
-                loader.dismiss();//Loading dismiss
+                loader.dismissAll();//Loading dismiss
             },
                 (err) => {
-                    loader.dismiss();//Loading dismiss
+                    loader.dismissAll();//Loading dismiss
                     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                 }
             );
             //console.log(this.registerForm.value);
         } else {
-            loader.dismiss();//Loading dismiss
+            loader.dismissAll();//Loading dismiss
             this.navCtrl.push(MyApp).then(() => {
                 this.navCtrl.remove(this.navCtrl.getPrevious().index);
             }).catch(function (err) {
-                loader.dismiss();//Loading dismiss
+                loader.dismissAll();//Loading dismiss
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             });
         }
