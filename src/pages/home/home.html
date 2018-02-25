@@ -14,7 +14,7 @@
     <ion-card class="profile">
         <ion-card-content class="imagediv">
             <img *ngIf="UserVariables?.profile_pic != ''" src="{{UserVariables?.profile_pic}}" />
-            <ion-label class="profileimg">
+            <ion-label class="profileimg" [hidden]="UserVariables?.profile_pic == ''">
                 <ion-icon class="profileimgicon" name="create" (click)="editProfileImage()" color="primary"></ion-icon>
             </ion-label>
         </ion-card-content>
@@ -22,9 +22,9 @@
             <ion-card-title>
                 {{UserVariables?.name}}
             </ion-card-title>
-            <label>
+            <ion-label small >
                 {{role}}
-            </label>
+            </ion-label>
         </ion-card-content>
     </ion-card>
     <ion-card class="expedu">

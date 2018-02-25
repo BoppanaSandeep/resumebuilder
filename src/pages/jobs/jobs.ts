@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, PopoverController } from 'ionic-angular';
 
 import { PopoverPage } from '../popover/popover';
+import { TabsPage } from '../tabs/tabs';
+import { ToastAlert } from '../shared/toast';
 
 @Component({
     selector: 'page-jobs',
@@ -9,12 +11,14 @@ import { PopoverPage } from '../popover/popover';
 })
 export class JobsPage implements OnInit {
 
-    constructor(public navCtrl: NavController, public popoverCtrl: PopoverController) {
+    i=[1,2,3,4,5];
+
+    constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public toast: ToastAlert) {
 
     }
 
-    ngOnInit(){
-        
+    ngOnInit() {
+
     }
 
     popOver(myEvent) {
@@ -24,5 +28,22 @@ export class JobsPage implements OnInit {
         });
     }
 
-
+    swipeEvent(e) {
+        //console.log(e);
+        if (e.direction == 4) { //messaging
+            this.navCtrl.push(TabsPage, { tabIndex: 2}).then(() => {
+                this.navCtrl.remove(this.navCtrl.getPrevious().index);
+            }).catch(function (err) {
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            });
+            //this.toast.showToast('right -> left', 2000, 'bottom');
+        } else if (e.direction == 2) { //profile
+            this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
+                this.navCtrl.remove(this.navCtrl.getPrevious().index);
+            }).catch(function (err) {
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            });
+            //this.toast.showToast('left -> right', 2000, 'bottom');
+        }
+    }
 }

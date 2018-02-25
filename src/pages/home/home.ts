@@ -12,7 +12,8 @@ import { Urls } from '../shared/urls';
 import { ToastAlert } from '../shared/toast';
 import { MoreDesc } from '../more_modals/more.description';
 import { EditExpEdu } from '../edit_modals/edit_expedu';
-import { ProfileImage } from './../profile_image/profile.image';
+import { ProfileImage } from '../profile_image/profile.image';
+import { TabsPage } from '../tabs/tabs';
 
 @Component({
     selector: 'page-home',
@@ -70,7 +71,7 @@ export class HomePage implements OnInit {
                 this.UserVariables.rb_id = user.info.rb_id;
                 this.UserVariables.email = user.info.email;
                 this.UserVariables.name = user.info.name;
-                this.UserVariables.profile_pic= user.info.profile_pic;
+                this.UserVariables.profile_pic = user.info.profile_pic;
                 this.UserVariables.phonenumber = user.info.phonenumber;
                 this.UserVariables.joined_on = user.info.joined_on;
                 this.UserVariables.logged_in = user.info.logged_in;
@@ -257,4 +258,22 @@ export class HomePage implements OnInit {
         });
     }
 
+    swipeEvent(e) {
+        //console.log(e);
+        if (e.direction == 4) { //job posts
+            this.navCtrl.push(TabsPage, { tabIndex: 0 }).then(() => {
+                this.navCtrl.remove(this.navCtrl.getPrevious().index);
+            }).catch(function (err) {
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            });
+            //this.toast.showToast('right -> left', 2000, 'bottom');
+        } else if (e.direction == 2) { //messaging
+            this.navCtrl.push(TabsPage, { tabIndex: 2 }).then(() => {
+                this.navCtrl.remove(this.navCtrl.getPrevious().index);
+            }).catch(function (err) {
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            });
+            //this.toast.showToast('left -> right', 2000, 'bottom');
+        }
+    }
 }
