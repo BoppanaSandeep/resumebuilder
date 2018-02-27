@@ -7,7 +7,7 @@ import { Storage } from '@ionic/storage';
 import { Urls } from '../shared/urls';
 import { ToastAlert } from '../shared/toast';
 
-import { TabsPage } from '../tabs/tabs';
+//import { TabsPage } from '../tabs/tabs';
 
 
 @Component({
@@ -194,12 +194,13 @@ export class Profile implements OnInit {
                     if (user.message == 'OK') {
                         this.toast.showToast('Submitted your ' + submitted + ' Details.', 3000, 'bottom');
                         loader.dismissAll();//Loading dismiss
-                        this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
-                            this.navCtrl.remove(this.navCtrl.getPrevious().index);
-                        }).catch(function (err) {
-                            loader.dismissAll();//Loading dismiss
-                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                        });
+                        // this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
+                        //     this.navCtrl.remove(this.navCtrl.getPrevious().index);
+                        // }).catch(function (err) {
+                        //     loader.dismissAll();//Loading dismiss
+                        //     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                        // });
+                        this.viewCtrl.dismiss();
                     } else {
                         loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
@@ -244,12 +245,13 @@ export class Profile implements OnInit {
                     if (user.message == 'OK') {
                         this.toast.showToast('Submitted your skills', 3000, 'bottom');
                         loader.dismissAll();//Loading dismiss
-                        this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
-                            this.navCtrl.remove(this.navCtrl.getPrevious().index);
-                        }).catch(function (err) {
-                            loader.dismissAll();//Loading dismiss
-                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                        });
+                        // this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
+                        //     this.navCtrl.remove(this.navCtrl.getPrevious().index);
+                        // }).catch(function (err) {
+                        //     loader.dismissAll();//Loading dismiss
+                        //     this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                        // });
+                        this.viewCtrl.dismiss();
                     } else {
                         loader.dismissAll();//Loading dismiss
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');

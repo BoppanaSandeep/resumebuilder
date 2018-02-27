@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading,ViewController } from 'ionic-angular';
+import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading, ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { File } from '@ionic-native/file';
@@ -8,7 +8,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
 import { Urls } from '../shared/urls';
-import { TabsPage } from '../tabs/tabs';
+//import { TabsPage } from '../tabs/tabs';
 
 declare var cordova: any;
 
@@ -22,7 +22,6 @@ export class ProfileImage {
     public url = new Urls();
     rb_id = '';
     res;
-    //r;
 
     constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, public storage: Storage, public viewCtrl: ViewController) {
 
@@ -156,11 +155,7 @@ export class ProfileImage {
                     this.res = JSON.parse(data.response);
                     if (this.res.status == 200) {
                         this.presentToast(this.res.message);
-                        this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
-                            this.navCtrl.remove(this.navCtrl.getPrevious().index);
-                        }).catch(function (err) {
-                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                        });
+                        this.navCtrl.pop();
                     } else {
                         this.presentToast(this.res.message);
                     }

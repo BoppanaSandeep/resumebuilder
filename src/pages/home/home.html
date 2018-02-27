@@ -1,6 +1,7 @@
 <ion-header>
     <ion-navbar color="primary">
-        <ion-title text-center text-uppercase>{{UserVariables?.name==''?'Resume Builder':UserVariables?.name}}</ion-title>
+        <ion-title text-center text-uppercase>
+            {{ UserVariables?.name==''?'Resume Builder':UserVariables?.name }}</ion-title>
         <ion-buttons end>
             <button ion-button icon-only (click)="popOver($event)">
                 <ion-icon name="more"></ion-icon>
@@ -9,63 +10,33 @@
         <!-- <ion-icon name="power" float-right (click)="logout()"></ion-icon> -->
     </ion-navbar>
 </ion-header>
-
 <ion-content>
-    <ion-card class="profile">
-        <ion-card-content class="imagediv">
-            <img *ngIf="UserVariables?.profile_pic != ''" src="{{UserVariables?.profile_pic}}" />
-            <ion-label class="profileimg" [hidden]="UserVariables?.profile_pic == ''">
-                <ion-icon class="profileimgicon" name="create" (click)="editProfileImage()" color="primary"></ion-icon>
-            </ion-label>
-        </ion-card-content>
-        <ion-card-content>
-            <ion-card-title>
-                {{UserVariables?.name}}
-            </ion-card-title>
-            <ion-label small >
-                {{role}}
-            </ion-label>
-        </ion-card-content>
-    </ion-card>
-    <ion-card class="expedu">
-        <ion-icon name="add" (click)="presentModal('Experience')"></ion-icon>
-        <ion-card-header>
-            Experience
-        </ion-card-header>
-        <ion-list>
-            <div *ngIf="expedu_data?.info?.experience!='Not Updated'; else exp">
-                <div *ngFor="let expdata of expedu_data?.info?.experience; let i=index">
-                    <ion-item-sliding *ngIf="i<2; else viewexp">
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <!-- <img src="../../../screen.png"> -->
-                                <ion-icon name="briefcase"></ion-icon>
-                            </ion-avatar>
-                            <h2>{{expdata.exp_company || 'Not Found'}}</h2>
-                            <p>Desgination: {{expdata.exp_role || 'Not Found'}}</p>
-                            <p>From: {{expdata.exp_working_from || 'Not Found'}}</p>
-                            <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here...</p>
-                            <ng-template #work>
-                                <p>To: {{expdata.exp_last_work_date || 'Not Found'}}</p>
-                            </ng-template>
-                        </ion-item>
-                        <ion-item-options side="left">
-                            <button ion-button color="danger" (click)="delete(expdata.exp_id, expdata.exp_company, 'exp')">
-                                <ion-icon name="close"></ion-icon>
-                                Del
-                            </button>
-                            <button ion-button color="secondary" (click)="expeduEditModel(expdata.exp_id, expdata, 'Experience')">
-                                <ion-icon name="create"></ion-icon>
-                                Edit
-                            </button>
-                            <button ion-button (click)="moreDescModal(i,expdata,'Experience')">
-                                <ion-icon name="information-circle"></ion-icon>
-                                More
-                            </button>
-                        </ion-item-options>
-                    </ion-item-sliding>
-                    <ng-template #viewexp>
-                        <ion-item-sliding *ngIf="viewmore_exp">
+    <div (swipe)="swipeEvent($event)">
+        <ion-card class="profile">
+            <ion-card-content class="imagediv">
+                <img *ngIf="UserVariables?.profile_pic != ''" src="{{UserVariables?.profile_pic}}" />
+                <ion-label class="profileimg" [hidden]="UserVariables?.profile_pic == ''">
+                    <ion-icon class="profileimgicon" name="create" (click)="editProfileImage()" color="primary"></ion-icon>
+                </ion-label>
+            </ion-card-content>
+            <ion-card-content>
+                <ion-card-title>
+                    {{UserVariables?.name}}
+                </ion-card-title>
+                <ion-label small>
+                    {{role}}
+                </ion-label>
+            </ion-card-content>
+        </ion-card>
+        <ion-card class="expedu">
+            <ion-icon name="add" (click)="presentModal('Experience')"></ion-icon>
+            <ion-card-header>
+                Experience
+            </ion-card-header>
+            <ion-list>
+                <div *ngIf="expedu_data?.info?.experience!='Not Updated'; else exp">
+                    <div *ngFor="let expdata of expedu_data?.info?.experience; let i=index">
+                        <ion-item-sliding *ngIf="i<2; else viewexp">
                             <ion-item>
                                 <ion-avatar item-start>
                                     <!-- <img src="../../../screen.png"> -->
@@ -74,90 +45,93 @@
                                 <h2>{{expdata.exp_company || 'Not Found'}}</h2>
                                 <p>Desgination: {{expdata.exp_role || 'Not Found'}}</p>
                                 <p>From: {{expdata.exp_working_from || 'Not Found'}}</p>
-                                <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here..</p>
+                                <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here...</p>
                                 <ng-template #work>
                                     <p>To: {{expdata.exp_last_work_date || 'Not Found'}}</p>
                                 </ng-template>
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(expdata.exp_id, expdata.exp_company, 'exp')">
-                                    <ion-icon name="close"></ion-icon>
-                                    Del
-                                </button>
-                                <button ion-button color="secondary" (click)="expeduEditModel(expdata.exp_id, expdata, 'Experience')">
-                                    <ion-icon name="create"></ion-icon>
-                                    Edit
-                                </button>
-                                <button ion-button (click)="moreDescModal(i,expdata,'Experience')">
-                                    <ion-icon name="information-circle"></ion-icon>
-                                    More
-                                </button>
-                            </ion-item-options>
-                        </ion-item-sliding>
-                    </ng-template>
-                </div>
-                <div *ngIf="expedu_data?.info?.experience.length > 2">
-                    <ion-list>
-                        <div *ngIf="viewmore_exp;else viewless">
-                            <button ion-button (click)="viewmore('exp')" color="secondary" clear>
-                                View less
-                            </button>
-                        </div>
-                        <ng-template #viewless>
-                            <button ion-button (click)="viewmore('exp')" color="secondary" clear>
-                                View more
-                            </button>
-                        </ng-template>
-                    </ion-list>
-                </div>
-            </div>
-            <ng-template #exp>
-                <ion-item-sliding>
-                    <ion-item>
-                        <ion-avatar item-start>
-                            <!-- <img src="../../../screen.png"> -->
-                            <ion-icon name="briefcase"></ion-icon>
-                        </ion-avatar>
-                        <h2>{{expedu_data?.info?.experience || 'Not Found'}}</h2>
-                    </ion-item>
-                </ion-item-sliding>
-            </ng-template>
-        </ion-list>
-        <ion-icon name="add" (click)="presentModal('Education')"></ion-icon>
-        <ion-card-header>
-            Education
-        </ion-card-header>
-        <ion-list>
-            <div *ngIf="expedu_data?.info?.education!='Not Updated'; else edu">
-                <div *ngFor="let edudata of expedu_data?.info?.education; let j=index">
-                    <ion-item-sliding *ngIf="j<2; else viewedu">
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <!-- <img src="../../../screen.png"> -->
-                                <ion-icon name="school"></ion-icon>
-                            </ion-avatar>
-                            <h2>{{edudata.edu_university_clg_sch || 'Not Found'}}</h2>
-                            <p>Specialization: {{edudata.edu_specialization || 'Not Found'}}</p>
-                            <p>Percentage: {{edudata.edu_percentage+' %' || 'Not Found'}}</p>
-                            <p>Passout Year: {{edudata.edu_passoutyear || 'Not Found'}}</p>
-                        </ion-item>
-                        <ion-item-options side="left">
-                            <button ion-button color="danger" (click)="delete(edudata.edu_id, edudata.edu_university_clg_sch, 'edu')">
                                 <ion-icon name="close"></ion-icon>
                                 Del
                             </button>
-                            <button ion-button color="secondary" (click)="expeduEditModel(edudata.edu_id, edudata, 'Education')">
+                                <button ion-button color="secondary" (click)="expeduEditModel(expdata.exp_id, expdata, 'Experience')">
                                 <ion-icon name="create"></ion-icon>
                                 Edit
                             </button>
-                            <button ion-button (click)="moreDescModal(j,edudata,'Education')">
+                                <button ion-button (click)="moreDescModal(i,expdata,'Experience')">
                                 <ion-icon name="information-circle"></ion-icon>
                                 More
                             </button>
-                        </ion-item-options>
+                            </ion-item-options>
+                        </ion-item-sliding>
+                        <ng-template #viewexp>
+                            <ion-item-sliding *ngIf="viewmore_exp">
+                                <ion-item>
+                                    <ion-avatar item-start>
+                                        <!-- <img src="../../../screen.png"> -->
+                                        <ion-icon name="briefcase"></ion-icon>
+                                    </ion-avatar>
+                                    <h2>{{expdata.exp_company || 'Not Found'}}</h2>
+                                    <p>Desgination: {{expdata.exp_role || 'Not Found'}}</p>
+                                    <p>From: {{expdata.exp_working_from || 'Not Found'}}</p>
+                                    <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here..</p>
+                                    <ng-template #work>
+                                        <p>To: {{expdata.exp_last_work_date || 'Not Found'}}</p>
+                                    </ng-template>
+                                </ion-item>
+                                <ion-item-options side="left">
+                                    <button ion-button color="danger" (click)="delete(expdata.exp_id, expdata.exp_company, 'exp')">
+                                    <ion-icon name="close"></ion-icon>
+                                    Del
+                                </button>
+                                    <button ion-button color="secondary" (click)="expeduEditModel(expdata.exp_id, expdata, 'Experience')">
+                                    <ion-icon name="create"></ion-icon>
+                                    Edit
+                                </button>
+                                    <button ion-button (click)="moreDescModal(i,expdata,'Experience')">
+                                    <ion-icon name="information-circle"></ion-icon>
+                                    More
+                                </button>
+                                </ion-item-options>
+                            </ion-item-sliding>
+                        </ng-template>
+                    </div>
+                    <div *ngIf="expedu_data?.info?.experience.length > 2">
+                        <ion-list>
+                            <div *ngIf="viewmore_exp;else viewless">
+                                <button ion-button (click)="viewmore('exp')" color="secondary" clear>
+                                View less
+                            </button>
+                            </div>
+                            <ng-template #viewless>
+                                <button ion-button (click)="viewmore('exp')" color="secondary" clear>
+                                View more
+                            </button>
+                            </ng-template>
+                        </ion-list>
+                    </div>
+                </div>
+                <ng-template #exp>
+                    <ion-item-sliding>
+                        <ion-item>
+                            <ion-avatar item-start>
+                                <!-- <img src="../../../screen.png"> -->
+                                <ion-icon name="briefcase"></ion-icon>
+                            </ion-avatar>
+                            <h2>{{expedu_data?.info?.experience || 'Not Found'}}</h2>
+                        </ion-item>
                     </ion-item-sliding>
-                    <ng-template #viewedu>
-                        <ion-item-sliding *ngIf="viewmore_edu">
+                </ng-template>
+            </ion-list>
+            <ion-icon name="add" (click)="presentModal('Education')"></ion-icon>
+            <ion-card-header>
+                Education
+            </ion-card-header>
+            <ion-list>
+                <div *ngIf="expedu_data?.info?.education!='Not Updated'; else edu">
+                    <div *ngFor="let edudata of expedu_data?.info?.education; let j=index">
+                        <ion-item-sliding *ngIf="j<2; else viewedu">
                             <ion-item>
                                 <ion-avatar item-start>
                                     <!-- <img src="../../../screen.png"> -->
@@ -170,75 +144,85 @@
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(edudata.edu_id, edudata.edu_university_clg_sch, 'edu')">
-                                    <ion-icon name="close"></ion-icon>
-                                    Del
-                                </button>
-                                <button ion-button color="secondary" (click)="expeduEditModel(edudata.edu_id, edudata, 'Education')">
-                                    <ion-icon name="create"></ion-icon>
-                                    Edit
-                                </button>
-                                <button ion-button (click)="moreDescModal(j,edudata,'Education')">
-                                    <ion-icon name="information-circle"></ion-icon>
-                                    More
-                                </button>
-                            </ion-item-options>
-                        </ion-item-sliding>
-                    </ng-template>
-                </div>
-                <div *ngIf="expedu_data?.info?.education.length > 2">
-                    <ion-list>
-                        <div *ngIf="viewmore_edu;else viewless">
-                            <button ion-button (click)="viewmore('edu')" color="secondary" clear>
-                                View less
-                            </button>
-                        </div>
-                        <ng-template #viewless>
-                            <button ion-button (click)="viewmore('edu')" color="secondary" clear>
-                                View more
-                            </button>
-                        </ng-template>
-                    </ion-list>
-                </div>
-            </div>
-            <ng-template #edu>
-                <ion-item-sliding>
-                    <ion-item>
-                        <ion-avatar item-start>
-                            <!-- <img src="../../../screen.png"> -->
-                            <ion-icon name="school"></ion-icon>
-                        </ion-avatar>
-                        <h2>{{expedu_data?.info?.education || 'Not Found'}}</h2>
-                    </ion-item>
-                </ion-item-sliding>
-            </ng-template>
-        </ion-list>
-    </ion-card>
-    <ion-card class="skills">
-        <ion-icon name="add" (click)="presentModal('Featured Skills')"></ion-icon>
-        <ion-card-header>
-            Featured Skills
-        </ion-card-header>
-        <ion-list>
-            <div *ngIf="skills_data?.info!='Not Updated'; else skills">
-                <div *ngFor="let data of skills_data?.info; let k=index">
-                    <ion-item-sliding *ngIf="k<4; else viewskill">
-                        <ion-item>
-                            <ion-avatar item-start>
-                                <!-- <img src="../../../screen.png"> -->
-                                <ion-icon name="checkmark-circle"></ion-icon>
-                            </ion-avatar>
-                            <h2>{{data.skill_name || 'Not Found'}}</h2>
-                            <ion-badge item-end color="">{{data.skill_rating || 'NA'}}/ 5</ion-badge>
-                        </ion-item>
-                        <ion-item-options side="left">
-                            <button ion-button color="danger" (click)="delete(data.skill_id, data.skill_name, 'skill')">
                                 <ion-icon name="close"></ion-icon>
                                 Del
                             </button>
-                        </ion-item-options>
+                                <button ion-button color="secondary" (click)="expeduEditModel(edudata.edu_id, edudata, 'Education')">
+                                <ion-icon name="create"></ion-icon>
+                                Edit
+                            </button>
+                                <button ion-button (click)="moreDescModal(j,edudata,'Education')">
+                                <ion-icon name="information-circle"></ion-icon>
+                                More
+                            </button>
+                            </ion-item-options>
+                        </ion-item-sliding>
+                        <ng-template #viewedu>
+                            <ion-item-sliding *ngIf="viewmore_edu">
+                                <ion-item>
+                                    <ion-avatar item-start>
+                                        <!-- <img src="../../../screen.png"> -->
+                                        <ion-icon name="school"></ion-icon>
+                                    </ion-avatar>
+                                    <h2>{{edudata.edu_university_clg_sch || 'Not Found'}}</h2>
+                                    <p>Specialization: {{edudata.edu_specialization || 'Not Found'}}</p>
+                                    <p>Percentage: {{edudata.edu_percentage+' %' || 'Not Found'}}</p>
+                                    <p>Passout Year: {{edudata.edu_passoutyear || 'Not Found'}}</p>
+                                </ion-item>
+                                <ion-item-options side="left">
+                                    <button ion-button color="danger" (click)="delete(edudata.edu_id, edudata.edu_university_clg_sch, 'edu')">
+                                    <ion-icon name="close"></ion-icon>
+                                    Del
+                                </button>
+                                    <button ion-button color="secondary" (click)="expeduEditModel(edudata.edu_id, edudata, 'Education')">
+                                    <ion-icon name="create"></ion-icon>
+                                    Edit
+                                </button>
+                                    <button ion-button (click)="moreDescModal(j,edudata,'Education')">
+                                    <ion-icon name="information-circle"></ion-icon>
+                                    More
+                                </button>
+                                </ion-item-options>
+                            </ion-item-sliding>
+                        </ng-template>
+                    </div>
+                    <div *ngIf="expedu_data?.info?.education.length > 2">
+                        <ion-list>
+                            <div *ngIf="viewmore_edu;else viewless">
+                                <button ion-button (click)="viewmore('edu')" color="secondary" clear>
+                                View less
+                            </button>
+                            </div>
+                            <ng-template #viewless>
+                                <button ion-button (click)="viewmore('edu')" color="secondary" clear>
+                                View more
+                            </button>
+                            </ng-template>
+                        </ion-list>
+                    </div>
+                </div>
+                <ng-template #edu>
+                    <ion-item-sliding>
+                        <ion-item>
+                            <ion-avatar item-start>
+                                <!-- <img src="../../../screen.png"> -->
+                                <ion-icon name="school"></ion-icon>
+                            </ion-avatar>
+                            <h2>{{expedu_data?.info?.education || 'Not Found'}}</h2>
+                        </ion-item>
                     </ion-item-sliding>
-                    <ng-template #viewskill>
-                        <ion-item-sliding *ngIf="viewmore_skill">
+                </ng-template>
+            </ion-list>
+        </ion-card>
+        <ion-card class="skills">
+            <ion-icon name="add" (click)="presentModal('Featured Skills')"></ion-icon>
+            <ion-card-header>
+                Featured Skills
+            </ion-card-header>
+            <ion-list>
+                <div *ngIf="skills_data?.info!='Not Updated'; else skills">
+                    <div *ngFor="let data of skills_data?.info; let k=index">
+                        <ion-item-sliding *ngIf="k<4; else viewskill">
                             <ion-item>
                                 <ion-avatar item-start>
                                     <!-- <img src="../../../screen.png"> -->
@@ -249,39 +233,57 @@
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(data.skill_id, data.skill_name, 'skill')">
+                                <ion-icon name="close"></ion-icon>
+                                Del
+                            </button>
+                            </ion-item-options>
+                        </ion-item-sliding>
+                        <ng-template #viewskill>
+                            <ion-item-sliding *ngIf="viewmore_skill">
+                                <ion-item>
+                                    <ion-avatar item-start>
+                                        <!-- <img src="../../../screen.png"> -->
+                                        <ion-icon name="checkmark-circle"></ion-icon>
+                                    </ion-avatar>
+                                    <h2>{{data.skill_name || 'Not Found'}}</h2>
+                                    <ion-badge item-end color="">{{data.skill_rating || 'NA'}}/ 5</ion-badge>
+                                </ion-item>
+                                <ion-item-options side="left">
+                                    <button ion-button color="danger" (click)="delete(data.skill_id, data.skill_name, 'skill')">
                                     <ion-icon name="close"></ion-icon>
                                     Del
                                 </button>
-                            </ion-item-options>
-                        </ion-item-sliding>
-                    </ng-template>
-                </div>
-                <div *ngIf="skills_data?.info.length > 4">
-                    <ion-list>
-                        <div *ngIf="viewmore_skill;else viewless">
-                            <button ion-button (click)="viewmore('skill')" color="secondary" clear>
+                                </ion-item-options>
+                            </ion-item-sliding>
+                        </ng-template>
+                    </div>
+                    <div *ngIf="skills_data?.info.length > 4">
+                        <ion-list>
+                            <div *ngIf="viewmore_skill;else viewless">
+                                <button ion-button (click)="viewmore('skill')" color="secondary" clear>
                                 View less
                             </button>
-                        </div>
-                        <ng-template #viewless>
-                            <button ion-button (click)="viewmore('skill')" color="secondary" clear>
+                            </div>
+                            <ng-template #viewless>
+                                <button ion-button (click)="viewmore('skill')" color="secondary" clear>
                                 View more
                             </button>
-                        </ng-template>
-                    </ion-list>
+                            </ng-template>
+                        </ion-list>
+                    </div>
                 </div>
-            </div>
-            <ng-template #skills>
-                <ion-item-sliding>
-                    <ion-item>
-                        <ion-avatar item-start>
-                            <!-- <img src="../../../screen.png"> -->
-                            <ion-icon name="checkmark-circle"></ion-icon>
-                        </ion-avatar>
-                        <h2>{{skills_data?.info || 'Not Found'}}</h2>
-                    </ion-item>
-                </ion-item-sliding>
-            </ng-template>
-        </ion-list>
-    </ion-card>
+                <ng-template #skills>
+                    <ion-item-sliding>
+                        <ion-item>
+                            <ion-avatar item-start>
+                                <!-- <img src="../../../screen.png"> -->
+                                <ion-icon name="checkmark-circle"></ion-icon>
+                            </ion-avatar>
+                            <h2>{{skills_data?.info || 'Not Found'}}</h2>
+                        </ion-item>
+                    </ion-item-sliding>
+                </ng-template>
+            </ion-list>
+        </ion-card>
+    </div>
 </ion-content>

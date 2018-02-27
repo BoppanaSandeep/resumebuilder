@@ -2,6 +2,8 @@ import { MyApp } from './../../app/app.component';
 import { Component, OnInit } from '@angular/core';
 import { NavController, ViewController, LoadingController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
+import { BackgroundMode } from '@ionic-native/background-mode';
+
 import { ToastAlert } from '../shared/toast';
 
 @Component({
@@ -10,7 +12,7 @@ import { ToastAlert } from '../shared/toast';
 })
 
 export class PopoverPage implements OnInit {
-    constructor(public viewCtrl: ViewController, public navCtrl: NavController, public storage: Storage, public loading: LoadingController, public toast: ToastAlert) { }
+    constructor(public viewCtrl: ViewController, public navCtrl: NavController, public storage: Storage, public loading: LoadingController, public toast: ToastAlert, public backgroundMode: BackgroundMode) { }
 
     ngOnInit() {
 
@@ -25,6 +27,7 @@ export class PopoverPage implements OnInit {
         loader.present();
         this.viewCtrl.dismiss();
         this.storage.clear();
+        this.backgroundMode.disable();
         this.navCtrl.push(MyApp).then(() => {
             this.navCtrl.remove(this.navCtrl.getPrevious().index);
         }).catch(function (err) { });

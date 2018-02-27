@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, LoadingController, PopoverController, ViewController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, PopoverController, ViewController } from 'ionic-angular';
 import { ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
@@ -13,7 +13,7 @@ import { ToastAlert } from '../shared/toast';
 import { MoreDesc } from '../more_modals/more.description';
 import { EditExpEdu } from '../edit_modals/edit_expedu';
 import { ProfileImage } from '../profile_image/profile.image';
-import { TabsPage } from '../tabs/tabs';
+//import { TabsPage } from '../tabs/tabs';
 
 @Component({
     selector: 'page-home',
@@ -31,8 +31,12 @@ export class HomePage implements OnInit {
     rb_id;
     role;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController, public popoverCtrl: PopoverController, public viewCtrl: ViewController) {
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navParams: NavParams) {
 
+    }
+
+    ionViewWillEnter() {
+        this.ngOnInit();
     }
 
     ngOnInit() {
@@ -124,6 +128,11 @@ export class HomePage implements OnInit {
         //console.log(data);
         let modal = this.modalCtrl.create(Profile, data);
         modal.present();
+        modal.onDidDismiss(() => {
+            this.reload(this.rb_id);
+            this.skills(this.rb_id);
+            this.expedu(this.rb_id);
+        });
     }
 
     moreDescModal(index, expedu_data, expedu) {
@@ -259,21 +268,8 @@ export class HomePage implements OnInit {
     }
 
     swipeEvent(e) {
-        //console.log(e);
-        if (e.direction == 4) { //job posts
-            this.navCtrl.push(TabsPage, { tabIndex: 0 }).then(() => {
-                this.navCtrl.remove(this.navCtrl.getPrevious().index);
-            }).catch(function (err) {
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            });
-            //this.toast.showToast('right -> left', 2000, 'bottom');
-        } else if (e.direction == 2) { //messaging
-            this.navCtrl.push(TabsPage, { tabIndex: 2 }).then(() => {
-                this.navCtrl.remove(this.navCtrl.getPrevious().index);
-            }).catch(function (err) {
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            });
-            //this.toast.showToast('left -> right', 2000, 'bottom');
+        if (e.direction == 2 || e.direction == 4) {
+            this.ngOnInit();
         }
     }
 }

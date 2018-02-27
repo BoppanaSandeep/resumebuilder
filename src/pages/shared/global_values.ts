@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 export class UserVariables{
     public reg_id=0;
     public rb_id;
-    public name;
+    public name = '';
     public profile_pic = '';
     public email;
     public phonenumber;
