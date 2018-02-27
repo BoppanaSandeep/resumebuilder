@@ -9,7 +9,7 @@
         <ion-card-title text-center text-uppercase>
             Sign Up
         </ion-card-title>
-        <form [formGroup]="registerForm" (ngSubmit)="register('register')">
+        <form [formGroup]="registerForm" (ngSubmit)="dummyRegister('register')">
             <ion-item>
                 <ion-label color="primary" stacked>First Name</ion-label>
                 <ion-input type="text" formControlName="name_first" placeholder="First Name"></ion-input>
@@ -74,7 +74,7 @@
                 </ion-item>
             </ion-list>
             <div padding>
-                <button ion-button type="submit" [disabled]="!registerForm.valid" block>Sign Up</button>
+                <button ion-button type="submit" [disabled]="!registerForm.valid" block (click)="register('register')">Sign Up</button>
             </div>
             <div padding>
                 <button ion-button (click)="register('pushtologin')" block>Sign In</button>

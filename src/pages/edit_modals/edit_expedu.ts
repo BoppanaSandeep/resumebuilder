@@ -88,7 +88,11 @@ export class EditExpEdu implements OnInit {
                     var user = res.json();
                     if (user.message == 'OK') {
                         this.toast.showToast('Updated your ' + submitted + ' Details.', 3000, 'bottom');
-                        this.navCtrl.push(TabsPage, { tabIndex: 1 });
+                        this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
+                            this.navCtrl.remove(this.navCtrl.getPrevious().index);
+                        }).catch(function (err) {
+                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                        });
                     } else {
                         this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
                     }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading } from 'ionic-angular';
+import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading,ViewController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 
 import { File } from '@ionic-native/file';
@@ -24,7 +24,7 @@ export class ProfileImage {
     res;
     //r;
 
-    constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, public storage: Storage) {
+    constructor(public navCtrl: NavController, private camera: Camera, private transfer: Transfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, public storage: Storage, public viewCtrl: ViewController) {
 
         this.storage.get('rb_id').then((val) => {
             var p = val == null ? 0 : val;

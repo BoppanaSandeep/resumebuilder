@@ -1,6 +1,5 @@
-import { MyApp } from './../../app/app.component';
 import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 
 import { ToastAlert } from '../shared/toast';
@@ -20,7 +19,7 @@ export class RegisterPage implements OnInit {
     public registerForm: FormGroup;
     year;
 
-    constructor(public navCtrl: NavController, private formBuilder: FormBuilder, public navParams: NavParams, public http: Http, public toast: ToastAlert, public loading: LoadingController) {
+    constructor(public navCtrl: NavController, private formBuilder: FormBuilder, public navParams: NavParams, public http: Http, public toast: ToastAlert, public loading: LoadingController, public viewCtrl: ViewController) {
         this.registerForm = this.formBuilder.group({
             name_first: ['', [Validators.required, Validators.maxLength(50)]],
             name_last: ['', [Validators.required, Validators.maxLength(50)]],
@@ -38,10 +37,13 @@ export class RegisterPage implements OnInit {
         this.year = (d.getFullYear() - 17).toString();
     }
 
+    dummyRegister(dummy){}
+
     register(action) {
         //Loading
         let loader = this.loading.create({
             content: "Please wait...",
+            duration: 1000
         });
         loader.present();
         if (action == 'register') {
@@ -73,7 +75,7 @@ export class RegisterPage implements OnInit {
             //console.log(this.registerForm.value);
         } else {
             loader.dismissAll();//Loading dismiss
-            this.navCtrl.push(MyApp).then(() => {
+            this.navCtrl.push(LoginPage).then(() => {
                 this.navCtrl.remove(this.navCtrl.getPrevious().index);
             }).catch(function (err) {
                 loader.dismissAll();//Loading dismiss

@@ -4,6 +4,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { BackgroundMode } from '@ionic-native/background-mode';
 
 import { ConfirmationAlerts } from '../pages/shared/alert';
 import { ToastAlert } from '../pages/shared/toast';
@@ -81,6 +82,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         UserVariables,
         ToastAlert,
         ConfirmationAlerts,
+        BackgroundMode,
         Loading,
         { provide: ErrorHandler, useClass: IonicErrorHandler }
     ]

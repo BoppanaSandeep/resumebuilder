@@ -1,5 +1,5 @@
 import { Component, OnInit, Injectable } from '@angular/core';
-import { NavController, NavParams, LoadingController } from 'ionic-angular';
+import { NavController, NavParams, LoadingController, ViewController } from 'ionic-angular';
 import { Validators, FormBuilder, FormGroup } from '@angular/forms';
 import { TabsPage } from '../tabs/tabs';
 //import { HomePage } from '../home/home';
@@ -24,12 +24,11 @@ export class LoginPage implements OnInit {
     public headers = new Headers();
     public url = new Urls();
 
-    constructor(public navCtrl: NavController, public http: Http, private formBuilder: FormBuilder, public navParams: NavParams, private storage: Storage, public UserVariables: UserVariables, public toast: ToastAlert, public alerts: ConfirmationAlerts, public loading: LoadingController) {
+    constructor(public navCtrl: NavController, public http: Http, private formBuilder: FormBuilder, public navParams: NavParams, private storage: Storage, public UserVariables: UserVariables, public toast: ToastAlert, public alerts: ConfirmationAlerts, public loading: LoadingController, public viewCtrl: ViewController) {
         this.loginForm = this.formBuilder.group({
             username: ['', [Validators.required]],
             password: ['', Validators.required],
         });
-
     }
 
     ngOnInit() { }

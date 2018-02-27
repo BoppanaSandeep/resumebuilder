@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, PopoverController } from 'ionic-angular';
+import { NavController, PopoverController, ViewController } from 'ionic-angular';
 
 import { PopoverPage } from '../popover/popover';
 import { TabsPage } from '../tabs/tabs';
@@ -13,7 +13,7 @@ export class MessagingPage implements OnInit {
 
     i=[1,2,3,4,5];
 
-    constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public toast: ToastAlert) { }
+    constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public toast: ToastAlert, public viewCtrl: ViewController) { }
 
     ngOnInit() {
 
