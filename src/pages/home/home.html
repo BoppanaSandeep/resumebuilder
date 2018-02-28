@@ -11,7 +11,7 @@
     </ion-navbar>
 </ion-header>
 <ion-content>
-    <div (swipe)="swipeEvent($event)">
+    <div (swipe)="swipeEvent($event)" *ngIf="connection; else noconn">
         <ion-card class="profile">
             <ion-card-content class="imagediv">
                 <img *ngIf="UserVariables?.profile_pic != ''" src="{{UserVariables?.profile_pic}}" />
@@ -286,4 +286,18 @@
             </ion-list>
         </ion-card>
     </div>
+    <ng-template #noconn>
+        <div>
+            <ion-card margin-top>
+                <ion-item text-center>
+                    No internet connection!
+                </ion-item>
+                <ion-item text-center>
+                    <button ion-button (click)="ngOnInit()" color="primary">
+                        Refresh
+                    </button>
+                </ion-item>
+            </ion-card>
+        </div>
+    </ng-template>
 </ion-content>

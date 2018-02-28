@@ -1,4 +1,5 @@
 export class Urls {
+    public connection = "http://10.0.0.170/resumebuilder/registrationpage/conn";
     public registration_url = "http://10.0.0.170/resumebuilder/registrationpage";
     public login_url = "http://10.0.0.170/resumebuilder/rb/login";
     public login_status_url = "http://10.0.0.170/resumebuilder/rb/login_status/";

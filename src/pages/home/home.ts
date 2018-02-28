@@ -30,6 +30,7 @@ export class HomePage implements OnInit {
     viewmore_skill = false;
     rb_id;
     role;
+    connection: boolean = true;
 
     constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navParams: NavParams) {
 
@@ -49,20 +50,31 @@ export class HomePage implements OnInit {
         this.headers.append('content-type', 'application/json');
         this.headers.append('Access-Control-Allow-Origin', '*');
         this.headers.append('Access-Control-Allow-Headers', '*');
-        this.storage.get('rb_id').then((val) => {
-            var p = val == null ? 0 : val;
-            if (p != 0) {
-                this.rb_id = p;
-                this.reload(p);
-                this.skills(p);
-                this.expedu(p);
+        this.http.get(this.url.connection, { headers: this.headers }).toPromise().then((res) => {
+            var user = res.json();
+            //console.log(user);
+            if (user.message == 'OK') {
+                this.connection = true;
+                this.storage.get('rb_id').then((val) => {
+                    var p = val == null ? 0 : val;
+                    if (p != 0) {
+                        this.rb_id = p;
+                        this.reload(p);
+                        this.skills(p);
+                        this.expedu(p);
+                    } else {
+                        this.navCtrl.parent.parent.setRoot(LoginPage);
+                        this.navCtrl.popToRoot();
+                    }
+                }).catch(function (err) {
+                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                });
             } else {
-                this.navCtrl.parent.parent.setRoot(LoginPage);
-                this.navCtrl.popToRoot();
+                this.connection = false;
             }
-        }).catch(function (err) {
-            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-        });
+        },
+            (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
+        );
         loader.dismissAll();//Loading dismiss
     }
 
@@ -268,7 +280,8 @@ export class HomePage implements OnInit {
     }
 
     swipeEvent(e) {
-        if (e.direction == 2 || e.direction == 4) {
+        //console.log(e.direction, e);
+        if (e.direction == 2) {
             this.ngOnInit();
         }
     }
