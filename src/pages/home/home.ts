@@ -4,6 +4,9 @@ import { ModalController } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
 
+import 'rxjs/add/operator/timeout';
+import 'rxjs/add/operator/retry';
+
 import { PopoverPage } from '../popover/popover';
 import { Profile } from '../profile_modals/profile';
 import { LoginPage } from '../login/login';
@@ -50,7 +53,7 @@ export class HomePage implements OnInit {
         this.headers.append('content-type', 'application/json');
         this.headers.append('Access-Control-Allow-Origin', '*');
         this.headers.append('Access-Control-Allow-Headers', '*');
-        this.http.get(this.url.connection, { headers: this.headers }).toPromise().then((res) => {
+        this.http.get(this.url.connection, { headers: this.headers }).retry(4).timeout(20000).toPromise().then((res) => {
             var user = res.json();
             //console.log(user);
             if (user.message == 'OK') {
@@ -71,9 +74,12 @@ export class HomePage implements OnInit {
                 });
             } else {
                 this.connection = false;
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             }
         },
-            (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
+            (err) => {
+                this.connection = false;
+            }
         );
         loader.dismissAll();//Loading dismiss
     }
