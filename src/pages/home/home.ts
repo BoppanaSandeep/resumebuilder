@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, NavParams, LoadingController, PopoverController, ViewController } from 'ionic-angular';
-import { ModalController } from 'ionic-angular';
+import { ModalController, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
 
@@ -35,7 +35,7 @@ export class HomePage implements OnInit {
     role;
     connection: boolean = true;
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navParams: NavParams) {
+    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navParams: NavParams, public platform: Platform) {
 
     }
 
@@ -168,11 +168,15 @@ export class HomePage implements OnInit {
     }
 
     editProfileImage() {
-        this.navCtrl.push(ProfileImage).then(() => {
-            //this.navCtrl.remove(this.navCtrl.getPrevious().index);
-        }).catch(function (err) {
-            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-        });
+        if (this.platform.is('ios') || this.platform.is('android')) {
+            this.navCtrl.push(ProfileImage).then(() => {
+                //this.navCtrl.remove(this.navCtrl.getPrevious().index);
+            }).catch(function (err) {
+                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+            });
+        } else {
+            this.toast.showToast('Please use Android or IOS platforms!', 5000, 'bottom');
+        }
     }
 
     viewmore(view): void {

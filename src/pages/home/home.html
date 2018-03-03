@@ -14,20 +14,28 @@
 <ion-content>
     <div (swipe)="swipeEvent($event)" *ngIf="connection; else noconn">
         <ion-card class="profile">
-            <ion-card-content class="imagediv">
-                <img *ngIf="UserVariables?.profile_pic != ''" src="{{UserVariables?.profile_pic}}" />
-                <ion-label class="profileimg" [hidden]="UserVariables?.profile_pic == ''">
-                    <ion-icon class="profileimgicon" name="create" (click)="editProfileImage()" color="primary"></ion-icon>
-                </ion-label>
-            </ion-card-content>
-            <ion-card-content>
-                <ion-card-title>
-                    {{UserVariables?.name}}
-                </ion-card-title>
-                <ion-label small>
-                    {{role}}
-                </ion-label>
-            </ion-card-content>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-4>
+                        <ion-card-content class="imagediv">
+                            <img *ngIf="UserVariables?.profile_pic != ''" src="{{UserVariables?.profile_pic}}" />
+                            <ion-label class="profileimg" [hidden]="UserVariables?.profile_pic == ''">
+                                <ion-icon class="profileimgicon" name="create" (click)="editProfileImage()" color="primary"></ion-icon>
+                            </ion-label>
+                        </ion-card-content>
+                    </ion-col>
+                    <ion-col col-8>
+                        <ion-card-content>
+                            <ion-card-title>
+                                {{UserVariables?.name}}
+                            </ion-card-title>
+                            <ion-label small>
+                                {{role}}
+                            </ion-label>
+                        </ion-card-content>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
         </ion-card>
         <ion-card class="expedu">
             <ion-icon name="add" (click)="presentModal('Experience')"></ion-icon>
@@ -53,17 +61,17 @@
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(expdata.exp_id, expdata.exp_company, 'exp')">
-                                <ion-icon name="close"></ion-icon>
-                                Del
-                            </button>
+                                    <ion-icon name="close"></ion-icon>
+                                    Del
+                                </button>
                                 <button ion-button color="secondary" (click)="expeduEditModel(expdata.exp_id, expdata, 'Experience')">
-                                <ion-icon name="create"></ion-icon>
-                                Edit
-                            </button>
+                                    <ion-icon name="create"></ion-icon>
+                                    Edit
+                                </button>
                                 <button ion-button (click)="moreDescModal(i,expdata,'Experience')">
-                                <ion-icon name="information-circle"></ion-icon>
-                                More
-                            </button>
+                                    <ion-icon name="information-circle"></ion-icon>
+                                    More
+                                </button>
                             </ion-item-options>
                         </ion-item-sliding>
                         <ng-template #viewexp>
@@ -83,17 +91,17 @@
                                 </ion-item>
                                 <ion-item-options side="left">
                                     <button ion-button color="danger" (click)="delete(expdata.exp_id, expdata.exp_company, 'exp')">
-                                    <ion-icon name="close"></ion-icon>
-                                    Del
-                                </button>
+                                        <ion-icon name="close"></ion-icon>
+                                        Del
+                                    </button>
                                     <button ion-button color="secondary" (click)="expeduEditModel(expdata.exp_id, expdata, 'Experience')">
-                                    <ion-icon name="create"></ion-icon>
-                                    Edit
-                                </button>
+                                        <ion-icon name="create"></ion-icon>
+                                        Edit
+                                    </button>
                                     <button ion-button (click)="moreDescModal(i,expdata,'Experience')">
-                                    <ion-icon name="information-circle"></ion-icon>
-                                    More
-                                </button>
+                                        <ion-icon name="information-circle"></ion-icon>
+                                        More
+                                    </button>
                                 </ion-item-options>
                             </ion-item-sliding>
                         </ng-template>
@@ -102,13 +110,13 @@
                         <ion-list>
                             <div *ngIf="viewmore_exp;else viewless">
                                 <button ion-button (click)="viewmore('exp')" color="secondary" clear>
-                                View less
-                            </button>
+                                    View less
+                                </button>
                             </div>
                             <ng-template #viewless>
                                 <button ion-button (click)="viewmore('exp')" color="secondary" clear>
-                                View more
-                            </button>
+                                    View more
+                                </button>
                             </ng-template>
                         </ion-list>
                     </div>
@@ -145,17 +153,17 @@
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(edudata.edu_id, edudata.edu_university_clg_sch, 'edu')">
-                                <ion-icon name="close"></ion-icon>
-                                Del
-                            </button>
+                                    <ion-icon name="close"></ion-icon>
+                                    Del
+                                </button>
                                 <button ion-button color="secondary" (click)="expeduEditModel(edudata.edu_id, edudata, 'Education')">
-                                <ion-icon name="create"></ion-icon>
-                                Edit
-                            </button>
+                                    <ion-icon name="create"></ion-icon>
+                                    Edit
+                                </button>
                                 <button ion-button (click)="moreDescModal(j,edudata,'Education')">
-                                <ion-icon name="information-circle"></ion-icon>
-                                More
-                            </button>
+                                    <ion-icon name="information-circle"></ion-icon>
+                                    More
+                                </button>
                             </ion-item-options>
                         </ion-item-sliding>
                         <ng-template #viewedu>
@@ -172,17 +180,17 @@
                                 </ion-item>
                                 <ion-item-options side="left">
                                     <button ion-button color="danger" (click)="delete(edudata.edu_id, edudata.edu_university_clg_sch, 'edu')">
-                                    <ion-icon name="close"></ion-icon>
-                                    Del
-                                </button>
+                                        <ion-icon name="close"></ion-icon>
+                                        Del
+                                    </button>
                                     <button ion-button color="secondary" (click)="expeduEditModel(edudata.edu_id, edudata, 'Education')">
-                                    <ion-icon name="create"></ion-icon>
-                                    Edit
-                                </button>
+                                        <ion-icon name="create"></ion-icon>
+                                        Edit
+                                    </button>
                                     <button ion-button (click)="moreDescModal(j,edudata,'Education')">
-                                    <ion-icon name="information-circle"></ion-icon>
-                                    More
-                                </button>
+                                        <ion-icon name="information-circle"></ion-icon>
+                                        More
+                                    </button>
                                 </ion-item-options>
                             </ion-item-sliding>
                         </ng-template>
@@ -191,13 +199,13 @@
                         <ion-list>
                             <div *ngIf="viewmore_edu;else viewless">
                                 <button ion-button (click)="viewmore('edu')" color="secondary" clear>
-                                View less
-                            </button>
+                                    View less
+                                </button>
                             </div>
                             <ng-template #viewless>
                                 <button ion-button (click)="viewmore('edu')" color="secondary" clear>
-                                View more
-                            </button>
+                                    View more
+                                </button>
                             </ng-template>
                         </ion-list>
                     </div>
@@ -234,9 +242,9 @@
                             </ion-item>
                             <ion-item-options side="left">
                                 <button ion-button color="danger" (click)="delete(data.skill_id, data.skill_name, 'skill')">
-                                <ion-icon name="close"></ion-icon>
-                                Del
-                            </button>
+                                    <ion-icon name="close"></ion-icon>
+                                    Del
+                                </button>
                             </ion-item-options>
                         </ion-item-sliding>
                         <ng-template #viewskill>
@@ -251,9 +259,9 @@
                                 </ion-item>
                                 <ion-item-options side="left">
                                     <button ion-button color="danger" (click)="delete(data.skill_id, data.skill_name, 'skill')">
-                                    <ion-icon name="close"></ion-icon>
-                                    Del
-                                </button>
+                                        <ion-icon name="close"></ion-icon>
+                                        Del
+                                    </button>
                                 </ion-item-options>
                             </ion-item-sliding>
                         </ng-template>
@@ -262,13 +270,13 @@
                         <ion-list>
                             <div *ngIf="viewmore_skill;else viewless">
                                 <button ion-button (click)="viewmore('skill')" color="secondary" clear>
-                                View less
-                            </button>
+                                    View less
+                                </button>
                             </div>
                             <ng-template #viewless>
                                 <button ion-button (click)="viewmore('skill')" color="secondary" clear>
-                                View more
-                            </button>
+                                    View more
+                                </button>
                             </ng-template>
                         </ion-list>
                     </div>
