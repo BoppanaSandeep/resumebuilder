@@ -1,29 +1,29 @@
-login{
-
-    ion-card-title{
-        background-color: #4786b9;
-        color: white !important;
-        font-style: bolder;
-        font-size: 16px !important;
+page-login{
+    ion-navbar {
+        min-height: 45px !important;
     }
 
     ion-content {
-        padding: 5px;
+        background-image: linear-gradient(to bottom, #ffffff, #fbfbfd, #f7f8fb, #f3f4fa, #eef1f8);
     }
 
-    .card{
-        margin-top: 30%;
+    .pos{
+        position: relative;
+        top: 17vh;
+    }
+
+    ion-item{
+        background-color: inherit !important;
+        font-size: 2rem  !important;
+    }
+
+    .item-inner{
+        margin-right: 16px;
     }
 
     .text-danger{
         color: maroon;
         font-size: 14px;
         margin-left: 5%;
-    }
-
-    @media only screen and (min-width: 768px) {
-        .card{
-            margin-top: 10%;
-        }
     }
 }

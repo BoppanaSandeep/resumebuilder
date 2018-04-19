@@ -134,6 +134,7 @@ export class Profile implements OnInit {
     SkillOptions() {
         //Loading
         let loader = this.loading.create({
+            spinner: 'dots',
             content: "Please wait...",
             duration: 2000
         });
@@ -178,6 +179,7 @@ export class Profile implements OnInit {
         //console.log(expEdu.value);
         //Loading
         let loader = this.loading.create({
+            spinner: 'dots',
             content: "Please wait...",
             duration: 2000
         });
@@ -228,6 +230,7 @@ export class Profile implements OnInit {
     submit_skills(skills) {
         //Loading
         let loader = this.loading.create({
+            spinner: 'dots',
             content: "Please wait...",
             duration: 2000
         });

@@ -1,14 +1,11 @@
 <ion-header>
-    <ion-navbar hideBackButton="true">
-        <ion-title text-center text-uppercase>Resume Builder</ion-title>
+    <ion-navbar color="primary" hideBackButton="true">
+        <ion-title text-center>Sign Up to Resume Builder</ion-title>
     </ion-navbar>
 </ion-header>
 
 <ion-content>
-    <ion-card class="card">
-        <ion-card-title text-center text-uppercase>
-            Sign Up
-        </ion-card-title>
+    <div class="pos">
         <form [formGroup]="registerForm" (ngSubmit)="dummyRegister('register')">
             <ion-item>
                 <ion-label color="primary" stacked>First Name</ion-label>
@@ -80,5 +77,5 @@
                 <button ion-button (click)="register('pushtologin')" block>Sign In</button>
             </div>
         </form>
-    </ion-card>
+    </div>
 </ion-content>

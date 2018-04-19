@@ -7,7 +7,7 @@ page-tabs {
         height: 8% !important;
     }
     .tab-button {
-        color: #32db64 !important;
+        color: #488aff !important;
         font-weight: bold !important;
         min-height: inherit !important;
         margin-top: 1%;
@@ -15,7 +15,7 @@ page-tabs {
     .tab-button-icon {
         font-size: large !important;
         height: inherit !important;
-        color: #F44336 !important;
+        color: #488aff !important;
     }
     .tab-button-text {
         font-size: small !important;
@@ -28,6 +28,6 @@ page-tabs {
         opacity: 1;
     }
     .tab-button[aria-selected=true] .tab-button-icon {
-        color: #F44336 !important;
+        color: #488aff !important;
     }
 }

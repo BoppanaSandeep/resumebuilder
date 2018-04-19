@@ -13,7 +13,7 @@ import { ToastAlert } from '../shared/toast';
 import { ConfirmationAlerts } from '../shared/alert';
 
 @Component({
-    selector: 'login',
+    selector: 'page-login',
     templateUrl: './login.html'
     //providers: [AuthenticationApi]
 })
@@ -37,6 +37,7 @@ export class LoginPage implements OnInit {
         if (action == 'login') {
             //Loading
             let loader = this.loading.create({
+                spinner: 'dots',
                 content: "Please wait...",
                 duration: 1000
             });
@@ -82,6 +83,7 @@ export class LoginPage implements OnInit {
         } else if (action == 'register') {
             //Loading
             let loader = this.loading.create({
+                spinner: 'dots',
                 content: "Please wait...",
                 duration: 1000
             });

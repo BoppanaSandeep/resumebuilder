@@ -73,6 +73,7 @@ export class EditExpEdu implements OnInit {
         //console.log(expEdu.value);
         //Loading
         let loader = this.loading.create({
+            spinner: 'dots',
             content: "Please wait...",
             duration: 2000
         });

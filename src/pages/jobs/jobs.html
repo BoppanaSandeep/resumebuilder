@@ -12,14 +12,61 @@
 </ion-header>
 
 <ion-content>
-    <div *ngFor="let j of i">
-        <ion-card>
-            <ion-card-header>
-                Header
-            </ion-card-header>
-            <ion-card-content>
-                The British use the term "header", but the American term "head-shot" the English simply refuse to adopt.
-            </ion-card-content>
-        </ion-card>
+    <div (swipe)="swipeEvent($event)" *ngIf="connection; else noconn">
+        <div *ngFor="let jp of jobposts">
+            <ion-card>
+            
+                <ion-item>
+                    <ion-avatar item-start>
+                        <img src="{{jp.emp_picture}}" alt="logo">
+                    </ion-avatar>
+                    <h2>{{jp.emp_company}}</h2>
+                    <p>{{jp.job_position}}</p>
+                </ion-item>
+
+                <blockquote class="blockquote">
+                    <p class="card-text">{{jp.skills_req}}</p>
+                    <footer class="blockquote-footer">Skills Required</footer>
+                </blockquote>
+
+                <blockquote class="blockquote">
+                    <p class="card-text">{{refactor(jp.job_description)}}</p>
+                    <footer class="blockquote-footer">Job Description</footer>
+                </blockquote>
+
+                <ion-row>
+                    <ion-col>
+                        <button ion-button clear small>
+                            <div>More Details</div>
+                        </button>
+                    </ion-col>
+                    <ion-col>
+                        <button ion-button clear small>
+                            <div>Apply</div>
+                        </button>
+                    </ion-col>
+                    <ion-col center text-center>
+                        <button ion-button color="dark" clear small text-lowercase>
+                            <ion-note>{{DisplayTodayAndYesterday(jp.numofdays)}}</ion-note>
+                        </button>
+                    </ion-col>
+                </ion-row>
+
+            </ion-card>
+        </div>
     </div>
+    <ng-template #noconn>
+        <div>
+            <ion-card margin-top>
+                <ion-item text-center>
+                    No internet connection!
+                </ion-item>
+                <ion-item text-center>
+                    <button ion-button (click)="ngOnInit()" color="primary">
+                        Refresh
+                    </button>
+                </ion-item>
+            </ion-card>
+        </div>
+    </ng-template>
 </ion-content>

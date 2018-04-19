@@ -39,13 +39,14 @@ export class HomePage implements OnInit {
 
     }
 
-    ionViewWillEnter() {
-        this.ngOnInit();
-    }
+    // ionViewWillEnter() {
+    //     this.ngOnInit();
+    // }
 
     ngOnInit() {
         //Loading
         let loader = this.loading.create({
+            spinner: 'dots',
             content: "Please wait...",
             duration: 2000
         });
@@ -53,7 +54,7 @@ export class HomePage implements OnInit {
         this.headers.append('content-type', 'application/json');
         this.headers.append('Access-Control-Allow-Origin', '*');
         this.headers.append('Access-Control-Allow-Headers', '*');
-        this.http.get(this.url.connection, { headers: this.headers }).retry(4).timeout(20000).toPromise().then((res) => {
+        this.http.get(this.url.connection, { headers: this.headers }).retry(1).timeout(20000).toPromise().then((res) => {
             var user = res.json();
             //console.log(user);
             if (user.message == 'OK') {
@@ -192,6 +193,7 @@ export class HomePage implements OnInit {
     delete(id, name, delete_data) {
         //Loading
         let loader = this.loading.create({
+            spinner: 'dots',
             content: "Please wait...",
         });
         loader.present();

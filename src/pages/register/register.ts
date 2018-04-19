@@ -42,6 +42,7 @@ export class RegisterPage implements OnInit {
     register(action) {
         //Loading
         let loader = this.loading.create({
+            spinner: 'dots',
             content: "Please wait...",
             duration: 1000
         });

@@ -1,38 +1,39 @@
 <ion-header>
-    <ion-navbar hideBackButton="true">
-        <ion-title text-center text-uppercase>Resume Builder</ion-title>
+    <ion-navbar hideBackButton="true" color="primary">
+        <ion-title text-center>Sign In to Resume Builder</ion-title>
     </ion-navbar>
 </ion-header>
 
-<ion-content>
-    <ion-card class="card">
-        <ion-card-title text-center text-uppercase>
-            Sign In
-        </ion-card-title>
-        <form [formGroup]="loginForm" (ngSubmit)="login('login')">
-            <ion-item>
-                <ion-label color="primary" floating>Enter Email</ion-label>
-                <ion-input type="text" formControlName="username"></ion-input>
-            </ion-item>
-            <ion-item>
-                <ion-label color="primary" floating>Enter Password</ion-label>
-                <ion-input type="password" formControlName="password"></ion-input>
-            </ion-item>
-            <div padding>
-                <button ion-button type="submit" [disabled]="!loginForm.valid" block>Sign In</button>
-            </div>
-        </form>
-        <ion-list>
-            <ion-grid>
-                <ion-row>
-                    <ion-col col-6 col-sm-6 col-md-4 text-center>
-                        <button ion-button color="primary" (click)="login('forgortpwd')" clear block>Forgot Password</button>
-                    </ion-col>
-                    <ion-col col-6 col-sm-6 col-md-8 text-center>
-                        <button ion-button color="primary" (click)="login('register')" clear block>Sign Up</button>
-                    </ion-col>
-                </ion-row>
-            </ion-grid>
-        </ion-list>
-    </ion-card>
+<ion-content class="card-background-page">
+    <div class="pos">
+        <div class="card-title">
+            <form [formGroup]="loginForm" (ngSubmit)="login('login')">
+                <ion-item>
+                    <ion-label color="primary" floating>Enter Email</ion-label>
+                    <ion-input color="primary" type="text" formControlName="username"></ion-input>
+                </ion-item>
+                <ion-item>
+                    <ion-label color="primary" floating>Enter Password</ion-label>
+                    <ion-input color="primary" type="password" formControlName="password"></ion-input>
+                </ion-item>
+                <div padding>
+                    <button ion-button type="submit" [disabled]="!loginForm.valid" block text-capitalize>Sign in</button>
+                </div>
+            </form>
+        </div>
+        <div class="card-subtitle">
+            <ion-list>
+                <ion-grid>
+                    <ion-row>
+                        <ion-col col-6 col-sm-6 col-md-4 text-center>
+                            <button ion-button color="primary" (click)="login('forgortpwd')" outline text-capitalize>Forgot Password</button>
+                        </ion-col>
+                        <ion-col col-6 col-sm-6 col-md-8 text-center>
+                            <button ion-button color="primary" (click)="login('register')" outline text-capitalize>Sign Up</button>
+                        </ion-col>
+                    </ion-row>
+                </ion-grid>
+            </ion-list>
+        </div>
+    </div>
 </ion-content>

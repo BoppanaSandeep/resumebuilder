@@ -1,13 +1,15 @@
 register{
-    ion-card-title{
-        background-color: #4786b9;
-        color: white !important;
-        font-style: bold;
-        font-size: 16px !important;
+    ion-navbar {
+        min-height: 45px !important;
     }
 
-    @media only screen and (min-width: 768px) {
-        
+    ion-item{
+        background-color: inherit !important;
+        font-size: 2rem  !important;
+    }
+
+    .item-inner{
+        margin-right: 16px;
     }
 
     .text-danger{

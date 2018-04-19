@@ -21,6 +21,7 @@ export class PopoverPage implements OnInit {
     logout() {
         //Loading..
         let loader = this.loading.create({
+            spinner: 'dots',
             content: "Please wait...",
             duration: 2000
         });
