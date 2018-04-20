@@ -62,7 +62,7 @@ export class LoginPage implements OnInit {
 
                     this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
                     loader.dismissAll();//Loading dismiss
-                    this.navCtrl.push(TabsPage, { tabIndex: 1 }).then(() => {
+                    this.navCtrl.push(TabsPage, { tabIndex: 0 }).then(() => {
                         this.navCtrl.remove(this.navCtrl.getPrevious().index);
                     }).catch(function (err) {
                         loader.dismissAll();//Loading dismiss
