@@ -46,16 +46,34 @@ $colors: (
 // App iOS Variables
 // --------------------------------------------------
 // iOS only Sass variables can go here
-
-
+$toolbar-ios-height: 45px;
+$toolbar-ios-title-font-size: 1.6rem;
+$toolbar-ios-title-text-align: center;
+$tabs-ios-tab-icon-size: 20px;
+$tabs-ios-tab-font-size: 12px;
+$tabs-ios-tab-min-height: 30px;
+$tabs-ios-tab-icon-color: color($colors, secondary);
+$tabs-ios-tab-text-color: color($colors, secondary);
+$tabs-ios-tab-max-width: 200px;
+$searchbar-ios-input-height: 3rem;
+$searchbar-ios-background-color: color($colors, primary);
 
 
 // App Material Design Variables
 // --------------------------------------------------
 // Material Design only Sass variables can go here
-
-
-
+$toolbar-md-height: 45px;
+$toolbar-md-title-font-size: 1.6rem;
+$toolbar-md-title-text-align: center;
+$tabs-md-tab-min-height: 5.6rem;
+$tabs-md-tab-icon-size: 20px;
+$tabs-md-tab-font-size: 12px;
+$tabs-md-tab-text-color: color($colors, secondary);
+$tabs-md-tab-icon-color:color($colors, secondary);
+$searchbar-md-background-color: color($colors, primary);
+$searchbar-md-input-height: 3.5rem;
+$searchbar-md-input-search-icon-size: 17px;
+$searchbar-md-input-border-radius: 4px;
 
 // App Windows Variables
 // --------------------------------------------------

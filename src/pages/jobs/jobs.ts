@@ -20,6 +20,7 @@ export class JobsPage implements OnInit {
     connection: boolean = true;
     rb_id;
     jobposts;
+    search_value;
 
     constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public toast: ToastAlert, public viewCtrl: ViewController, public http: Http, public loading: LoadingController, public storage: Storage) {
 
@@ -75,7 +76,7 @@ export class JobsPage implements OnInit {
             if (posts.message == 'OK') {
                 this.jobposts = posts.posts;
                 this.jobposts = this.jobposts.sort((a, b) => a.numofdays < b.numofdays ? -1 : a.numofdays > b.numofdays ? 1 : 0)
-                console.log(this.jobposts);
+                //console.log(this.jobposts);
             } else {
                 this.connection = false;
                 this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
@@ -85,6 +86,14 @@ export class JobsPage implements OnInit {
                 this.connection = false;
             }
         );
+    }
+
+    SearchJobPosts(event) {
+        console.log(event, this.search_value);
+    }
+
+    CancelSearchJobPosts(event) {
+        console.log(event, this.search_value);
     }
 
     DisplayTodayAndYesterday(days) {

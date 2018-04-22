@@ -10,7 +10,7 @@ import { Urls } from '../shared/urls';
 
 
 @Component({
-    selector: 'register',
+    selector: 'page-register',
     templateUrl: './register.html'
     //providers: [AuthenticationApi]
 })

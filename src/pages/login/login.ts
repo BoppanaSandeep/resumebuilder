@@ -39,7 +39,6 @@ export class LoginPage implements OnInit {
             let loader = this.loading.create({
                 spinner: 'dots',
                 content: "Please wait...",
-                duration: 1000
             });
             loader.present();
             this.headers.append('content-type', 'application/json');
@@ -85,7 +84,7 @@ export class LoginPage implements OnInit {
             let loader = this.loading.create({
                 spinner: 'dots',
                 content: "Please wait...",
-                duration: 1000
+                duration: 500
             });
             loader.present();
             loader.dismissAll();//Loading dismiss

@@ -9,13 +9,15 @@
             </button>
         </ion-buttons>
     </ion-navbar>
+    <ion-searchbar [(ngModel)]="search_value" [showCancelButton]="shouldShowCancel" (ionInput)="SearchJobPosts($event)" (ionCancel)="CancelSearchJobPosts($event)" placeholder="Search here...">
+    </ion-searchbar>
 </ion-header>
 
 <ion-content>
     <div (swipe)="swipeEvent($event)" *ngIf="connection; else noconn">
         <div *ngFor="let jp of jobposts">
             <ion-card>
-            
+
                 <ion-item>
                     <ion-avatar item-start>
                         <img src="{{jp.emp_picture}}" alt="logo">

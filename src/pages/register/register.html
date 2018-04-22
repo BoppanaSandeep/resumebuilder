@@ -7,65 +7,65 @@
 <ion-content>
     <div class="pos">
         <form [formGroup]="registerForm" (ngSubmit)="dummyRegister('register')">
-            <ion-item>
-                <ion-label color="primary" stacked>First Name</ion-label>
-                <ion-input type="text" formControlName="name_first" placeholder="First Name"></ion-input>
+            <ion-item padding-horizontal>
+                <ion-label color="primary" floating>First Name</ion-label>
+                <ion-input type="text" formControlName="name_first"></ion-input>
             </ion-item>
-            <small [hidden]="registerForm.controls.name_first.valid" class="text-danger">
+            <ion-note padding-horizontal float-right [hidden]="registerForm.controls.name_first.valid" color="danger">
                 Maximum characters should be 50.
-            </small>
-            <ion-item>
-                <ion-label color="primary" stacked>Last Name</ion-label>
-                <ion-input type="text" formControlName="name_last" placeholder="Last Name"></ion-input>
+            </ion-note>
+            <ion-item padding-horizontal>
+                <ion-label color="primary" floating>Last Name</ion-label>
+                <ion-input type="text" formControlName="name_last"></ion-input>
             </ion-item>
-            <small [hidden]="registerForm.controls.name_last.valid" class="text-danger">
+            <ion-note padding-horizontal float-right [hidden]="registerForm.controls.name_last.valid" color="danger">
                 Maximum characters should be 50.
-            </small>
-            <ion-item>
-                <ion-label color="primary" stacked>Email</ion-label>
-                <ion-input type="email" formControlName="email" placeholder="Email"></ion-input>
+            </ion-note>
+            <ion-item padding-horizontal>
+                <ion-label color="primary" floating>Email</ion-label>
+                <ion-input type="email" formControlName="email"></ion-input>
             </ion-item>
-            <small [hidden]="registerForm.controls.email.valid" class="text-danger">
+            <ion-note padding-horizontal float-right [hidden]="registerForm.controls.email.valid" color="danger">
                 Enter valid Email.
-            </small>
-            <ion-item>
-                <ion-label color="primary" stacked>Password</ion-label>
-                <ion-input type="password" formControlName="password" placeholder="Password"></ion-input>
+            </ion-note>
+            <ion-item padding-horizontal>
+                <ion-label color="primary" floating>Password</ion-label>
+                <ion-input type="password" formControlName="password"></ion-input>
             </ion-item>
-            <small [hidden]="registerForm.controls.password.valid" class="text-danger">
+            <ion-note padding-horizontal float-right [hidden]="registerForm.controls.password.valid" color="danger">
                 Minimum characters should be 8.
-            </small>
-            <ion-item>
-                <ion-label color="primary" stacked>Confirm Password</ion-label>
+            </ion-note>
+            <ion-item padding-horizontal>
+                <ion-label color="primary" floating>Confirm Password</ion-label>
                 <ion-input type="password" formControlName="cpassword" placeholder="Confirm Password"></ion-input>
             </ion-item>
-            <small [hidden]="registerForm.controls.cpassword.valid" class="text-danger">
+            <ion-note padding-horizontal float-right [hidden]="registerForm.controls.cpassword.valid" color="danger">
                 Minimum characters should be 8.
-            </small>
-            <ion-item>
-                <ion-label color="primary" stacked>Mobile Number</ion-label>
-                <ion-input type="number" formControlName="phonenumber" placeholder="Mobile Number"></ion-input>
+            </ion-note>
+            <ion-item padding-horizontal>
+                <ion-label color="primary" floating>Mobile Number</ion-label>
+                <ion-input type="number" formControlName="phonenumber"></ion-input>
             </ion-item>
-            <small [hidden]="registerForm.controls.phonenumber.valid" class="text-danger">
+            <ion-note padding-horizontal float-right [hidden]="registerForm.controls.phonenumber.valid" color="danger">
                 Enter valid phonenumber.
-            </small>
-            <ion-item>
-                <ion-label color="primary" stacked>Date of Birth</ion-label>
-                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" max="2001" formControlName="dob" placeholder="Date of Birth"></ion-datetime>
+            </ion-note>
+            <ion-item padding-horizontal>
+                <ion-label color="primary" floating>Date of Birth</ion-label>
+                <ion-datetime displayFormat="DD MMM YYYY" pickerFormat="DD MMM YYYY" max="2001" formControlName="dob"></ion-datetime>
             </ion-item>
             <ion-list radio-group formControlName="gender">
                 <ion-list-header>
                     Gender
                 </ion-list-header>
-                <ion-item col-12 col-sm-4 col-md-2>
+                <ion-item padding-horizontal col-12 col-sm-4 col-md-2>
                     <ion-label>Male</ion-label>
                     <ion-radio value="1"></ion-radio>
                 </ion-item>
-                <ion-item col-12 col-sm-4 col-md-2>
+                <ion-item padding-horizontal col-12 col-sm-4 col-md-2>
                     <ion-label>Female</ion-label>
                     <ion-radio value="2"></ion-radio>
                 </ion-item>
-                <ion-item col-12 col-sm-4 col-md-2>
+                <ion-item padding-horizontal col-12 col-sm-4 col-md-2>
                     <ion-label>Other</ion-label>
                     <ion-radio value="3"></ion-radio>
                 </ion-item>

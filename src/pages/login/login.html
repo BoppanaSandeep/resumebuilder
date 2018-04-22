@@ -8,11 +8,11 @@
     <div class="pos">
         <div class="card-title">
             <form [formGroup]="loginForm" (ngSubmit)="login('login')">
-                <ion-item>
+                <ion-item padding-right>
                     <ion-label color="primary" floating>Enter Email</ion-label>
                     <ion-input color="primary" type="text" formControlName="username"></ion-input>
                 </ion-item>
-                <ion-item>
+                <ion-item padding-right>
                     <ion-label color="primary" floating>Enter Password</ion-label>
                     <ion-input color="primary" type="password" formControlName="password"></ion-input>
                 </ion-item>
@@ -22,14 +22,14 @@
             </form>
         </div>
         <div class="card-subtitle">
-            <ion-list>
+            <ion-list padding>
                 <ion-grid>
                     <ion-row>
-                        <ion-col col-6 col-sm-6 col-md-4 text-center>
-                            <button ion-button color="primary" (click)="login('forgortpwd')" outline text-capitalize>Forgot Password</button>
+                        <ion-col text-center>
+                            <button ion-button color="primary" (click)="login('forgortpwd')" outline text-capitalize small>Forgot Password</button>
                         </ion-col>
-                        <ion-col col-6 col-sm-6 col-md-8 text-center>
-                            <button ion-button color="primary" (click)="login('register')" outline text-capitalize>Sign Up</button>
+                        <ion-col text-center>
+                            <button ion-button color="primary" (click)="login('register')" outline text-capitalize small>Sign Up</button>
                         </ion-col>
                     </ion-row>
                 </ion-grid>
