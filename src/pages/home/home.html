@@ -20,7 +20,7 @@
                         <ion-card-content class="imagediv">
                             <img *ngIf="UserVariables?.profile_pic != ''" src="{{UserVariables?.profile_pic}}" />
                             <ion-label class="profileimg" [hidden]="UserVariables?.profile_pic == ''">
-                                <ion-icon class="profileimgicon" name="create" (click)="editProfileImage()" color="primary"></ion-icon>
+                                <ion-icon class="profileimgicon" name="camera" (click)="editProfileImage()" color="light"></ion-icon>
                             </ion-label>
                         </ion-card-content>
                     </ion-col>

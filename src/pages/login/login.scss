@@ -1,14 +1,9 @@
-page-login{
-    ion-content {
-        background-image: linear-gradient(to bottom, #ffffff, #fbfbfd, #f7f8fb, #f3f4fa, #eef1f8);
-    }
-
-    .pos{
+page-login {
+    .pos {
         position: relative;
         top: 17vh;
     }
-
-    ion-item{
+    ion-item {
         background-color: inherit !important;
     }
 }

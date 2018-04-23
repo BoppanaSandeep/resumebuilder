@@ -1,8 +1,5 @@
 page-jobs {
-    ion-content {
-        background-color: #e4e4f7 !important;
-    }
-    ion-card{
+    ion-card {
         margin: 6px 0px !important;
         width: auto !important;
         border-radius: 0px !important;
@@ -15,5 +12,4 @@ page-jobs {
     .blockquote-footer::before {
         content: "\2014 \00A0";
     }
-    
 }
