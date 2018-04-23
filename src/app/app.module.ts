@@ -5,6 +5,7 @@ import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { HttpModule } from '@angular/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { BackgroundMode } from '@ionic-native/background-mode';
+import { ScreenOrientation } from '@ionic-native/screen-orientation';
 
 import { ConfirmationAlerts } from '../pages/shared/alert';
 import { ToastAlert } from '../pages/shared/toast';
@@ -84,6 +85,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         ConfirmationAlerts,
         BackgroundMode,
         Loading,
+        ScreenOrientation,
         { provide: ErrorHandler, useClass: IonicErrorHandler }
     ]
 })
