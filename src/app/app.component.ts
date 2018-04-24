@@ -24,7 +24,7 @@ export class MyApp implements OnInit {
             splashScreen.show();
             if (platform.is('ios') || platform.is('android')) {
                 this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).catch(function (err) {
-                    console.log(err);
+                    //console.log(err);
                 });
             }
             backgroundMode.enable();

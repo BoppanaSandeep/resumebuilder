@@ -9,7 +9,7 @@
             </button>
         </ion-buttons>
     </ion-navbar>
-    <ion-searchbar [(ngModel)]="search_value" [showCancelButton]="shouldShowCancel" (ionInput)="SearchJobPosts($event)" (ionCancel)="CancelSearchJobPosts($event)" placeholder="Search here...">
+    <ion-searchbar [(ngModel)]="search_value" [showCancelButton]="shouldShowCancel" (ionInput)="SearchJobPosts()" placeholder="Search here...">
     </ion-searchbar>
 </ion-header>
 
@@ -61,7 +61,7 @@
         <div>
             <ion-card margin-top>
                 <ion-item text-center>
-                    No internet connection!
+                    <p>{{Error_Msg}}</p>
                 </ion-item>
                 <ion-item text-center>
                     <button ion-button (click)="ngOnInit()" color="primary">

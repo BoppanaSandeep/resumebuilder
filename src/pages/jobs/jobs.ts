@@ -14,14 +14,13 @@ import { Urls } from '../shared/urls';
 })
 export class JobsPage implements OnInit {
 
-    i = [1, 2, 3, 4, 5];
     public headers = new Headers();
     public url = new Urls();
     connection: boolean = true;
     rb_id;
     jobposts;
     search_value;
-
+    Error_Msg = 'No internet connection!!';
     constructor(public navCtrl: NavController, public popoverCtrl: PopoverController, public toast: ToastAlert, public viewCtrl: ViewController, public http: Http, public loading: LoadingController, public storage: Storage) {
 
     }
@@ -38,6 +37,7 @@ export class JobsPage implements OnInit {
             duration: 2000
         });
         loader.present();
+        this.search_value = "";
         this.headers.append('content-type', 'application/json');
         this.headers.append('Access-Control-Allow-Origin', '*');
         this.headers.append('Access-Control-Allow-Headers', '*');
@@ -56,11 +56,11 @@ export class JobsPage implements OnInit {
                         this.navCtrl.popToRoot();
                     }
                 }).catch(function (err) {
-                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                    this.toast.showToast('Something went wrong, try again later!!!', 3000, 'bottom');
                 });
             } else {
                 this.connection = false;
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+                this.toast.showToast('Something went wrong, try again later!!!', 3000, 'bottom');
             }
         },
             (err) => {
@@ -75,25 +75,43 @@ export class JobsPage implements OnInit {
             var posts = res.json();
             if (posts.message == 'OK') {
                 this.jobposts = posts.posts;
-                this.jobposts = this.jobposts.sort((a, b) => a.numofdays < b.numofdays ? -1 : a.numofdays > b.numofdays ? 1 : 0)
+                if (this.jobposts.length > 1) {
+                    this.jobposts = this.jobposts.sort((a, b) => a.numofdays < b.numofdays ? -1 : a.numofdays > b.numofdays ? 1 : 0);
+                }
                 //console.log(this.jobposts);
             } else {
+                this.Error_Msg = 'Update your profile to get posts related to you or search!!!';
                 this.connection = false;
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
             }
         },
             (err) => {
+                this.Error_Msg = 'Something went wrong, refresh the page!!!';
                 this.connection = false;
             }
         );
     }
 
-    SearchJobPosts(event) {
-        console.log(event, this.search_value);
-    }
-
-    CancelSearchJobPosts(event) {
-        console.log(event, this.search_value);
+    SearchJobPosts() {
+        if (this.search_value == "") {
+            this.ngOnInit();
+        } else {
+            this.http.get(this.url.fetching_search_job_posts + this.search_value, { headers: this.headers }).toPromise().then((res) => {
+                var posts = res.json();
+                if (posts.message == 'OK') {
+                    this.jobposts = posts.posts;
+                    this.jobposts = this.jobposts.sort((a, b) => a.numofdays < b.numofdays ? -1 : a.numofdays > b.numofdays ? 1 : 0)
+                    //console.log(this.jobposts);
+                } else {
+                    this.Error_Msg = 'Search not found, try diff search!!!';
+                    this.connection = false;
+                }
+            },
+                (err) => {
+                    this.Error_Msg = 'Something went wrong, refresh the page or try diff search!!!';
+                    this.connection = false;
+                }
+            );
+        }
     }
 
     DisplayTodayAndYesterday(days) {
