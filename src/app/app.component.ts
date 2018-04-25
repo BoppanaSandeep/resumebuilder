@@ -21,7 +21,10 @@ export class MyApp implements OnInit {
             // Okay, so the platform is ready and our plugins are available.
             // Here you can do any higher level native things you might need.
             statusBar.backgroundColorByHexString("#488aff");
-            splashScreen.show();
+            // splashScreen.show();
+            // setTimeout(function(){
+            //     splashScreen.hide();
+            // }, 2000)
             if (platform.is('ios') || platform.is('android')) {
                 this.screenOrientation.lock(this.screenOrientation.ORIENTATIONS.PORTRAIT).catch(function (err) {
                     //console.log(err);
