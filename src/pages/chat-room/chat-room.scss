@@ -1,0 +1,40 @@
+page-chat-room {
+    ion-avatar img{
+        border-radius: 50%;
+        overflow: hidden;
+        width: 25px;
+        height: 25px;
+    }
+
+    .toolbar-title.toolbar-title-md{
+        margin: 1% 0;
+    }
+
+    ion-textarea{
+        width: 100% !important;
+        border-bottom: 1px solid #ccc;
+    }
+
+    ion-icon{
+        font-size: 2.5rem !important;
+    }
+
+    .send-message-grid{
+        position: absolute;
+        bottom: 0;
+    }
+
+    .scroll-content{
+        overflow-y: hidden !important;
+    }
+
+    .chat-room-messages{
+        width: 100%;
+        overflow: hidden;
+        overflow-y: scroll;
+        position: absolute;
+        display: block;
+        bottom: 74px;
+        top: 0;
+    }
+}

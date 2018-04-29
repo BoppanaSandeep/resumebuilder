@@ -15,7 +15,7 @@
 
 <ion-content>
     <div (swipe)="swipeEvent($event)" *ngIf="connection; else noconn">
-        <div *ngFor="let jp of jobposts">
+        <div *ngFor="let jp of jobposts; let i=index">
             <ion-card>
 
                 <ion-item>
@@ -32,13 +32,13 @@
                 </blockquote>
 
                 <blockquote class="blockquote">
-                    <p class="card-text">{{refactor(jp.job_description)}}</p>
+                    <div class="card-text" [innerHTML]="jp.job_description"></div>
                     <footer class="blockquote-footer">Job Description</footer>
                 </blockquote>
 
                 <ion-row>
                     <ion-col>
-                        <button ion-button clear small>
+                        <button ion-button clear small (click)="OpenDetails(i)">
                             <div>More Details</div>
                         </button>
                     </ion-col>

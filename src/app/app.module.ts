@@ -17,7 +17,6 @@ import { Transfer } from '@ionic-native/transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
-
 import { MyApp } from './app.component';
 import { JobsPage } from '../pages/jobs/jobs';
 import { MessagingPage } from '../pages/message/message';
@@ -30,6 +29,8 @@ import { MoreDesc } from '../pages/more_modals/more.description';
 import { EditExpEdu } from '../pages/edit_modals/edit_expedu';
 import { PopoverPage } from '../pages/popover/popover';
 import { ProfileImage } from '../pages/profile_image/profile.image';
+import { ChatRoomPage } from '../pages/chat-room/chat-room';
+import { JobpostDetailsPage } from '../pages/jobpost-details/jobpost-details';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -47,7 +48,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         MoreDesc,
         EditExpEdu,
         PopoverPage,
-        ProfileImage
+        ProfileImage,
+        ChatRoomPage,
+        JobpostDetailsPage
     ],
     imports: [
         BrowserModule,
@@ -71,7 +74,9 @@ import { SplashScreen } from '@ionic-native/splash-screen';
         MoreDesc,
         EditExpEdu,
         PopoverPage,
-        ProfileImage
+        ProfileImage,
+        ChatRoomPage,
+        JobpostDetailsPage
     ],
     providers: [
         File,

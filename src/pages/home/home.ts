@@ -3,6 +3,7 @@ import { NavController, NavParams, LoadingController, PopoverController, ViewCon
 import { ModalController, Platform } from 'ionic-angular';
 import { Storage } from '@ionic/storage';
 import { Http, Headers } from '@angular/http';
+//import { DatePipe } from '@angular/common';
 
 import 'rxjs/add/operator/timeout';
 import 'rxjs/add/operator/retry';

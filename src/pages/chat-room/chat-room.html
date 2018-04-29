@@ -1,0 +1,56 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-avatar float-right margin-right>
+            <img src="{{host}}" />
+        </ion-avatar>
+        <ion-title text-center>Sandeep</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+<ion-content>
+    <div class="chat-room-messages">
+        <ion-card>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-2>
+                        <ion-avatar item-start>
+                            <img src="{{host}}" />
+                        </ion-avatar>
+                    </ion-col>
+                    <ion-col col-10>
+                        <p text-wrap>hi</p>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+        <ion-card>
+            <ion-grid>
+                <ion-row>
+                    <ion-col col-10>
+                        <p text-wrap float-right>hi</p>
+                    </ion-col>
+                    <ion-col col-2>
+                        <ion-avatar item-start>
+                            <img src="{{host}}" />
+                        </ion-avatar>
+                    </ion-col>
+                </ion-row>
+            </ion-grid>
+        </ion-card>
+    </div>
+    <ion-grid color="primary" class="send-message-grid">
+        <ion-row>
+            <ion-col col-10>
+                <ion-textarea [(ngModel)]="message" (keyup)="CheckMessage()" placeholder="Write a message..."></ion-textarea>
+            </ion-col>
+            <ion-col col-2>
+                <button ion-button [disabled]="!btn" color="primary" (click)="SendMessage()" margin-top clear>
+                    <ion-icon name="send"></ion-icon>
+                </button>
+            </ion-col>
+        </ion-row>
+    </ion-grid>
+
+</ion-content>

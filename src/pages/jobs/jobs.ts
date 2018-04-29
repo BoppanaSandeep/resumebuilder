@@ -5,6 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { PopoverPage } from '../popover/popover';
 import { LoginPage } from '../login/login';
+import { JobpostDetailsPage } from '../jobpost-details/jobpost-details';
 import { ToastAlert } from '../shared/toast';
 import { Urls } from '../shared/urls';
 
@@ -78,7 +79,7 @@ export class JobsPage implements OnInit {
                 if (this.jobposts.length > 1) {
                     this.jobposts = this.jobposts.sort((a, b) => a.numofdays < b.numofdays ? -1 : a.numofdays > b.numofdays ? 1 : 0);
                 }
-                //console.log(this.jobposts);
+                console.log(this.jobposts);
             } else {
                 this.Error_Msg = 'Update your profile to get posts related to you or search!!!';
                 this.connection = false;
@@ -112,6 +113,15 @@ export class JobsPage implements OnInit {
                 }
             );
         }
+    }
+
+    OpenDetails(index) {
+        var data = this.jobposts[index];
+        this.navCtrl.push(JobpostDetailsPage, {moredata: data}).then(() => {
+            //this.navCtrl.remove(this.navCtrl.getPrevious().index);
+        }).catch(function (err) {
+            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+        });
     }
 
     DisplayTodayAndYesterday(days) {

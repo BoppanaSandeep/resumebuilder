@@ -5,6 +5,7 @@ import { PopoverPage } from '../popover/popover';
 //import { TabsPage } from '../tabs/tabs';
 import { ToastAlert } from '../shared/toast';
 import { Urls } from '../shared/urls';
+import { ChatRoomPage } from '../chat-room/chat-room';
 
 @Component({
     selector: 'page-message',
@@ -18,6 +19,14 @@ export class MessagingPage implements OnInit {
 
     ngOnInit() {
 
+    }
+
+    GotoChatRoom(id) {
+        this.navCtrl.push(ChatRoomPage, {id:id}).then(() => {
+            //this.navCtrl.remove(this.navCtrl.getPrevious().index);
+        }).catch(function (err) {
+            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
+        });
     }
 
     popOver(myEvent) {

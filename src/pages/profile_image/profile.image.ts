@@ -8,7 +8,6 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
 import { Urls } from '../shared/urls';
-//import { TabsPage } from '../tabs/tabs';
 
 declare var cordova: any;
 

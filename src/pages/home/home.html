@@ -53,10 +53,10 @@
                                 </ion-avatar>
                                 <h2>{{expdata.exp_company || 'Not Found'}}</h2>
                                 <p>Desgination: {{expdata.exp_role || 'Not Found'}}</p>
-                                <p>From: {{expdata.exp_working_from || 'Not Found'}}</p>
+                                <p>From: {{expdata.exp_working_from || 'Not Found'  | date:'dd-MM-yyyy'}}</p>
                                 <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here...</p>
                                 <ng-template #work>
-                                    <p>To: {{expdata.exp_last_work_date || 'Not Found'}}</p>
+                                    <p>To: {{expdata.exp_last_work_date || 'Not Found'  | date:'dd-MM-yyyy'}}</p>
                                 </ng-template>
                             </ion-item>
                             <ion-item-options side="left">
@@ -83,10 +83,10 @@
                                     </ion-avatar>
                                     <h2>{{expdata.exp_company || 'Not Found'}}</h2>
                                     <p>Desgination: {{expdata.exp_role || 'Not Found'}}</p>
-                                    <p>From: {{expdata.exp_working_from || 'Not Found'}}</p>
+                                    <p>From: {{expdata.exp_working_from || 'Not Found'  | date:'dd-MM-yyyy'}}</p>
                                     <p *ngIf="expdata.exp_currently_working==1; else work">Currently Working here..</p>
                                     <ng-template #work>
-                                        <p>To: {{expdata.exp_last_work_date || 'Not Found'}}</p>
+                                        <p>To: {{expdata.exp_last_work_date || 'Not Found'  | date:'dd-MM-yyyy'}}</p>
                                     </ng-template>
                                 </ion-item>
                                 <ion-item-options side="left">

@@ -1,0 +1,55 @@
+<ion-header>
+
+    <ion-navbar color="primary">
+        <ion-title text-left>More Details</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content>
+    <ion-card>
+
+        <ion-item>
+            <ion-avatar item-start>
+                <img src="{{moredetails.emp_picture}}">
+            </ion-avatar>
+            <h2>{{moredetails.emp_company}}</h2>
+            <p>{{DisplayTodayAndYesterday(moredetails.numofdays)}}</p>
+        </ion-item>
+
+        <ion-card-content>
+            <blockquote class="blockquote">
+                <p class="card-text" [innerHTML]="moredetails.job_description"></p>
+                <footer class="blockquote-footer">Job Description</footer>
+            </blockquote>
+            <blockquote class="blockquote">
+                <p class="card-text">{{moredetails.skills_req}}</p>
+                <footer class="blockquote-footer">Skills Required</footer>
+            </blockquote>
+            <blockquote class="blockquote">
+                <p class="card-text">{{moredetails.job_position}}</p>
+                <footer class="blockquote-footer">Position</footer>
+            </blockquote>
+            <blockquote>
+                <p class="card-text">{{moredetails.job_closing_date | date:'dd-MM-yyyy'}}</p>
+                <footer class="blockquote-footer">Closing Date</footer>
+            </blockquote>
+            <blockquote>
+                <p class="card-text">{{moredetails.emp_address}}</p>
+                <footer class="blockquote-footer">Company Address</footer>
+            </blockquote>
+        </ion-card-content>
+
+    </ion-card>
+</ion-content>
+
+<ion-footer>
+    <ion-toolbar color="primary">
+        <ion-buttons end>
+            <button ion-button icon-right color="royal">
+                <ion-icon name="checkmark-circle-outline"></ion-icon>&nbsp;Apply
+            </button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-footer>

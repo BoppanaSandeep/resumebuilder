@@ -5,7 +5,7 @@
         </ion-title>
         <ion-buttons start>
             <button ion-button (click)="dismiss()">
-                <span ion-text color="primary">Cancel</span>
+                <span ion-text color="primary">Close</span>
             </button>
         </ion-buttons>
     </ion-toolbar>
@@ -53,7 +53,7 @@
                             <strong>From: </strong>
                         </ion-col>
                         <ion-col col-8>
-                            {{viewMoreDesc.exp_working_from || 'Not Found'}}
+                            {{viewMoreDesc.exp_working_from || 'Not Found' | date:'dd-MM-yyyy'}}
                         </ion-col>
                     </ion-row>
                 </ion-grid>
@@ -75,7 +75,7 @@
                                 <strong>To: </strong>
                             </ion-col>
                             <ion-col col-8>
-                                {{viewMoreDesc.exp_last_work_date || 'Not Found'}}
+                                {{viewMoreDesc.exp_last_work_date || 'Not Found' | date:'dd-MM-yyyy'}}
                             </ion-col>
                         </ion-row>
                     </ion-grid>
