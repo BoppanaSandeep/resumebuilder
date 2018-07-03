@@ -1,5 +1,5 @@
 export class Urls {
-    public api_host = "http://192.168.43.54/resumebuilder/";
+    public api_host = "http://localhost:8081/resumebuilder/";
     public connection = this.api_host + "registrationpage/conn";
     public registration_url = this.api_host + "registrationpage";
     public login_url = this.api_host + "rb/login";
@@ -17,4 +17,5 @@ export class Urls {
     public profile_image_upload = this.api_host + "rb/profile_image_upload";
     public fetching_job_posts = this.api_host + "rb/fetching_job_posts/";
     public fetching_search_job_posts = this.api_host + "rb/fetching_search_job_posts/";
+    public applyForJobPosts = this.api_host + "rb/applyForJobPosts/";
 }

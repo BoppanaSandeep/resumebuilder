@@ -1,74 +1,74 @@
 <ion-header>
-    <ion-navbar color="primary">
-        <ion-title text-center text-uppercase>
-            Job Posts
-        </ion-title>
-        <ion-buttons end>
-            <button ion-button icon-only (click)="popOver($event)">
-                <ion-icon name="more"></ion-icon>
-            </button>
-        </ion-buttons>
-    </ion-navbar>
-    <ion-searchbar [(ngModel)]="search_value" [showCancelButton]="shouldShowCancel" (ionInput)="SearchJobPosts()" placeholder="Search here...">
-    </ion-searchbar>
+  <ion-navbar color="primary">
+    <ion-title text-center text-uppercase>
+      Job Posts
+    </ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="popOver($event)">
+        <ion-icon name="more"></ion-icon>
+      </button>
+    </ion-buttons>
+  </ion-navbar>
+  <ion-searchbar [(ngModel)]="search_value" [showCancelButton]="shouldShowCancel" (ionInput)="SearchJobPosts()" placeholder="Search here...">
+  </ion-searchbar>
 </ion-header>
 
 <ion-content>
-    <div (swipe)="swipeEvent($event)" *ngIf="connection; else noconn">
-        <div *ngFor="let jp of jobposts; let i=index">
-            <ion-card>
+  <div (swipe)="swipeEvent($event)" *ngIf="connection; else noconn">
+    <div *ngFor="let jp of jobposts; let i=index">
+      <ion-card>
 
-                <ion-item>
-                    <ion-avatar item-start>
-                        <img src="{{jp.emp_picture}}" alt="logo">
-                    </ion-avatar>
-                    <h2>{{jp.emp_company}}</h2>
-                    <p>{{jp.job_position}}</p>
-                </ion-item>
+        <ion-item>
+          <ion-avatar item-start>
+            <img src="{{jp.emp_picture}}" alt="logo">
+          </ion-avatar>
+          <h2>{{jp.emp_company}}</h2>
+          <p>{{jp.job_position}}</p>
+        </ion-item>
 
-                <blockquote class="blockquote">
-                    <p class="card-text">{{jp.skills_req}}</p>
-                    <footer class="blockquote-footer">Skills Required</footer>
-                </blockquote>
+        <blockquote class="blockquote">
+          <p class="card-text">{{jp.skills_req}}</p>
+          <footer class="blockquote-footer">Skills Required</footer>
+        </blockquote>
 
-                <blockquote class="blockquote">
-                    <div class="card-text" [innerHTML]="jp.job_description"></div>
-                    <footer class="blockquote-footer">Job Description</footer>
-                </blockquote>
+        <blockquote class="blockquote">
+          <div class="card-text" [innerHTML]="jp.job_description"></div>
+          <footer class="blockquote-footer">Job Description</footer>
+        </blockquote>
 
-                <ion-row>
-                    <ion-col>
-                        <button ion-button clear small (click)="OpenDetails(i)">
-                            <div>More Details</div>
-                        </button>
-                    </ion-col>
-                    <ion-col>
-                        <button ion-button clear small>
-                            <div>Apply</div>
-                        </button>
-                    </ion-col>
-                    <ion-col center text-center>
-                        <button ion-button color="dark" clear small text-lowercase>
-                            <ion-note>{{DisplayTodayAndYesterday(jp.numofdays)}}</ion-note>
-                        </button>
-                    </ion-col>
-                </ion-row>
+        <ion-row>
+          <ion-col>
+            <button ion-button clear small (click)="OpenDetails(i)">
+              <div>More Details</div>
+            </button>
+          </ion-col>
+          <ion-col>
+            <button ion-button clear small (click)="applyForJobPost(jp.post_id)">
+              <div>Apply</div>
+            </button>
+          </ion-col>
+          <ion-col center text-center>
+            <button ion-button color="dark" clear small text-lowercase>
+              <ion-note>{{DisplayTodayAndYesterday(jp.numofdays)}}</ion-note>
+            </button>
+          </ion-col>
+        </ion-row>
 
-            </ion-card>
-        </div>
+      </ion-card>
     </div>
-    <ng-template #noconn>
-        <div>
-            <ion-card margin-top>
-                <ion-item text-center>
-                    <p>{{Error_Msg}}</p>
-                </ion-item>
-                <ion-item text-center>
-                    <button ion-button (click)="ngOnInit()" color="primary">
-                        Refresh
-                    </button>
-                </ion-item>
-            </ion-card>
-        </div>
-    </ng-template>
+  </div>
+  <ng-template #noconn>
+    <div>
+      <ion-card margin-top>
+        <ion-item text-center>
+          <p>{{Error_Msg}}</p>
+        </ion-item>
+        <ion-item text-center>
+          <button ion-button (click)="ngOnInit()" color="primary">
+            Refresh
+          </button>
+        </ion-item>
+      </ion-card>
+    </div>
+  </ng-template>
 </ion-content>

@@ -1,301 +1,464 @@
-import { Component, OnInit } from '@angular/core';
-import { NavController, NavParams, LoadingController, PopoverController, ViewController } from 'ionic-angular';
-import { ModalController, Platform } from 'ionic-angular';
-import { Storage } from '@ionic/storage';
-import { Http, Headers } from '@angular/http';
+import { Component, OnInit } from "@angular/core";
+import {
+  NavController,
+  NavParams,
+  LoadingController,
+  PopoverController,
+  ViewController
+} from "ionic-angular";
+import { ModalController, Platform } from "ionic-angular";
+import { Storage } from "@ionic/storage";
+import { Http, Headers } from "@angular/http";
 //import { DatePipe } from '@angular/common';
 
-import 'rxjs/add/operator/timeout';
-import 'rxjs/add/operator/retry';
+import "rxjs/add/operator/timeout";
+import "rxjs/add/operator/retry";
 
-import { PopoverPage } from '../popover/popover';
-import { Profile } from '../profile_modals/profile';
-import { LoginPage } from '../login/login';
-import { UserVariables } from '../shared/global_values';
-import { Urls } from '../shared/urls';
-import { ToastAlert } from '../shared/toast';
-import { MoreDesc } from '../more_modals/more.description';
-import { EditExpEdu } from '../edit_modals/edit_expedu';
-import { ProfileImage } from '../profile_image/profile.image';
+import { PopoverPage } from "../popover/popover";
+import { Profile } from "../profile_modals/profile";
+import { LoginPage } from "../login/login";
+import { UserVariables } from "../shared/global_values";
+import { Urls } from "../shared/urls";
+import { ToastAlert } from "../shared/toast";
+import { MoreDesc } from "../more_modals/more.description";
+import { EditExpEdu } from "../edit_modals/edit_expedu";
+import { ProfileImage } from "../profile_image/profile.image";
 //import { TabsPage } from '../tabs/tabs';
 
 @Component({
-    selector: 'page-home',
-    templateUrl: 'home.html'
+  selector: "page-home",
+  templateUrl: "home.html"
 })
 export class HomePage implements OnInit {
+  public headers = new Headers();
+  public url = new Urls();
+  skills_data;
+  expedu_data;
+  viewmore_exp = false;
+  viewmore_edu = false;
+  viewmore_skill = false;
+  rb_id;
+  role;
+  connection: boolean = true;
 
-    public headers = new Headers();
-    public url = new Urls();
-    skills_data;
-    expedu_data;
-    viewmore_exp = false;
-    viewmore_edu = false;
-    viewmore_skill = false;
-    rb_id;
-    role;
-    connection: boolean = true;
+  constructor(
+    public navCtrl: NavController,
+    public modalCtrl: ModalController,
+    public storage: Storage,
+    public UserVariables: UserVariables,
+    public http: Http,
+    public toast: ToastAlert,
+    public loading: LoadingController,
+    public popoverCtrl: PopoverController,
+    public viewCtrl: ViewController,
+    public navParams: NavParams,
+    public platform: Platform
+  ) {}
 
-    constructor(public navCtrl: NavController, public modalCtrl: ModalController, public storage: Storage, public UserVariables: UserVariables, public http: Http, public toast: ToastAlert, public loading: LoadingController, public popoverCtrl: PopoverController, public viewCtrl: ViewController, public navParams: NavParams, public platform: Platform) {
-
-    }
-
-    // ionViewWillEnter() {
-    //     this.ngOnInit();
-    // }
-
-    ngOnInit() {
-        //Loading
-        let loader = this.loading.create({
-            spinner: 'dots',
-            content: "Please wait...",
-            duration: 2000
-        });
-        loader.present();
-        this.headers.append('content-type', 'application/json');
-        this.headers.append('Access-Control-Allow-Origin', '*');
-        this.headers.append('Access-Control-Allow-Headers', '*');
-        this.http.get(this.url.connection, { headers: this.headers }).retry(1).timeout(20000).toPromise().then((res) => {
-            var user = res.json();
-            //console.log(user);
-            if (user.message == 'OK') {
-                this.connection = true;
-                this.storage.get('rb_id').then((val) => {
-                    var p = val == null ? 0 : val;
-                    if (p != 0) {
-                        this.rb_id = p;
-                        this.reload(p);
-                        this.skills(p);
-                        this.expedu(p);
-                    } else {
-                        this.navCtrl.parent.parent.setRoot(LoginPage);
-                        this.navCtrl.popToRoot();
-                    }
-                }).catch(function (err) {
-                    this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                });
-            } else {
-                this.connection = false;
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            }
-        },
-            (err) => {
-                this.connection = false;
-            }
-        );
-        loader.dismissAll();//Loading dismiss
-    }
-
-    reload(p) {
-        this.http.get(this.url.login_status_url + p, { headers: this.headers }).toPromise().then((res) => {
-            var user = res.json();
-            //console.log(user);
-            if (user.message == 'OK') {
-                this.UserVariables.reg_id = user.info.reg_id;
-                this.UserVariables.rb_id = user.info.rb_id;
-                this.UserVariables.email = user.info.email;
-                this.UserVariables.name = user.info.name;
-                this.UserVariables.profile_pic = user.info.profile_pic;
-                this.UserVariables.phonenumber = user.info.phonenumber;
-                this.UserVariables.joined_on = user.info.joined_on;
-                this.UserVariables.logged_in = user.info.logged_in;
-                //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
-            } else {
-                this.toast.showToast('Your Session has expried!!!', 3000, 'bottom');
-                //console.log('Something went worng', res.json());
-            }
-        },
-            (err) => { this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom'); }
-        );
-    }
-
-    expedu(p) {
-        this.http.get(this.url.expedu_data_url + p, { headers: this.headers }).toPromise().then((res) => {
-            var ee = res.json();
-            if (ee.message == 'OK') {
-                this.expedu_data = ee;
-                //console.log(this.expedu_data);
-                this.role = this.expedu_data.info.experience[0].exp_role;
-                //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
-            } else {
-                this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
-            }
-        },
-            (err) => {
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            }
-        );
-    }
-
-    skills(p) {
-        this.http.get(this.url.skills_data_url + p, { headers: this.headers }).toPromise().then((res) => {
-            var sk = res.json();
-            if (sk.message == 'OK') {
-                this.skills_data = sk;
-                //console.log(this.skills_data);
-            } else {
-                this.toast.showToast('Issue in Loading your content!!!', 3000, 'bottom');
-            }
-        },
-            (err) => {
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            }
-        );
-    }
-
-    presentModal(opt) {
-        var data = { edit: opt };
-        //console.log(data);
-        let modal = this.modalCtrl.create(Profile, data);
-        modal.present();
-        modal.onDidDismiss(() => {
-            this.reload(this.rb_id);
-            this.skills(this.rb_id);
-            this.expedu(this.rb_id);
-        });
-    }
-
-    moreDescModal(index, expedu_data, expedu) {
-        var data = { more: index, data: expedu_data, title: expedu };
-        //console.log(data);
-        let modal = this.modalCtrl.create(MoreDesc, data);
-        modal.present();
-    }
-
-    expeduEditModel(id, expedu_data, expedu) {
-        var data = { expedu_id: id, data: expedu_data, title: expedu };
-        //console.log(data);
-        let modal = this.modalCtrl.create(EditExpEdu, data);
-        modal.present();
-    }
-
-    editProfileImage() {
-        if (this.platform.is('ios') || this.platform.is('android')) {
-            this.navCtrl.push(ProfileImage).then(() => {
-                //this.navCtrl.remove(this.navCtrl.getPrevious().index);
-            }).catch(function (err) {
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            });
-        } else {
-            this.toast.showToast('Please use Android or IOS platforms!', 5000, 'bottom');
-        }
-    }
-
-    viewmore(view): void {
-        if (view == 'exp') {//experience
-            this.viewmore_exp = this.viewmore_exp == false ? true : false;
-        } else if (view == 'edu') {//education
-            this.viewmore_edu = this.viewmore_edu == false ? true : false;
-        } else {//skills
-            this.viewmore_skill = this.viewmore_skill == false ? true : false;
-        }
-    }
-
-    delete(id, name, delete_data) {
-        //Loading
-        let loader = this.loading.create({
-            spinner: 'dots',
-            content: "Please wait...",
-        });
-        loader.present();
-        if (delete_data == 'exp') {
-            this.storage.get('reg_id').then((val) => {
-                if (val != null) {
-                    var data = { "rb_id": this.rb_id, "user_id": val, exp_id: id }
-                    this.http.post(this.url.exp_delete_data_url, data, { headers: this.headers }).toPromise().then((res) => {
-                        var user = res.json();
-                        if (user.message == 'OK') {
-                            this.expedu(this.rb_id);
-                            loader.dismissAll(); //Loading dismiss
-                            this.toast.showToast('One of your Experience was deleted.', 3000, 'bottom');
-                        } else {
-                            loader.dismissAll(); //Loading dismiss
-                            this.toast.showToast('Something went Wrong to delete your Experience !!!', 3000, 'bottom');
-                        }
-                    },
-                        (err) => {
-                            loader.dismissAll(); //Loading dismiss
-                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                        }
-                    );
+  ngOnInit() {
+    //Loading
+    let loader = this.loading.create({
+      spinner: "dots",
+      content: "Please wait...",
+      duration: 2000
+    });
+    loader.present();
+    this.headers.append("content-type", "application/json");
+    this.headers.append("Access-Control-Allow-Origin", "*");
+    this.headers.append("Access-Control-Allow-Headers", "*");
+    this.http
+      .get(this.url.connection, { headers: this.headers })
+      .retry(1)
+      .timeout(20000)
+      .toPromise()
+      .then(
+        res => {
+          var user = res.json();
+          //console.log(user);
+          if (user.message == "OK") {
+            this.connection = true;
+            this.storage
+              .get("rb_id")
+              .then(val => {
+                var p = val == null ? 0 : val;
+                if (p != 0) {
+                  this.rb_id = p;
+                  this.reload(p);
+                  this.skills(p);
+                  this.expedu(p);
                 } else {
-                    loader.dismissAll(); //Loading dismiss
-                    this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
+                  this.navCtrl.parent.parent.setRoot(LoginPage);
+                  this.navCtrl.popToRoot();
                 }
-            }).catch(function (err) {
-                loader.dismissAll(); //Loading dismiss
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            });
-        } else if (delete_data == 'edu') {
-            this.storage.get('reg_id').then((val) => {
-                if (val != null) {
-                    var data = { "rb_id": this.rb_id, "user_id": val, edu_id: id }
-                    this.http.post(this.url.edu_delete_data_url, data, { headers: this.headers }).toPromise().then((res) => {
-                        var user = res.json();
-                        if (user.message == 'OK') {
-                            this.expedu(this.rb_id);
-                            loader.dismissAll(); //Loading dismiss
-                            this.toast.showToast('One of your Education was deleted.', 3000, 'bottom');
-                        } else {
-                            loader.dismissAll(); //Loading dismiss
-                            this.toast.showToast('Something went Wrong to delete your Education !!!', 3000, 'bottom');
-                        }
-                    },
-                        (err) => {
-                            loader.dismissAll(); //Loading dismiss
-                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                        }
-                    );
-                } else {
-                    loader.dismissAll(); //Loading dismiss
-                    this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
-                }
-            }).catch(function (err) {
-                loader.dismissAll(); //Loading dismiss
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            });
-        } else {
-            this.storage.get('reg_id').then((val) => {
-                if (val != null) {
-                    var data = { "rb_id": this.rb_id, "user_id": val, skill_id: id }
-                    this.http.post(this.url.skills_delete_data_url, data, { headers: this.headers }).toPromise().then((res) => {
-                        var user = res.json();
-                        if (user.message == 'OK') {
-                            this.skills(this.rb_id);
-                            loader.dismissAll(); //Loading dismiss
-                            this.toast.showToast('One of your skill was deleted.', 3000, 'bottom');
-                        } else {
-                            loader.dismissAll(); //Loading dismiss
-                            this.toast.showToast('Something went Wrong to delete your skill !!!', 3000, 'bottom');
-                        }
-                    },
-                        (err) => {
-                            loader.dismissAll(); //Loading dismiss
-                            this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-                        }
-                    );
-                } else {
-                    loader.dismissAll(); //Loading dismiss
-                    this.toast.showToast('Your session was experied, Please logout and login!!!', 3000, 'bottom');
-                }
-            }).catch(function (err) {
-                loader.dismissAll(); //Loading dismiss
-                this.toast.showToast('Something went Wrong, try again later!!!', 3000, 'bottom');
-            });
+              })
+              .catch(function(err) {
+                this.toast.showToast(
+                  "Something went Wrong, try again later!!!",
+                  3000,
+                  "bottom"
+                );
+              });
+          } else {
+            this.connection = false;
+            this.toast.showToast(
+              "Something went Wrong, try again later!!!",
+              3000,
+              "bottom"
+            );
+          }
+        },
+        err => {
+          this.connection = false;
         }
-    }
+      );
+    loader.dismissAll(); //Loading dismiss
+  }
 
-    popOver(myEvent) {
-        let popover = this.popoverCtrl.create(PopoverPage);
-        popover.present({
-            ev: myEvent
+  reload(p) {
+    this.http
+      .get(this.url.login_status_url + p, { headers: this.headers })
+      .toPromise()
+      .then(
+        res => {
+          var user = res.json();
+          //console.log(user);
+          if (user.message == "OK") {
+            this.UserVariables.reg_id = user.info.reg_id;
+            this.UserVariables.rb_id = user.info.rb_id;
+            this.UserVariables.email = user.info.email;
+            this.UserVariables.name = user.info.name;
+            this.UserVariables.profile_pic = user.info.profile_pic;
+            this.UserVariables.phonenumber = user.info.phonenumber;
+            this.UserVariables.joined_on = user.info.joined_on;
+            this.UserVariables.logged_in = user.info.logged_in;
+            //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
+          } else {
+            this.toast.showToast("Your Session has expried!!!", 3000, "bottom");
+            //console.log('Something went worng', res.json());
+          }
+        },
+        err => {
+          this.toast.showToast(
+            "Something went Wrong, try again later!!!",
+            3000,
+            "bottom"
+          );
+        }
+      );
+  }
+
+  expedu(p) {
+    this.http
+      .get(this.url.expedu_data_url + p, { headers: this.headers })
+      .toPromise()
+      .then(
+        res => {
+          var ee = res.json();
+          if (ee.message == "OK") {
+            this.expedu_data = ee;
+            //console.log(this.expedu_data);
+            this.role = this.expedu_data.info.experience[0].exp_role;
+            //this.toast.showToast('Welcome Mr. ' + user.info.name, 3000, 'top');
+          } else {
+            this.toast.showToast(
+              "Issue in Loading your content!!!",
+              3000,
+              "bottom"
+            );
+          }
+        },
+        err => {
+          this.toast.showToast(
+            "Something went Wrong, try again later!!!",
+            3000,
+            "bottom"
+          );
+        }
+      );
+  }
+
+  skills(p) {
+    this.http
+      .get(this.url.skills_data_url + p, { headers: this.headers })
+      .toPromise()
+      .then(
+        res => {
+          var sk = res.json();
+          if (sk.message == "OK") {
+            this.skills_data = sk;
+            //console.log(this.skills_data);
+          } else {
+            this.toast.showToast(
+              "Issue in Loading your content!!!",
+              3000,
+              "bottom"
+            );
+          }
+        },
+        err => {
+          this.toast.showToast(
+            "Something went Wrong, try again later!!!",
+            3000,
+            "bottom"
+          );
+        }
+      );
+  }
+
+  presentModal(opt) {
+    var data = { edit: opt };
+    //console.log(data);
+    let modal = this.modalCtrl.create(Profile, data);
+    modal.present();
+    modal.onDidDismiss(() => {
+      this.reload(this.rb_id);
+      this.skills(this.rb_id);
+      this.expedu(this.rb_id);
+    });
+  }
+
+  moreDescModal(index, expedu_data, expedu) {
+    var data = { more: index, data: expedu_data, title: expedu };
+    //console.log(data);
+    let modal = this.modalCtrl.create(MoreDesc, data);
+    modal.present();
+  }
+
+  expeduEditModel(id, expedu_data, expedu) {
+    var data = { expedu_id: id, data: expedu_data, title: expedu };
+    //console.log(data);
+    let modal = this.modalCtrl.create(EditExpEdu, data);
+    modal.present();
+  }
+
+  editProfileImage() {
+    if (this.platform.is("ios") || this.platform.is("android")) {
+      this.navCtrl
+        .push(ProfileImage)
+        .then(() => {
+          //this.navCtrl.remove(this.navCtrl.getPrevious().index);
+        })
+        .catch(function(err) {
+          this.toast.showToast(
+            "Something went Wrong, try again later!!!",
+            3000,
+            "bottom"
+          );
+        });
+    } else {
+      this.toast.showToast(
+        "Please use Android or IOS platforms!",
+        5000,
+        "bottom"
+      );
+    }
+  }
+
+  viewmore(view): void {
+    if (view == "exp") {
+      //experience
+      this.viewmore_exp = this.viewmore_exp == false ? true : false;
+    } else if (view == "edu") {
+      //education
+      this.viewmore_edu = this.viewmore_edu == false ? true : false;
+    } else {
+      //skills
+      this.viewmore_skill = this.viewmore_skill == false ? true : false;
+    }
+  }
+
+  delete(id, name, delete_data) {
+    //Loading
+    let loader = this.loading.create({
+      spinner: "dots",
+      content: "Please wait..."
+    });
+    loader.present();
+    if (delete_data == "exp") {
+      this.storage
+        .get("reg_id")
+        .then(val => {
+          if (val != null) {
+            var data = { rb_id: this.rb_id, user_id: val, exp_id: id };
+            this.http
+              .post(this.url.exp_delete_data_url, data, {
+                headers: this.headers
+              })
+              .toPromise()
+              .then(
+                res => {
+                  var user = res.json();
+                  if (user.message == "OK") {
+                    this.expedu(this.rb_id);
+                    loader.dismissAll(); //Loading dismiss
+                    this.toast.showToast(
+                      "One of your Experience was deleted.",
+                      3000,
+                      "bottom"
+                    );
+                  } else {
+                    loader.dismissAll(); //Loading dismiss
+                    this.toast.showToast(
+                      "Something went Wrong to delete your Experience !!!",
+                      3000,
+                      "bottom"
+                    );
+                  }
+                },
+                err => {
+                  loader.dismissAll(); //Loading dismiss
+                  this.toast.showToast(
+                    "Something went Wrong, try again later!!!",
+                    3000,
+                    "bottom"
+                  );
+                }
+              );
+          } else {
+            loader.dismissAll(); //Loading dismiss
+            this.toast.showToast(
+              "Your session was experied, Please logout and login!!!",
+              3000,
+              "bottom"
+            );
+          }
+        })
+        .catch(function(err) {
+          loader.dismissAll(); //Loading dismiss
+          this.toast.showToast(
+            "Something went Wrong, try again later!!!",
+            3000,
+            "bottom"
+          );
+        });
+    } else if (delete_data == "edu") {
+      this.storage
+        .get("reg_id")
+        .then(val => {
+          if (val != null) {
+            var data = { rb_id: this.rb_id, user_id: val, edu_id: id };
+            this.http
+              .post(this.url.edu_delete_data_url, data, {
+                headers: this.headers
+              })
+              .toPromise()
+              .then(
+                res => {
+                  var user = res.json();
+                  if (user.message == "OK") {
+                    this.expedu(this.rb_id);
+                    loader.dismissAll(); //Loading dismiss
+                    this.toast.showToast(
+                      "One of your Education was deleted.",
+                      3000,
+                      "bottom"
+                    );
+                  } else {
+                    loader.dismissAll(); //Loading dismiss
+                    this.toast.showToast(
+                      "Something went Wrong to delete your Education !!!",
+                      3000,
+                      "bottom"
+                    );
+                  }
+                },
+                err => {
+                  loader.dismissAll(); //Loading dismiss
+                  this.toast.showToast(
+                    "Something went Wrong, try again later!!!",
+                    3000,
+                    "bottom"
+                  );
+                }
+              );
+          } else {
+            loader.dismissAll(); //Loading dismiss
+            this.toast.showToast(
+              "Your session was experied, Please logout and login!!!",
+              3000,
+              "bottom"
+            );
+          }
+        })
+        .catch(function(err) {
+          loader.dismissAll(); //Loading dismiss
+          this.toast.showToast(
+            "Something went Wrong, try again later!!!",
+            3000,
+            "bottom"
+          );
+        });
+    } else {
+      this.storage
+        .get("reg_id")
+        .then(val => {
+          if (val != null) {
+            var data = { rb_id: this.rb_id, user_id: val, skill_id: id };
+            this.http
+              .post(this.url.skills_delete_data_url, data, {
+                headers: this.headers
+              })
+              .toPromise()
+              .then(
+                res => {
+                  var user = res.json();
+                  if (user.message == "OK") {
+                    this.skills(this.rb_id);
+                    loader.dismissAll(); //Loading dismiss
+                    this.toast.showToast(
+                      "One of your skill was deleted.",
+                      3000,
+                      "bottom"
+                    );
+                  } else {
+                    loader.dismissAll(); //Loading dismiss
+                    this.toast.showToast(
+                      "Something went Wrong to delete your skill !!!",
+                      3000,
+                      "bottom"
+                    );
+                  }
+                },
+                err => {
+                  loader.dismissAll(); //Loading dismiss
+                  this.toast.showToast(
+                    "Something went Wrong, try again later!!!",
+                    3000,
+                    "bottom"
+                  );
+                }
+              );
+          } else {
+            loader.dismissAll(); //Loading dismiss
+            this.toast.showToast(
+              "Your session was experied, Please logout and login!!!",
+              3000,
+              "bottom"
+            );
+          }
+        })
+        .catch(function(err) {
+          loader.dismissAll(); //Loading dismiss
+          this.toast.showToast(
+            "Something went Wrong, try again later!!!",
+            3000,
+            "bottom"
+          );
         });
     }
+  }
 
-    swipeEvent(e) {
-        //console.log(e.direction, e);
-        if (e.direction == 2) {
-            this.ngOnInit();
-        }
+  popOver(myEvent) {
+    let popover = this.popoverCtrl.create(PopoverPage);
+    popover.present({
+      ev: myEvent
+    });
+  }
+
+  swipeEvent(e) {
+    //console.log(e.direction, e);
+    if (e.direction == 2) {
+      this.ngOnInit();
     }
+  }
 }
