@@ -137,9 +137,15 @@ export class JobsPage implements OnInit {
       this.ngOnInit();
     } else {
       this.http
-        .get(this.url.fetching_search_job_posts + this.search_value, {
-          headers: this.headers
-        })
+        .get(
+          this.url.fetching_search_job_posts +
+            this.search_value +
+            "/" +
+            this.rb_id,
+          {
+            headers: this.headers
+          }
+        )
         .toPromise()
         .then(
           res => {
@@ -218,7 +224,16 @@ export class JobsPage implements OnInit {
       .getServerRequest(this.url.applyForJobPosts + postId + "/" + this.rb_id)
       .subscribe(
         response => {
-          console.log(response);
+          if (response.message == "OK") {
+            console.log(response);
+            this.toast.showToast("Applied Successfully", 2000, "bottom");
+          } else {
+            this.toast.showToast(
+            "Something went worng, try again!!!",
+              2000,
+              "bottom"
+            );
+          }
         },
         error => {
           console.log(error);
